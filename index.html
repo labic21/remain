@@ -333,6 +333,18 @@
   .tl-thumb--청년  { background: linear-gradient(135deg,#d4c5b0,#bfa98e); }
   .tl-thumb--장년  { background: linear-gradient(135deg,#c9b89e,#a08060); }
   .tl-thumb--blurred { filter: blur(6px); transform: scale(1.05); }
+  .tl-thumb--private {
+    background: #f5f0e8;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .tl-thumb--private .lock-icon {
+    font-size: 1.6rem; opacity: 0.45; line-height: 1;
+  }
+  .tl-thumb--private .lock-label {
+    font-size: 0.6rem; color: #b0a898; letter-spacing: 0.05em;
+  }
   .tl-content { flex: 1; min-width: 0; }
   .timeline-item:hover .timeline-card {
     transform: translateX(4px);
@@ -1135,7 +1147,7 @@
 
       <div class="timeline-item private" data-era="청소년">
         <div class="timeline-card private-card">
-          <img class="tl-thumb tl-thumb--청소년 tl-thumb--blurred" src="images/tl-1999.jpg" alt="1999">
+          <div class="tl-thumb tl-thumb--private"><span class="lock-icon">🔒</span><span class="lock-label">비공개</span></div>
           <div class="tl-content">
             <div class="tl-meta">
               <span class="tl-year">1999</span>
@@ -1198,7 +1210,7 @@
 
       <div class="timeline-item private" data-era="청년">
         <div class="timeline-card private-card">
-          <img class="tl-thumb tl-thumb--청년 tl-thumb--blurred" src="images/tl-2010.jpg" alt="2010">
+          <div class="tl-thumb tl-thumb--private"><span class="lock-icon">🔒</span><span class="lock-label">비공개</span></div>
           <div class="tl-content">
             <div class="tl-meta">
               <span class="tl-year">2010</span>
