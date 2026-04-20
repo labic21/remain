@@ -1055,6 +1055,12 @@
     align-items: center; justify-content: center;
     padding: 1.5rem;
   }
+  @media (max-width: 480px) {
+    .story-modal-overlay,
+    .tl-modal-overlay { padding: 0; align-items: flex-end; }
+    .story-modal,
+    .tl-modal { height: 98vh; width: 100%; border-radius: 20px 20px 0 0; max-width: 100%; }
+  }
   .story-modal-overlay.open { display: flex; }
   .story-modal {
     background: var(--warm-cream);
