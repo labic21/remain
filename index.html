@@ -1223,6 +1223,12 @@
     .brunch-content { font-size: 0.95rem; line-height: 2.0; }
     .brunch-article { padding: 1.5rem 1.2rem 5rem; }
     .brunch-header { padding: 0 1.2rem; }
+    .brunch-header-logo .slogan { display: none; }
+    .brunch-reactions {
+      margin-left: -1.2rem;
+      margin-right: -1.2rem;
+      padding: 0 1.2rem;
+    }
   }
 
   /* ──────────────────────────── BRUNCH REACTIONS */
@@ -2164,7 +2170,7 @@
   <div class="brunch-hero-wrap">
     <div class="brunch-header">
       <button class="brunch-back" onclick="closeBrunch()">← 나의 이야기</button>
-      <div class="brunch-header-logo">Remain <span>·</span> 나를 기억할 누군가를 위해</div>
+      <div class="brunch-header-logo">Remain <span>·</span> <span class="slogan">나를 기억할 누군가를 위해</span></div>
       <div class="brunch-nav">
         <button class="brunch-nav-btn" id="brunchPrev" onclick="moveBrunch(-1)">← 이전</button>
         <span class="brunch-nav-count" id="brunchCount"></span>
