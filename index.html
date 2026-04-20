@@ -438,6 +438,25 @@
 
   /* ──────────────────────────── MY STORY */
   #story { background: var(--warm-cream); }
+  .add-story-btn {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: transparent;
+    border: 2px dashed var(--warm-sand);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
+    margin-top: 2.5rem;
+    transition: all 0.2s;
+  }
+  .add-story-btn:hover {
+    border-color: var(--warm-brown);
+    color: var(--warm-brown);
+    background: rgba(139, 111, 71, 0.04);
+  }
   .story-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -1026,6 +1045,159 @@
     .music-player { bottom: 1.2rem; right: 1.2rem; }
     .music-btn { width: 46px; height: 46px; }
   }
+
+  /* ──────────────────────────── STORY MODAL */
+  .story-modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(74, 53, 32, 0.55);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+    padding: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    .story-modal-overlay,
+    .tl-modal-overlay { padding: 0.6rem; align-items: center; }
+    .story-modal,
+    .tl-modal { height: calc(100vh - 1.2rem); width: 100%; border-radius: 16px; max-width: 100%; }
+  }
+  .story-modal-overlay.open { display: flex; }
+  .story-modal {
+    background: var(--warm-cream);
+    border-radius: 24px;
+    max-width: 640px; width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+    position: relative;
+    animation: modalIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .story-modal-body {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: #c8b8a0 transparent;
+  }
+  .story-modal-body::-webkit-scrollbar { width: 4px; }
+  .story-modal-body::-webkit-scrollbar-track { background: transparent; }
+  .story-modal-body::-webkit-scrollbar-thumb { background: #c8b8a0; border-radius: 4px; }
+  .story-modal-body::-webkit-scrollbar-thumb:hover { background: #a89070; }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .story-modal-thumb {
+    width: 100%; height: 220px;
+    object-fit: cover;
+    border-radius: 24px 24px 0 0;
+    display: block;
+  }
+  .story-modal-body { padding: 2rem 2.2rem 2.5rem; }
+  .story-modal-category {
+    font-size: 0.72rem;
+    color: var(--muted-gold);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .story-modal-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.4rem;
+    color: var(--deep-brown);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  .story-modal-date {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 1.8rem;
+  }
+  .story-modal-content {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    line-height: 2.0;
+    white-space: pre-line;
+  }
+  .story-modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none; cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    transition: background 0.2s;
+  }
+  .story-modal-close:hover { background: rgba(255,255,255,0.35); }
+  .story-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .story-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--shadow-warm); }
+
+  .tl-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    background: rgba(74, 53, 32, 0.55); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .tl-modal-overlay.open { display: flex; }
+  .tl-modal {
+    background: var(--warm-cream); border-radius: 24px;
+    max-width: 520px; width: 100%; height: 85vh;
+    overflow: hidden; position: relative;
+    animation: modalIn 0.3s ease;
+    display: flex; flex-direction: column;
+  }
+  .tl-modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 24px 24px 0 0; display: block; }
+  .tl-modal-header {
+    background: var(--deep-brown); padding: 1.2rem 1.8rem;
+    display: flex; align-items: center; gap: 1.2rem;
+    position: relative;
+  }
+  .tl-modal-year {
+    font-family: 'Noto Serif KR', serif; font-size: 3rem;
+    font-weight: 600; color: var(--muted-gold); line-height: 1;
+  }
+  .tl-modal-meta { display: flex; flex-direction: column; gap: 4px; }
+  .tl-modal-era { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+  .tl-modal-title-text { font-family: 'Noto Serif KR', serif; font-size: 1rem; color: rgba(255,255,255,0.92); }
+  .tl-modal-body {
+    padding: 1.5rem 1.8rem 2rem; overflow-y: auto; flex: 1;
+    scrollbar-width: thin; scrollbar-color: #c8b8a0 transparent;
+  }
+  .tl-modal-body::-webkit-scrollbar { width: 4px; }
+  .tl-modal-body::-webkit-scrollbar-thumb { background: #c8b8a0; border-radius: 4px; }
+  .tl-modal-content { font-size: 0.95rem; color: var(--text-sub); line-height: 2.0; white-space: pre-line; }
+  .tl-modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: none; cursor: pointer;
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    color: #fff; transition: background 0.2s;
+    z-index: 10;
+  }
+  .tl-modal-close:hover { background: rgba(255,255,255,0.35); }
+  .timeline-card { cursor: pointer; transition: transform 0.2s; }
+  .timeline-card:hover { transform: translateX(4px); }
+
+  .modal-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid var(--border-soft);
+    background: var(--warm-beige);
+    border-radius: 0 0 24px 24px;
+    flex-shrink: 0;
+  }
+  .modal-nav-btn {
+    background: transparent; border: 1.5px solid var(--warm-sand);
+    color: var(--warm-brown); border-radius: 20px;
+    padding: 0.4rem 1rem; font-size: 0.82rem;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .modal-nav-btn:hover { background: var(--warm-sand); }
+  .modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .modal-nav-btn:disabled:hover { background: transparent; }
+  .modal-nav-count { font-size: 0.78rem; color: var(--text-light); }
 </style>
 </head>
 <body>
@@ -1112,7 +1284,7 @@
     <div class="timeline" id="timelineList">
 
       <div class="timeline-item" data-era="유년">
-        <div class="timeline-card">
+        <div class="timeline-card" onclick="openTimeline(0)" style="cursor:pointer;">
           <img class="tl-thumb tl-thumb--유년" src="images/tl-1985.jpg" alt="1985">
           <div class="tl-content">
             <div class="tl-meta">
@@ -1132,7 +1304,7 @@
       </div>
 
       <div class="timeline-item" data-era="유년">
-        <div class="timeline-card">
+        <div class="timeline-card" onclick="openTimeline(1)" style="cursor:pointer;">
           <img class="tl-thumb tl-thumb--유년" src="images/tl-1991.jpg" alt="1991">
           <div class="tl-content">
             <div class="tl-meta">
@@ -1175,7 +1347,7 @@
       </div>
 
       <div class="timeline-item" data-era="청소년">
-        <div class="timeline-card">
+        <div class="timeline-card" onclick="openTimeline(2)" style="cursor:pointer;">
           <img class="tl-thumb tl-thumb--청소년" src="images/tl-2003.jpg" alt="2003">
           <div class="tl-content">
             <div class="tl-meta">
@@ -1195,7 +1367,7 @@
       </div>
 
       <div class="timeline-item" data-era="청년">
-        <div class="timeline-card">
+        <div class="timeline-card" onclick="openTimeline(3)" style="cursor:pointer;">
           <img class="tl-thumb tl-thumb--청년" src="images/tl-2007.jpg" alt="2007">
           <div class="tl-content">
             <div class="tl-meta">
@@ -1238,7 +1410,7 @@
       </div>
 
       <div class="timeline-item" data-era="장년">
-        <div class="timeline-card">
+        <div class="timeline-card" onclick="openTimeline(4)" style="cursor:pointer;">
           <img class="tl-thumb tl-thumb--장년" src="images/tl-2018.jpg" alt="2018">
           <div class="tl-content">
             <div class="tl-meta">
@@ -1276,7 +1448,7 @@
 
     <div class="story-grid">
 
-      <div class="story-card" onclick="showToast('글 보기 기능은 준비 중입니다')">
+      <div class="story-card" onclick="openStory(0)">
         <div class="story-thumb story-thumb-1"><img src="https://images.unsplash.com/photo-1717920954807-86a047abc2e6?q=80&w=687&auto=format&fit=crop" alt="유년기" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
@@ -1290,7 +1462,7 @@
         </div>
       </div>
 
-      <div class="story-card" onclick="showToast('글 보기 기능은 준비 중입니다')">
+      <div class="story-card" onclick="openStory(1)">
         <div class="story-thumb story-thumb-2"><img src="https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=280&fit=crop&auto=format" alt="청년기" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
@@ -1304,7 +1476,7 @@
         </div>
       </div>
 
-      <div class="story-card" onclick="showToast('글 보기 기능은 준비 중입니다')">
+      <div class="story-card" onclick="openStory(2)">
         <div class="story-thumb story-thumb-3"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=280&fit=crop&auto=format" alt="여행" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
@@ -1318,7 +1490,7 @@
         </div>
       </div>
 
-      <div class="story-card" onclick="showToast('글 보기 기능은 준비 중입니다')">
+      <div class="story-card" onclick="showToast('비공개 이야기입니다')">
         <div class="story-thumb story-thumb-4"><img src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=280&fit=crop&auto=format" alt="비공개" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> 비공개</div>
         <div class="story-body">
@@ -1332,7 +1504,7 @@
         </div>
       </div>
 
-      <div class="story-card" onclick="showToast('글 보기 기능은 준비 중입니다')">
+      <div class="story-card" onclick="openStory(3)">
         <div class="story-thumb story-thumb-5"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=280&fit=crop&auto=format" alt="창작" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
@@ -1346,7 +1518,7 @@
         </div>
       </div>
 
-      <div class="story-card" onclick="showToast('글 보기 기능은 준비 중입니다')">
+      <div class="story-card" onclick="openStory(4)">
         <div class="story-thumb story-thumb-6"><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=280&fit=crop&auto=format" alt="현재" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 친구공개</div>
         <div class="story-body">
@@ -1361,6 +1533,9 @@
       </div>
 
     </div>
+    <button class="add-story-btn" onclick="showToast('새 이야기 추가 기능은 준비 중입니다')">
+      <span>+</span> 새 이야기 쓰기
+    </button>
   </div>
 </section>
 
@@ -1808,6 +1983,286 @@
       if (t) t.scrollIntoView({ behavior: 'smooth' });
     });
   });
+</script>
+
+<!-- TIMELINE MODAL -->
+<div class="tl-modal-overlay" id="tlModal" onclick="closeTlModal(event)">
+  <div class="tl-modal">
+    <img class="tl-modal-img" id="tlModalImg" src="" alt="">
+    <button class="tl-modal-close" onclick="closeTlModalBtn()">✕</button>
+    <div class="tl-modal-header">
+      <div class="tl-modal-year" id="tlModalYear"></div>
+      <div class="tl-modal-meta">
+        <div class="tl-modal-era" id="tlModalEra"></div>
+        <div class="tl-modal-title-text" id="tlModalTitle"></div>
+      </div>
+    </div>
+    <div class="tl-modal-body">
+      <div class="tl-modal-content" id="tlModalContent"></div>
+    </div>
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="tlPrev" onclick="moveTl(-1)">← 이전</button>
+      <span class="modal-nav-count" id="tlCount"></span>
+      <button class="modal-nav-btn" id="tlNext" onclick="moveTl(1)">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STORY MODAL -->
+<div class="story-modal-overlay" id="storyModal" onclick="closeStory(event)">
+  <div class="story-modal">
+    <button class="story-modal-close" onclick="closeStoryBtn()">✕</button>
+    <img class="story-modal-thumb" id="modalThumb" src="" alt="">
+    <div class="story-modal-body">
+      <div class="story-modal-category" id="modalCategory"></div>
+      <div class="story-modal-title" id="modalTitle"></div>
+      <div class="story-modal-date" id="modalDate"></div>
+      <div class="story-modal-content" id="modalContent"></div>
+    </div>
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="storyPrev" onclick="moveStory(-1)">← 이전</button>
+      <span class="modal-nav-count" id="storyCount"></span>
+      <button class="modal-nav-btn" id="storyNext" onclick="moveStory(1)">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const stories = [
+  {
+    category: 'CHILDHOOD · 유년',
+    title: '골목길 끝 할머니네 마당',
+    date: '1991년 여름',
+    img: 'https://images.unsplash.com/photo-1717920954807-86a047abc2e6?q=80&w=687&auto=format&fit=crop',
+    content: `여름마다 할머니네 마당에는 해바라기가 가득 피었다.
+
+나는 그 사이에 숨어서 매미 소리를 들으며 낮잠을 잤다. 해바라기 줄기가 만들어주는 그늘은 좁고 불완전했지만, 그 시절 내가 알던 가장 완벽한 피난처였다. 키보다 훨씬 큰 줄기들 사이에 쪼그리고 앉으면 세상이 좁아졌다. 그 좁음이 좋았다.
+
+할머니는 매일 아침 마당을 쓸었다. 빗자루 소리가 마루 아래까지 들려와 나를 깨웠고, 나는 눈도 못 뜬 채 縁側에 나가 할머니 뒷모습을 바라봤다. 할머니는 쓸고 또 쓸었다. 먼지가 없어도 쓸었다. 나는 그게 그냥 습관인 줄 알았다. 나중에야 알았다. 그건 하루를 여는 의식이었다는 걸.
+
+점심이면 할머니는 부엌에서 뭔가를 끓였다. 된장찌개든, 미역국이든, 냄새가 마당까지 흘러나왔다. 나는 그 냄새를 맡으며 해바라기 사이에서 기어 나왔다. 배가 고파서가 아니라, 그냥 그 냄새가 나를 불렀다.
+
+그때는 그게 일상인 줄만 알았다. 할머니가 늘 거기 계실 거라고, 그 마당도 늘 거기 있을 거라고. 여름이면 으레 그 마당으로 가고, 해바라기 사이에서 자고, 된장찌개 냄새에 깨어나는 것이 삶의 당연한 순서인 줄 알았다.
+
+이제 그 집도, 그 마당도, 해바라기도 없다. 할머니도 안 계신다. 하지만 여름이 오면 어디선가 매미 소리가 들리고, 나는 아직도 그 좁고 불완전한 그늘 속에 잠들어 있는 것 같다.
+
+어떤 기억은 사라지지 않는다. 몸이 먼저 기억하고 있어서.`
+  },
+  {
+    category: 'YOUTH · 청년',
+    title: '필름 한 롤로 담은 홍대 앞 1997',
+    date: '1997년 가을',
+    img: 'https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=280&fit=crop&auto=format',
+    content: `36컷. 그 시절 홍대는 지금과 달랐다.
+
+인디 밴드들이 골목마다 넘쳐났고, 모두가 뭔가를 만들고 있었다. 음악이든, 그림이든, 아니면 그냥 자기 자신이든. 지금 생각하면 그 시절 홍대 골목은 완성되지 않은 것들의 집합소였다. 그리고 그 미완성이 오히려 살아 있었다.
+
+나는 삼촌에게 물려받은 펜탁스를 들고 그 골목들을 누볐다. 필름은 한 롤밖에 없었다. 36컷. 찍을 수 있는 순간이 딱 36번이었다.
+
+지금처럼 무한정 찍고 지울 수 없었기 때문에, 한 컷 한 컷이 무거웠다. 셔터를 누르기 전에 오래 들여다봤다. 이 순간이 남길 가치가 있는지. 빛은 괜찮은지. 이 사람의 표정이 1초 뒤에도 이럴지. 그 모든 걸 계산하다 보면 놓치는 순간도 있었다. 그래도 괜찮았다. 찍지 않는 것도 하나의 선택이었으니까.
+
+골목 어귀에서 한 남자가 기타를 조율하고 있었다. 악보도 없이, 관객도 없이. 그냥 혼자 줄을 고르고 있었다. 나는 한참을 바라보다가 셔터를 눌렀다. 30번째 컷이었다.
+
+나중에 현상소에서 사진을 받아들었을 때, 몇 장은 흔들려 있었고 몇 장은 노출이 틀렸다. 하지만 그 한 장 — 골목 끝에서 기타를 조율하던 남자의 뒷모습 — 은 선명했다. 그 사진은 지금도 내 서랍 안에 있다.
+
+좋은 사진은 순간을 담는 게 아니라는 걸 그때 처음 알았다. 그 순간의 공기를 담는 거라는 걸.`
+  },
+  {
+    category: 'JOURNEY · 여행',
+    title: '교토에서 혼자 맞은 새벽',
+    date: '2007년 3월',
+    img: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=280&fit=crop&auto=format',
+    content: `새벽 4시, 후시미 이나리의 도리이 사이로 새벽빛이 스며들었다.
+
+졸업식 다음날 혼자 비행기를 탔다. 아무것도 예약하지 않았다. 숙소도, 일정도. 그냥 교토행 티켓 한 장만 들고. 부모님은 걱정했고, 친구들은 왜 같이 안 가냐고 물었다. 나도 왜인지 몰랐다. 그냥 혼자여야 할 것 같았다.
+
+교토 역에 내렸을 때 비가 왔다. 우산도 없었다. 비를 맞으며 역 앞에 서서 어디로 갈지 생각했다. 아무 계획이 없다는 게 그렇게 자유로운 건지 처음 알았다.
+
+후시미 이나리에 새벽에 가야 한다는 건 누군가에게 들었다. 관광객이 없는 시간, 수천 개의 도리이만 남는 시간. 숙소 주인 할아버지가 새벽 3시에 나오는 나를 보고 어딜 가냐고 물었다. 이나리, 라고 했더니 잠깐 기다리라며 손전등을 빌려줬다.
+
+계단을 오르는 내내 아무도 없었다. 내 발소리만 돌계단에 울렸다. 가끔 멀리서 새소리가 들렸다. 오렌지빛 기둥 사이로 빛이 들어오기 시작했을 때, 나는 그냥 멈춰 서서 한참을 서 있었다.
+
+울 것 같았다. 이유는 몰랐다. 슬프지 않은데 눈이 뜨거워졌다. 고요함 속에서 내가 얼마나 작은 존재인지 느꼈다. 그리고 이상하게도, 작다는 게 그렇게 나쁘지 않다는 것도.
+
+혼자여도 괜찮다는 걸, 처음으로 몸으로 알았다.`
+  },
+  {
+    category: 'CREATION · 창작',
+    title: '사진집 〈잔향〉을 만들기까지',
+    date: '2018년',
+    img: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=280&fit=crop&auto=format',
+    content: `10년치 필름을 꺼내 빛에 비춰보던 밤들.
+
+어떤 것은 버리고 어떤 것은 품었는지, 그 선택의 기준이 뭔지 나도 몰랐다. 그냥 오래 들여다보다가, 버려지는 것과 남는 것이 달랐다. 기술적으로 좋은 사진이 남는 게 아니었다. 그 순간의 온도가 느껴지는 것들이 남았다.
+
+처음엔 300장을 골랐다. 너무 많다고 느껴서 100장으로 줄였다. 100장을 책상에 펼쳐놓고 하루 종일 바라봤다. 다음 날 또 봤다. 일주일 후엔 60장이 됐다. 마지막엔 42장.
+
+출판사를 찾는 데만 2년이 걸렸다. 거절당할 때마다 사진을 다시 봤다. 내가 틀렸나. 이게 별로인가. 그래도 다시 보면 좋았다. 그래서 계속했다.
+
+〈잔향(殘香)〉이라는 제목은 마지막에 붙였다. 이미 사라진 것들의 향기. 기억은 그런 것이라고 생각했다. 순간은 지나가지만 무언가가 남는다. 냄새처럼. 사라진 것 같지만 불현듯 다시 맡아지는 것처럼.
+
+발간일 출판사 근처 작은 책방에서 혼자 책을 받았다. 아무도 없었다. 포장을 뜯고 첫 페이지를 펼쳤을 때, 눈이 뜨거워졌다. 이게 내 삶이구나, 싶었다. 이 42장이 내가 살아온 시간이구나.
+
+누군가 이 책을 펼쳐볼 때, 내가 맡던 그 향기를 조금이라도 느껴준다면. 그걸로 충분하다.`
+  },
+  {
+    category: 'NOW · 현재',
+    title: '제주에서의 1년, 지금 이 순간',
+    date: '2024년',
+    img: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=280&fit=crop&auto=format',
+    content: `돌담 사이 바람 소리가 좋아서 내려왔다.
+
+솔직히 말하면 도망친 거였다. 서울의 속도, 사람들의 기대, 내가 만들어온 이미지. 그 모든 것에서. 뭔가를 향해 달려가는 게 아니라 뭔가로부터 멀어지고 싶었다. 그게 제주였다.
+
+제주에서의 첫 달은 아무것도 하지 않았다. 그냥 걸었다. 오름을 오르고, 해변을 걷고, 돌담 사이를 지나며 어디서 바람이 오는지 느꼈다. 아무도 나를 모르는 곳에서 아무것도 아닌 사람으로 있는 것이 이상하게 편했다.
+
+두 번째 달부터 카메라를 들었다. 서울에서는 뭔가를 찍어야 한다는 압박이 있었다. 여기서는 그냥 보이는 걸 찍었다. 돌담, 바람에 흔들리는 억새, 새벽 오름 위에서 보이는 구름. 아무도 안 볼 것 같은 사진들.
+
+매일 새벽 오름을 오르며 내가 진짜 원하는 것이 무엇인지 물어보고 있다. 아직 답은 없다. 하지만 질문하는 것만으로도, 지금은 충분하다.
+
+사람들은 묻는다. 언제 올라올 거냐고. 아직 모르겠다. 여기서 좀 더 작아지고 싶다.
+
+작아질수록 오히려 잘 보이는 것들이 있더라. 오래 머물러야만 보이는 것들이 있더라.`
+  }
+];
+
+const timelines = [
+  {
+    year: '1985', era: '유년기',
+    title: '서울 마포구, 어느 봄날의 탄생',
+    img: 'images/tl-1985.jpg',
+    content: `벚꽃이 한창이던 4월, 합정동 골목 끝 작은 산부인과에서 태어났다.
+
+엄마는 내가 울음을 터뜨리는 순간 창밖으로 꽃잎이 흩날렸다고 했다. 나는 그 이야기를 수십 번 들었다. 들을 때마다 조금씩 달라졌지만, 꽃잎이 흩날렸다는 부분만은 언제나 같았다.
+
+태어난 날의 기억은 없다. 하지만 봄이 오면, 벚꽃이 피면, 나는 언제나 그 이야기를 생각한다. 내가 기억하지 못하는 내 첫 번째 날을.`
+  },
+  {
+    year: '1991', era: '유년기',
+    title: '처음으로 받은 일기장',
+    img: 'images/tl-1991.jpg',
+    content: `초등학교 입학 선물로 외할머니께 받은 꽃무늬 일기장.
+
+그날부터 글쓰기가 시작되었다. 첫 번째 문장은 "오늘 학교 갔다. 친구가 생겼다." 였다. 지금 보면 너무 짧고 단순하지만, 그때 나는 그 두 문장을 쓰는 데 한참이 걸렸다.
+
+일기장은 6개월 만에 가득 찼다. 할머니는 새 일기장을 사줬다. 그리고 또 가득 찼다. 그렇게 글 쓰는 사람이 됐다.
+
+할머니는 내가 뭘 쓰는지 한 번도 들여다보지 않았다. 그냥 다 쓰면 새 걸 사줬다. 그게 나한테는 가장 큰 응원이었다.`
+  },
+  {
+    year: '2003', era: '청소년기',
+    title: '첫 필름 카메라, 세상을 담다',
+    img: 'images/tl-2003.jpg',
+    content: `고3 수능 후 삼촌에게 물려받은 낡은 펜탁스 필름 카메라.
+
+36장짜리 필름 한 롤로 온 동네를 누비던 그 겨울이 아직도 손가락 끝에 남아 있다. 셔터를 누를 때마다 느껴지던 그 묵직한 클릭감.
+
+수능이 끝나고 모든 것이 허탈했다. 12년을 달려왔는데, 막상 끝나고 나니 어디로 가야 할지 몰랐다. 카메라를 들고 걸어 다니는 게 그나마 방향이 있는 것 같았다.
+
+지금 돌아보면 그 겨울이 내 삶의 방향을 정했다.`
+  },
+  {
+    year: '2007', era: '청년기',
+    title: '대학 졸업, 첫 번째 여행 — 교토',
+    img: 'images/tl-2007.jpg',
+    content: `졸업식 다음날 혼자 비행기를 탔다.
+
+기온의 새벽 골목, 아무도 없는 신사 앞에서 처음으로 '혼자여도 괜찮다'는 걸 느꼈다. 그 전까지 혼자는 항상 불안한 상태였다. 교토에서 처음으로 혼자가 고요한 상태라는 걸 알았다.
+
+4박 5일. 짧은 여행이었지만 그 여행 전후로 나는 달라졌다.`
+  },
+  {
+    year: '2018', era: '장년기',
+    title: '첫 사진집 출판 〈잔향(殘香)〉',
+    img: 'images/tl-2018.jpg',
+    content: `10년간 모은 필름 사진들로 엮은 첫 사진집.
+
+발간일 책방 한켠에서 혼자 책을 펼쳐 보다가 울컥했다. 이게 내 삶이구나, 싶었다.
+
+2년의 거절, 수백 장의 편집, 수십 번의 수정. 그 모든 과정이 42장의 사진으로 압축됐다. 얇은 책이었다. 하지만 무거웠다.
+
+누군가 서점에서 우연히 이 책을 집어들었을 때, 그 사람의 안에 있는 무언가가 흔들린다면. 그게 내가 사진을 찍는 이유다.`
+  }
+];
+
+let currentTlIdx = 0;
+
+function openTimeline(idx) {
+  currentTlIdx = idx;
+  _renderTl();
+  document.getElementById('tlModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function _renderTl() {
+  const t = timelines[currentTlIdx];
+  document.getElementById('tlModalImg').src = t.img;
+  document.getElementById('tlModalImg').alt = t.title;
+  document.getElementById('tlModalYear').textContent = t.year;
+  document.getElementById('tlModalEra').textContent = t.era;
+  document.getElementById('tlModalTitle').textContent = t.title;
+  document.getElementById('tlModalContent').textContent = t.content;
+  document.getElementById('tlCount').textContent = `${currentTlIdx + 1} / ${timelines.length}`;
+  document.getElementById('tlPrev').disabled = currentTlIdx === 0;
+  document.getElementById('tlNext').disabled = currentTlIdx === timelines.length - 1;
+  document.getElementById('tlModal').querySelector('.tl-modal').scrollTop = 0;
+}
+
+function moveTl(dir) {
+  const next = currentTlIdx + dir;
+  if (next < 0 || next >= timelines.length) return;
+  currentTlIdx = next;
+  _renderTl();
+}
+
+function closeTlModal(e) {
+  if (e.target === document.getElementById('tlModal')) closeTlModalBtn();
+}
+
+function closeTlModalBtn() {
+  document.getElementById('tlModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+let currentStoryIdx = 0;
+const publicStories = [0,1,2,3,4];
+
+function openStory(idx) {
+  currentStoryIdx = idx;
+  _renderStory();
+  document.getElementById('storyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function _renderStory() {
+  const s = stories[currentStoryIdx];
+  document.getElementById('modalThumb').src = s.img;
+  document.getElementById('modalThumb').alt = s.title;
+  document.getElementById('modalCategory').textContent = s.category;
+  document.getElementById('modalTitle').textContent = s.title;
+  document.getElementById('modalDate').textContent = s.date;
+  document.getElementById('modalContent').textContent = s.content;
+  document.getElementById('storyCount').textContent = `${currentStoryIdx + 1} / ${stories.length}`;
+  document.getElementById('storyPrev').disabled = currentStoryIdx === 0;
+  document.getElementById('storyNext').disabled = currentStoryIdx === stories.length - 1;
+  document.getElementById('storyModal').querySelector('.story-modal-body').scrollTop = 0;
+}
+
+function moveStory(dir) {
+  const next = currentStoryIdx + dir;
+  if (next < 0 || next >= stories.length) return;
+  currentStoryIdx = next;
+  _renderStory();
+}
+
+function closeStory(e) {
+  if (e.target === document.getElementById('storyModal')) closeStoryBtn();
+}
+
+function closeStoryBtn() {
+  document.getElementById('storyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 
 <!-- YOUTUBE PLAYER (hidden) -->
