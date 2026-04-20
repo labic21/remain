@@ -492,6 +492,7 @@
   .story-thumb img {
     width: 100%; height: 100%; object-fit: cover; display: block;
   }
+  .story-thumb-6 img { object-position: center 70%; }
   .story-thumb-4 img { filter: blur(6px); transform: scale(1.1); }
   .story-thumb-1 { background: #c8b8a0; }
   .story-thumb-2 { background: #b0a090; }
@@ -1184,7 +1185,8 @@
   .brunch-hero-wrap {
     position: relative; width: 100%; height: 360px; overflow: hidden;
   }
-  .brunch-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .brunch-hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
+  .brunch-hero-img.jeju { object-position: center 70%; }
   .brunch-article {
     max-width: 680px; margin: 0 auto; padding: 2rem 2rem 6rem;
   }
@@ -1218,12 +1220,13 @@
   }
   .brunch-content p { margin-bottom: 1.8rem; }
   @media (max-width: 768px) {
-    .brunch-hero-wrap { height: 260px; }
+    .brunch-hero-wrap { height: 320px; }
     .brunch-title { font-size: 1.5rem; }
     .brunch-content { font-size: 0.95rem; line-height: 2.0; }
     .brunch-article { padding: 1.5rem 1.2rem 5rem; }
     .brunch-header { padding: 0 1.2rem; }
     .brunch-header-logo { display: none; }
+    .brunch-hero-img.jeju { object-position: center 70%; }
     .brunch-reactions {
       margin-left: 0;
       margin-right: 0;
@@ -1630,7 +1633,7 @@
     <div class="story-grid">
 
       <div class="story-card" onclick="openStory(0)">
-        <div class="story-thumb story-thumb-1"><img src="https://images.unsplash.com/photo-1717920954807-86a047abc2e6?q=80&w=687&auto=format&fit=crop" alt="유년기" loading="lazy"></div>
+        <div class="story-thumb story-thumb-1"><img src="https://images.unsplash.com/photo-1717920954807-86a047abc2e6?w=600&auto=format&fit=crop&q=80" alt="유년기" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
           <div class="story-category">CHILDHOOD · 유년</div>
@@ -1644,7 +1647,7 @@
       </div>
 
       <div class="story-card" onclick="openStory(1)">
-        <div class="story-thumb story-thumb-2"><img src="https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=280&fit=crop&auto=format" alt="청년기" loading="lazy"></div>
+        <div class="story-thumb story-thumb-2"><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&auto=format&fit=crop&q=80" alt="청년기" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
           <div class="story-category">YOUTH · 청년</div>
@@ -1658,7 +1661,7 @@
       </div>
 
       <div class="story-card" onclick="openStory(2)">
-        <div class="story-thumb story-thumb-3"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=280&fit=crop&auto=format" alt="여행" loading="lazy"></div>
+        <div class="story-thumb story-thumb-3"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80" alt="여행" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
           <div class="story-category">JOURNEY · 여행</div>
@@ -1686,7 +1689,7 @@
       </div>
 
       <div class="story-card" onclick="openStory(3)">
-        <div class="story-thumb story-thumb-5"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=280&fit=crop&auto=format" alt="창작" loading="lazy"></div>
+        <div class="story-thumb story-thumb-5"><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&auto=format&fit=crop&q=80" alt="창작" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
         <div class="story-body">
           <div class="story-category">CREATION · 창작</div>
@@ -1700,7 +1703,7 @@
       </div>
 
       <div class="story-card" onclick="openStory(4)">
-        <div class="story-thumb story-thumb-6"><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=280&fit=crop&auto=format" alt="현재" loading="lazy"></div>
+        <div class="story-thumb story-thumb-6"><img src="https://images.unsplash.com/photo-1612977512598-3b8d6a498bbb?w=600&auto=format&fit=crop&q=80" alt="현재" loading="lazy"></div>
         <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 친구공개</div>
         <div class="story-body">
           <div class="story-category">NOW · 현재</div>
@@ -2258,7 +2261,7 @@ const stories = [
     category: 'CHILDHOOD · 유년',
     title: '골목길 끝 할머니네 마당',
     date: '1991년 여름',
-    img: 'https://images.unsplash.com/photo-1717920954807-86a047abc2e6?q=80&w=687&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1717920954807-86a047abc2e6?q=80&w=1200&auto=format&fit=crop',
     content: `여름마다 할머니네 마당에는 해바라기가 가득 피었다.
 
 나는 그 사이에 숨어서 매미 소리를 들으며 낮잠을 잤다. 해바라기 줄기가 만들어주는 그늘은 좁고 불완전했지만, 그 시절 내가 알던 가장 완벽한 피난처였다. 키보다 훨씬 큰 줄기들 사이에 쪼그리고 앉으면 세상이 좁아졌다. 그 좁음이 좋았다. 좁은 곳에 있으면 이상하게 마음이 커지는 것 같았다.
@@ -2279,7 +2282,7 @@ const stories = [
     category: 'YOUTH · 청년',
     title: '필름 한 롤로 담은 홍대 앞 1997',
     date: '1997년 가을',
-    img: 'https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=280&fit=crop&auto=format',
+    img: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=1400&auto=format&fit=crop',
     content: `36컷. 그 시절 홍대는 지금과 달랐다.
 
 인디 밴드들이 골목마다 넘쳐났고, 모두가 뭔가를 만들고 있었다. 음악이든, 그림이든, 아니면 그냥 자기 자신이든. 지금 생각하면 그 시절 홍대 골목은 완성되지 않은 것들의 집합소였다. 그리고 그 미완성이 오히려 살아 있었다. 완성된 것들은 조용하지만, 미완성된 것들은 소리를 낸다.
@@ -2300,7 +2303,7 @@ const stories = [
     category: 'JOURNEY · 여행',
     title: '교토에서 혼자 맞은 새벽',
     date: '2007년 3월',
-    img: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=280&fit=crop&auto=format',
+    img: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=1400&auto=format&fit=crop',
     content: `새벽 4시, 후시미 이나리의 도리이 사이로 새벽빛이 스며들었다.
 
 졸업식 다음날 혼자 비행기를 탔다. 아무것도 예약하지 않았다. 숙소도, 일정도. 그냥 교토행 티켓 한 장만 들고. 부모님은 걱정했고, 친구들은 왜 같이 안 가냐고 물었다. 나도 왜인지 몰랐다. 그냥 혼자여야 할 것 같았다. 누군가와 함께라면 나를 잃어버릴 것 같은 기분이었다.
@@ -2321,7 +2324,7 @@ const stories = [
     category: 'CREATION · 창작',
     title: '사진집 〈잔향〉을 만들기까지',
     date: '2018년',
-    img: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=280&fit=crop&auto=format',
+    img: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1400&auto=format&fit=crop',
     content: `10년치 필름을 꺼내 빛에 비춰보던 밤들.
 
 어떤 것은 버리고 어떤 것은 품었는지, 그 선택의 기준이 뭔지 나도 몰랐다. 그냥 오래 들여다보다가, 버려지는 것과 남는 것이 달랐다. 기술적으로 좋은 사진이 남는 게 아니었다. 그 순간의 온도가 느껴지는 것들이 남았다. 손가락 끝에 뭔가 걸리는 것들.
@@ -2342,7 +2345,7 @@ const stories = [
     category: 'NOW · 현재',
     title: '제주에서의 1년, 지금 이 순간',
     date: '2024년',
-    img: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=280&fit=crop&auto=format',
+    img: 'https://images.unsplash.com/photo-1612977512598-3b8d6a498bbb?q=80&w=1400&auto=format&fit=crop',
     content: `돌담 사이 바람 소리가 좋아서 내려왔다.
 
 솔직히 말하면 도망친 거였다. 서울의 속도, 사람들의 기대, 내가 만들어온 이미지. 그 모든 것에서. 뭔가를 향해 달려가는 게 아니라 뭔가로부터 멀어지고 싶었다. 그게 제주였다. 멀리 가면 달라질 것 같았다. 달라지지 않더라도, 적어도 잠깐은 멈출 수 있을 것 같았다.
@@ -2475,39 +2478,39 @@ const storyReactions = [
   {
     likes: 24,
     comments: [
-      { name: '김민지 · 3일 전', text: '할머니네 마당 이야기... 저도 비슷한 기억이 있어요. 읽으면서 괜히 코끝이 찡했어요.' },
-      { name: '이서준 · 5일 전', text: '이런 글 읽으면 오래된 앨범 꺼내고 싶어져요. 감사해요.' },
-      { name: '박하린 · 1주 전', text: '할머니가 보고싶어졌어요 😢' },
+      { name: '김민지 · 3일 전', icon: '🌸', bg: '#f9e8ec', text: '할머니네 마당 이야기... 저도 비슷한 기억이 있어요. 읽으면서 괜히 코끝이 찡했어요.' },
+      { name: '이서준 · 5일 전', icon: '📷', bg: '#e8f0f9', text: '이런 글 읽으면 오래된 앨범 꺼내고 싶어져요. 감사해요.' },
+      { name: '박하린 · 1주 전', icon: '🌿', bg: '#e8f5ee', text: '할머니가 보고싶어졌어요 😢' },
     ]
   },
   {
     likes: 41,
     comments: [
-      { name: '최유진 · 2일 전', text: '36컷이라는 제한이 오히려 더 의미있게 만들었겠죠. 요즘 무한정 찍는 저를 돌아보게 됐어요.' },
-      { name: '정다온 · 4일 전', text: '그 기타 조율하던 사진 너무 보고싶다...' },
+      { name: '최유진 · 2일 전', icon: '🎞️', bg: '#f5f0e8', text: '36컷이라는 제한이 오히려 더 의미있게 만들었겠죠. 요즘 무한정 찍는 저를 돌아보게 됐어요.' },
+      { name: '정다온 · 4일 전', icon: '🎸', bg: '#f0e8f5', text: '그 기타 조율하던 사진 너무 보고싶다...' },
     ]
   },
   {
     likes: 68,
     comments: [
-      { name: '한소율 · 1일 전', text: '저도 혼자 교토에 가보고 싶어졌어요. 새벽 이나리라니 정말 멋지겠다.' },
-      { name: '오태민 · 3일 전', text: '혼자여도 괜찮다는 걸 몸으로 알았다는 표현이 너무 좋아요.' },
-      { name: '윤지은 · 6일 전', text: '이 글 읽고 오래 생각했어요. 잘 읽었습니다.' },
+      { name: '한소율 · 1일 전', icon: '⛩️', bg: '#f9ede8', text: '저도 혼자 교토에 가보고 싶어졌어요. 새벽 이나리라니 정말 멋지겠다.' },
+      { name: '오태민 · 3일 전', icon: '🌙', bg: '#e8edf9', text: '혼자여도 괜찮다는 걸 몸으로 알았다는 표현이 너무 좋아요.' },
+      { name: '윤지은 · 6일 전', icon: '☁️', bg: '#f0f4f9', text: '이 글 읽고 오래 생각했어요. 잘 읽었습니다.' },
     ]
   },
   {
     likes: 92,
     comments: [
-      { name: '강민혁 · 2일 전', text: '잔향이라는 단어 자체가 이미 시 같아요. 언제 서점에서 찾아보고 싶네요.' },
-      { name: '임수아 · 5일 전', text: '42장으로 10년을 압축하는 과정이 얼마나 힘들었을까요. 대단합니다.' },
+      { name: '강민혁 · 2일 전', icon: '📖', bg: '#f5ebe8', text: '잔향이라는 단어 자체가 이미 시 같아요. 언제 서점에서 찾아보고 싶네요.' },
+      { name: '임수아 · 5일 전', icon: '🌷', bg: '#f9e8f0', text: '42장으로 10년을 압축하는 과정이 얼마나 힘들었을까요. 대단합니다.' },
     ]
   },
   {
     likes: 37,
     comments: [
-      { name: '송지호 · 1일 전', text: '작아질수록 잘 보이는 것들이 있다는 말... 오늘 하루 계속 생각날 것 같아요.' },
-      { name: '나윤서 · 3일 전', text: '저도 언제 한번은 이렇게 도망쳐보고 싶어요 ㅎㅎ 응원합니다.' },
-      { name: '류준혁 · 1주 전', text: '제주 생활 부럽습니다. 글도 너무 좋고요.' },
+      { name: '송지호 · 1일 전', icon: '🍃', bg: '#e8f5ee', text: '작아질수록 잘 보이는 것들이 있다는 말... 오늘 하루 계속 생각날 것 같아요.' },
+      { name: '나윤서 · 3일 전', icon: '🌊', bg: '#e8f0f9', text: '저도 언제 한번은 이렇게 도망쳐보고 싶어요 ㅎㅎ 응원합니다.' },
+      { name: '류준혁 · 1주 전', icon: '🍂', bg: '#f5f0e8', text: '제주 생활 부럽습니다. 글도 너무 좋고요.' },
     ]
   }
 ];
@@ -2517,6 +2520,7 @@ function _renderBrunch() {
   const r = storyReactions[currentStoryIdx];
   document.getElementById('brunchImg').src = s.img;
   document.getElementById('brunchImg').alt = s.title;
+  document.getElementById('brunchImg').className = s.img.includes('1612977512598') ? 'brunch-hero-img jeju' : 'brunch-hero-img';
   document.getElementById('brunchCategory').textContent = s.category;
   document.getElementById('brunchTitle').textContent = s.title;
   document.getElementById('brunchDate').textContent = s.date;
@@ -2532,9 +2536,8 @@ function _renderBrunch() {
   document.getElementById('commentCount').textContent = r.comments.length;
   document.getElementById('commentCountTitle').textContent = r.comments.length;
   list.innerHTML = r.comments.map(c => {
-    const initials = c.name.charAt(0);
     return `<div class="comment-item">
-      <div class="comment-avatar">${initials}</div>
+      <div class="comment-avatar" style="background:${c.bg}; font-size:1.1rem;">${c.icon}</div>
       <div class="comment-body">
         <div class="comment-name">${c.name.split(' · ')[0]}</div>
         <div class="comment-time">${c.name.split(' · ')[1] || ''}</div>
@@ -2579,8 +2582,12 @@ function submitComment() {
   const list = document.getElementById('commentList');
   const item = document.createElement('div');
   item.className = 'comment-item';
+  const icons = ['🌸','🌿','🌙','☁️','🍂','🌊'];
+  const icon = icons[Math.floor(Math.random() * icons.length)];
+  const bgs = ['#f9e8ec','#e8f5ee','#e8edf9','#f0f4f9','#f5f0e8','#e8f0f9'];
+  const bg = bgs[Math.floor(Math.random() * bgs.length)];
   item.innerHTML = `
-    <div class="comment-avatar">익</div>
+    <div class="comment-avatar" style="background:${bg}; font-size:1.1rem;">${icon}</div>
     <div class="comment-body">
       <div class="comment-name">익명</div>
       <div class="comment-time">방금</div>
