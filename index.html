@@ -96,6 +96,27 @@
     display: grid; grid-template-columns: auto 1fr; gap: 3.5rem;
     align-items: center; position: relative;
   }
+  .hero-services {
+    display: flex; flex-direction: row; gap: 1.4rem;
+    margin-top: 1rem;
+  }
+  .service-btn {
+    display: flex; align-items: center; gap: 0.55rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-align: left;
+  }
+  .service-btn:hover .service-btn-name { color: var(--warm-brown); }
+  .service-btn:hover .service-btn-icon svg { stroke: var(--warm-brown); }
+  .service-btn-icon { display: flex; align-items: center; flex-shrink: 0; }
+  .service-btn-icon svg { width: 20px; height: 20px; stroke: var(--text-sub); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .service-btn-text { display: flex; flex-direction: column; }
+  .service-btn-label { font-size: 0.68rem; color: var(--text-light); letter-spacing: 0.04em; }
+  .service-btn-name { font-size: 0.82rem; font-weight: 600; color: var(--text-sub); font-family: 'Noto Serif KR', serif; transition: color 0.2s; }
   .avatar-wrap { position: relative; }
   .avatar {
     width: 180px; height: 180px;
@@ -959,9 +980,10 @@
     .hero::before { font-size: 30vw; }
     .hero-inner {
       grid-template-columns: 1fr;
-      gap: 2.5rem;
+      gap: 2rem;
       text-align: center;
     }
+    .hero-services { justify-content: center; }
     .avatar-wrap { margin: 0 auto; }
     .avatar { width: 140px; height: 140px; }
     .avatar-ring { inset: -8px; }
@@ -1549,6 +1571,26 @@
       <div class="hero-actions">
         <button class="btn-primary" onclick="showToast('기억 추가 기능은 준비 중입니다')">+ 기억 추가</button>
         <button class="btn-ghost" onclick="copyLink()">공유하기</button>
+      </div>
+      <div class="hero-services">
+        <button class="service-btn" onclick="showToast('회고록 제작 서비스는 준비 중입니다')">
+          <span class="service-btn-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
+          <span class="service-btn-text">
+            <span class="service-btn-label">디지털 인쇄</span>
+            <span class="service-btn-name">회고록 만들기</span>
+          </span>
+        </button>
+        <button class="service-btn" onclick="window.open('https://www.youtube.com/@remain_kr','_blank')">
+          <span class="service-btn-icon">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </span>
+          <span class="service-btn-text">
+            <span class="service-btn-label">유튜브 채널</span>
+            <span class="service-btn-name">동영상 서비스</span>
+          </span>
+        </button>
       </div>
     </div>
   </div>
