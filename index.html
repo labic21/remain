@@ -551,6 +551,89 @@
   .story-hearts { font-size: 0.72rem; color: var(--soft-rose); }
 
   /* ──────────────────────────── GUESTBOOK */
+  /* ── TIMECAPSULE ── */
+  #timecapsule { background: linear-gradient(160deg, #f5eedd, #faf6f0); }
+  .capsule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  .capsule-card {
+    background: #fff9f2;
+    border: 1.5px solid var(--warm-sand);
+    border-radius: 14px;
+    padding: 1.6rem 1.4rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .capsule-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--muted-gold), var(--soft-rose));
+    border-radius: 14px 14px 0 0;
+  }
+  .capsule-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--shadow-warm); }
+  .capsule-card.locked { filter: none; }
+  .capsule-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .capsule-open-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--muted-gold);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .capsule-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--deep-brown);
+    line-height: 1.4;
+  }
+  .capsule-excerpt {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    line-height: 1.6;
+  }
+  .capsule-card.locked .capsule-excerpt { filter: blur(3px); user-select: none; }
+  .capsule-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .capsule-badge.open   { background: #e8f5e9; color: #388e3c; }
+  .capsule-badge.locked { background: #fff3e0; color: #e65100; }
+  .add-capsule-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    border: 1.5px solid var(--warm-sand);
+    border-radius: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+  }
+  .add-capsule-btn:hover { background: var(--warm-sand); color: var(--deep-brown); }
+
   #guestbook { background: linear-gradient(160deg, #f0e8d8, #faf6f0); }
   .guestbook-compose {
     background: #fff;
@@ -915,6 +998,12 @@
     .story-title { font-size: 0.85rem; }
     .story-excerpt { font-size: 0.74rem; -webkit-line-clamp: 2; }
 
+    /* TIMECAPSULE */
+    .capsule-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .capsule-card { padding: 1.2rem 1.1rem 1.1rem; }
+    .capsule-title { font-size: 0.95rem; }
+    .capsule-excerpt { font-size: 0.8rem; }
+
     /* GUESTBOOK */
     .guestbook-compose { padding: 1.3rem; }
     .compose-row { flex-direction: column; gap: 0.6rem; }
@@ -949,6 +1038,7 @@
 
   /* ──────────────────────────── RESPONSIVE · 480px (small mobile) */
   @media (max-width: 480px) {
+    .capsule-grid { grid-template-columns: 1fr; }
     .story-grid { grid-template-columns: 1fr; }
     .story-thumb { height: 130px; }
     .hero-name { font-size: 1.8rem; }
@@ -1408,6 +1498,7 @@
     <a href="#profile"   onclick="closeNav()">프로필</a>
     <a href="#timeline"  onclick="closeNav()">타임라인</a>
     <a href="#story"     onclick="closeNav()">나의 이야기</a>
+    <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
     <a href="#guestbook" onclick="closeNav()">방명록</a>
     <button class="nav-btn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
   </div>
@@ -1734,6 +1825,56 @@
     </div>
     <button class="add-story-btn" onclick="showToast('새 이야기 추가 기능은 준비 중입니다')">
       <span>+</span> 새 이야기 쓰기
+    </button>
+  </div>
+</section>
+
+<!-- ═══ TIMECAPSULE ═══ -->
+<section id="timecapsule">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Time Capsule</div>
+      <h2 class="section-title">타임캡슐</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="capsule-grid">
+
+      <div class="capsule-card" onclick="showToast('2030년 1월 1일에 열 수 있습니다')">
+        <div class="capsule-icon">📦</div>
+        <div class="capsule-open-date">Open · 2030년 1월 1일</div>
+        <div class="capsule-title">10년 후의 나에게</div>
+        <div class="capsule-excerpt">지금의 나는 제주에 살고 있다. 10년 뒤에도 이 바람 소리가 기억날까. 그때의 나는 어디에 있을까...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('2027년 12월 31일에 열 수 있습니다')">
+        <div class="capsule-icon">💌</div>
+        <div class="capsule-open-date">Open · 2027년 12월 31일</div>
+        <div class="capsule-title">딸에게 남기는 편지</div>
+        <div class="capsule-excerpt">네가 스무 살이 되는 날 읽어줬으면 해. 아빠가 지금 너에게 하고 싶은 말들을 여기 담아두었어...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('2024년 작성 — 이미 열렸습니다')">
+        <div class="capsule-icon">🌸</div>
+        <div class="capsule-open-date">Open · 2025년 1월 1일</div>
+        <div class="capsule-title">올해의 소원 세 가지</div>
+        <div class="capsule-excerpt">제주살이 1년 차에 적어뒀던 소원들. 그 중 두 가지가 이뤄졌다. 나머지 하나는 아직 진행 중...</div>
+        <span class="capsule-badge open">✅ 열림</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('2035년 3월 1일에 열 수 있습니다')">
+        <div class="capsule-icon">🎞️</div>
+        <div class="capsule-open-date">Open · 2035년 3월 1일</div>
+        <div class="capsule-title">필름 속 미공개 사진들</div>
+        <div class="capsule-excerpt">현상은 했지만 아직 세상에 꺼내지 않은 사진 36컷. 오랜 시간이 지나야 꺼낼 수 있을 것 같다...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+    </div>
+    <button class="add-capsule-btn" onclick="showToast('타임캡슐 추가 기능은 준비 중입니다')">
+      <span>+</span> 새 타임캡슐 만들기
     </button>
   </div>
 </section>
