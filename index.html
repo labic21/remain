@@ -1,0 +1,3148 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remain — 나를 기억할 누군가를 위해</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+  :root {
+    --warm-cream:    #faf6f0;
+    --warm-beige:    #f0e8d8;
+    --warm-sand:     #e0cdb0;
+    --warm-brown:    #8b6f47;
+    --deep-brown:    #4a3520;
+    --soft-rose:     #d4a89a;
+    --dusty-rose:    #b07a70;
+    --muted-gold:    #c8a96e;
+    --text-main:     #3a2e22;
+    --text-sub:      #7a6655;
+    --text-light:    #a89080;
+    --border-soft:   #e0d0b8;
+    --shadow-warm:   rgba(139, 111, 71, 0.12);
+    --private-bg:    #f5efe8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--warm-cream);
+    color: var(--text-main);
+    line-height: 1.8;
+  }
+
+  /* ──────────────────────────── NAVIGATION */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250, 246, 240, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.1rem;
+    color: var(--deep-brown);
+    letter-spacing: 0.08em;
+  }
+  .nav-logo span { color: var(--muted-gold); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-sub);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--warm-brown); }
+  .nav-btn {
+    background: var(--warm-brown);
+    color: #fff;
+    border: none;
+    padding: 0.4rem 1.1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .nav-btn:hover { background: var(--deep-brown); }
+
+  /* ──────────────────────────── HERO / PROFILE */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #f7f0e4 0%, #ede0cc 50%, #e8d5bc 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 80px 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '會者定離';
+    position: absolute;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 18vw;
+    color: rgba(139, 111, 71, 0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .hero-inner {
+    max-width: 860px; width: 100%;
+    display: grid; grid-template-columns: auto 1fr; gap: 3.5rem;
+    align-items: center; position: relative;
+  }
+  .hero-services {
+    display: flex; flex-direction: row; gap: 1.4rem;
+    margin-top: 1rem;
+  }
+  .service-btn {
+    display: flex; align-items: center; gap: 0.55rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-align: left;
+  }
+  .service-btn:hover .service-btn-name { color: var(--warm-brown); }
+  .service-btn:hover .service-btn-icon svg { stroke: var(--warm-brown); }
+  .service-btn-icon { display: flex; align-items: center; flex-shrink: 0; }
+  .service-btn-icon svg { width: 20px; height: 20px; stroke: var(--text-sub); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .service-btn-text { display: flex; flex-direction: column; }
+  .service-btn-label { font-size: 0.68rem; color: var(--text-light); letter-spacing: 0.04em; }
+  .service-btn-name { font-size: 0.82rem; font-weight: 600; color: var(--text-sub); font-family: 'Noto Serif KR', serif; transition: color 0.2s; }
+  .avatar-wrap { position: relative; }
+  .avatar {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--warm-sand);
+    overflow: hidden;
+    border: 4px solid rgba(255,255,255,0.7);
+    box-shadow: 0 8px 32px var(--shadow-warm);
+    position: relative;
+  }
+  .avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .avatar-ring {
+    position: absolute; inset: -10px;
+    border-radius: 50%;
+    border: 2px dashed var(--warm-sand);
+    animation: spin 30s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ──────────────────────────── SAKURA */
+  .sakura-petal {
+    position: absolute;
+    top: -40px;
+    pointer-events: none;
+    opacity: 0;
+    animation: sakuraFall linear infinite;
+    will-change: transform, opacity;
+  }
+  .sakura-petal svg {
+    display: block;
+  }
+  @keyframes sakuraFall {
+    0% {
+      opacity: 0;
+      transform: translateY(0) rotate(0deg) translateX(0);
+    }
+    8% {
+      opacity: 0.7;
+    }
+    85% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(105vh) rotate(720deg) translateX(var(--drift));
+    }
+  }
+  .privacy-badge {
+    position: absolute; bottom: 4px; right: 4px;
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 0.7rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+    box-shadow: 0 2px 8px var(--shadow-warm);
+    transition: all 0.2s;
+  }
+  .privacy-badge:hover { background: var(--warm-beige); }
+  .privacy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm-brown); }
+  .privacy-dot.private { background: var(--soft-rose); }
+
+  .hero-info {}
+  .hero-quote {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.85rem;
+    color: var(--muted-gold);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.6rem;
+  }
+  .hero-name {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 2.6rem;
+    color: var(--deep-brown);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .hero-sub {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    max-width: 420px;
+    line-height: 1.9;
+    margin-bottom: 1.8rem;
+    font-style: italic;
+  }
+  .hero-stats {
+    display: flex; gap: 2rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.5rem;
+    color: var(--warm-brown);
+    font-weight: 600;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.06em;
+  }
+  .hero-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+  .diary-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: transparent;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 24px;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    font-family: 'Noto Serif KR', serif;
+    transition: all 0.2s;
+    margin-top: 1.2rem;
+  }
+  .diary-btn svg { width: 15px; height: 15px; stroke: var(--text-sub); flex-shrink: 0; transition: stroke 0.2s; }
+  .diary-btn:hover { border-color: var(--warm-brown); color: var(--warm-brown); }
+  .diary-btn:hover svg { stroke: var(--warm-brown); }
+  .btn-primary {
+    background: var(--warm-brown);
+    color: #fff;
+    border: none;
+    padding: 0.65rem 1.6rem;
+    border-radius: 24px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .btn-primary:hover { background: var(--deep-brown); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--warm-brown);
+    border: 1.5px solid var(--warm-sand);
+    padding: 0.65rem 1.6rem;
+    border-radius: 24px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--warm-brown); background: var(--warm-beige); }
+
+  /* ──────────────────────────── SECTIONS */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-header { margin-bottom: 3rem; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--muted-gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.8rem;
+    color: var(--deep-brown);
+    font-weight: 600;
+  }
+  .section-divider {
+    width: 40px; height: 2px;
+    background: linear-gradient(to right, var(--muted-gold), transparent);
+    margin-top: 0.8rem;
+  }
+
+  /* ──────────────────────────── TIMELINE */
+  #timeline { background: var(--warm-beige); }
+  .timeline-filter {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    padding: 0.35rem 1rem;
+    border: 1.5px solid var(--warm-sand);
+    border-radius: 20px;
+    background: transparent;
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--warm-brown);
+    border-color: var(--warm-brown);
+    color: #fff;
+  }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--muted-gold), var(--soft-rose), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    cursor: pointer;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -2rem; top: 0.45rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--muted-gold);
+    border: 3px solid var(--warm-beige);
+    box-shadow: 0 0 0 2px var(--muted-gold);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover::before { transform: scale(1.3); }
+  .timeline-item.private::before { background: var(--soft-rose); box-shadow: 0 0 0 2px var(--soft-rose); }
+
+  .timeline-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 2px 16px var(--shadow-warm);
+    border: 1px solid rgba(224, 208, 184, 0.5);
+    transition: all 0.25s;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .tl-thumb {
+    width: 150px; height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--warm-sand) 0%, var(--warm-beige) 100%);
+    border: 1px solid rgba(224,208,184,0.6);
+    display: block;
+  }
+  .tl-thumb--유년  { background: linear-gradient(135deg,#f7e9c8,#f0d9a0); }
+  .tl-thumb--청소년 { background: linear-gradient(135deg,#e8d5c4,#d4a89a); }
+  .tl-thumb--청년  { background: linear-gradient(135deg,#d4c5b0,#bfa98e); }
+  .tl-thumb--장년  { background: linear-gradient(135deg,#c9b89e,#a08060); }
+  .tl-thumb--blurred { filter: blur(6px); transform: scale(1.05); }
+  .tl-thumb--private {
+    background: #f5f0e8;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .tl-thumb--private .lock-icon {
+    font-size: 1.6rem; opacity: 0.45; line-height: 1;
+  }
+  .tl-thumb--private .lock-label {
+    font-size: 0.6rem; color: #b0a898; letter-spacing: 0.05em;
+  }
+  .tl-content { flex: 1; min-width: 0; }
+  .timeline-item:hover .timeline-card {
+    transform: translateX(4px);
+    box-shadow: 0 4px 24px var(--shadow-warm);
+  }
+  .timeline-card.private-card {
+    background: var(--private-bg);
+    border-color: rgba(212, 168, 154, 0.3);
+  }
+  .tl-meta {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .tl-year {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.8rem;
+    color: var(--muted-gold);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .tl-tag {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--warm-beige);
+    color: var(--text-sub);
+  }
+  .privacy-toggle {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--text-light);
+    cursor: pointer;
+    user-select: none;
+  }
+  .toggle-switch {
+    width: 32px; height: 18px;
+    background: var(--warm-sand);
+    border-radius: 9px;
+    position: relative;
+    transition: background 0.25s;
+  }
+  .toggle-switch.on { background: var(--warm-brown); }
+  .toggle-switch.private-on { background: var(--soft-rose); }
+  .toggle-knob {
+    position: absolute; top: 2px; left: 2px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    transition: left 0.25s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .toggle-switch.on .toggle-knob,
+  .toggle-switch.private-on .toggle-knob { left: 16px; }
+
+  .tl-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1rem;
+    color: var(--deep-brown);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  .tl-body { font-size: 0.85rem; color: var(--text-sub); line-height: 1.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tl-locked {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem; color: var(--text-light);
+    font-style: italic;
+  }
+  .lock-icon { font-size: 1rem; }
+
+  .add-memory-btn {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: transparent;
+    border: 2px dashed var(--warm-sand);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    width: calc(100% - 3.5rem);
+    margin-top: 1rem;
+    margin-left: 3.5rem;
+    transition: all 0.2s;
+  }
+  .add-memory-btn:hover {
+    border-color: var(--warm-brown);
+    color: var(--warm-brown);
+    background: rgba(139, 111, 71, 0.04);
+  }
+
+  /* ──────────────────────────── MY STORY */
+  #story { background: var(--warm-cream); }
+  .add-story-btn {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: transparent;
+    border: 2px dashed var(--warm-sand);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
+    margin-top: 2.5rem;
+    transition: all 0.2s;
+  }
+  .add-story-btn:hover {
+    border-color: var(--warm-brown);
+    color: var(--warm-brown);
+    background: rgba(139, 111, 71, 0.04);
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .story-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px var(--shadow-warm);
+    border: 1px solid rgba(224, 208, 184, 0.4);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    display: block;
+  }
+  .story-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px var(--shadow-warm);
+    opacity: 1;
+  }
+  .story-thumb {
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    width: auto;
+    border-radius: 0;
+    flex-shrink: unset;
+  }
+  .story-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .story-thumb-6 img { object-position: center 70%; }
+  .story-thumb-4 img { filter: blur(6px); transform: scale(1.1); }
+  .story-thumb-1 { background: #c8b8a0; }
+  .story-thumb-2 { background: #b0a090; }
+  .story-thumb-3 { background: #a09888; }
+  .story-thumb-4 { background: #888888; }
+  .story-thumb-5 { background: #907870; }
+  .story-thumb-6 { background: #8a9878; }
+  .ic-badge {
+    display: inline-block; width: 0.8em; height: 0.8em;
+    vertical-align: -0.08em;
+    stroke: currentColor; fill: none;
+    stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .story-card-privacy {
+    position: absolute; top: 0.6rem; right: 0.6rem;
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 0.68rem;
+    color: var(--text-sub);
+    display: flex; align-items: center; gap: 3px;
+    backdrop-filter: blur(4px);
+  }
+  .story-body { padding: 1.2rem 1.4rem; }
+  .story-category {
+    font-size: 0.72rem;
+    color: var(--muted-gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .story-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.95rem;
+    color: var(--deep-brown);
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .story-excerpt {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  .story-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .story-date { font-size: 0.72rem; color: var(--text-light); }
+  .story-hearts { font-size: 0.72rem; color: var(--soft-rose); }
+
+  /* ──────────────────────────── GUESTBOOK */
+  /* ── TIMECAPSULE ── */
+  #timecapsule { background: linear-gradient(160deg, #f5eedd, #faf6f0); }
+  .capsule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  .capsule-card {
+    background: #fff9f2;
+    border: 1.5px solid var(--warm-sand);
+    border-radius: 14px;
+    padding: 1.6rem 1.4rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .capsule-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--muted-gold), var(--soft-rose));
+    border-radius: 14px 14px 0 0;
+  }
+  .capsule-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--shadow-warm); }
+  .capsule-card.locked { filter: none; }
+  .capsule-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .capsule-open-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--muted-gold);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .capsule-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--deep-brown);
+    line-height: 1.4;
+  }
+  .capsule-excerpt {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    line-height: 1.6;
+  }
+  .capsule-card.locked .capsule-excerpt { filter: blur(3px); user-select: none; }
+  .capsule-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .capsule-badge.open   { background: #e8f5e9; color: #388e3c; }
+  .capsule-badge.locked { background: #fff3e0; color: #e65100; }
+  .add-capsule-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    border: 1.5px solid var(--warm-sand);
+    border-radius: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+  }
+  .add-capsule-btn:hover { background: var(--warm-sand); color: var(--deep-brown); }
+
+  #guestbook { background: linear-gradient(160deg, #f0e8d8, #faf6f0); }
+  .guestbook-compose {
+    background: #fff;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 2px 16px var(--shadow-warm);
+    border: 1px solid var(--border-soft);
+    margin-bottom: 2.5rem;
+  }
+  .compose-header {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.95rem;
+    color: var(--deep-brown);
+    margin-bottom: 1rem;
+  }
+  .compose-row { display: flex; gap: 1rem; margin-bottom: 0.8rem; }
+  .compose-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background: var(--warm-cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .compose-input:focus { border-color: var(--warm-brown); }
+  .compose-textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background: var(--warm-cream);
+    resize: vertical;
+    min-height: 90px;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.7;
+  }
+  .compose-textarea:focus { border-color: var(--warm-brown); }
+  .compose-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 0.8rem;
+  }
+  .compose-privacy {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; color: var(--text-sub);
+    cursor: pointer;
+  }
+  .compose-privacy input { accent-color: var(--warm-brown); }
+  .btn-submit {
+    background: var(--warm-brown);
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.4rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover { background: var(--deep-brown); }
+
+  .guestbook-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .guest-entry {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 2px 12px var(--shadow-warm);
+    border: 1px solid rgba(224, 208, 184, 0.4);
+    position: relative;
+  }
+  .guest-entry.private-entry {
+    background: var(--private-bg);
+    border-color: rgba(212, 168, 154, 0.3);
+  }
+  .guest-header {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+  .guest-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .ga-1 { background: linear-gradient(135deg, #f7dcc8, #e8bfa0); }
+  .ga-2 { background: linear-gradient(135deg, #d8e8f0, #b4cedd); }
+  .ga-3 { background: linear-gradient(135deg, #e8d4f0, #cdb4e4); }
+  .ga-4 { background: linear-gradient(135deg, #d4f0e4, #a8dcc4); }
+  .guest-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--deep-brown);
+  }
+  .guest-relation {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 1px;
+  }
+  .guest-date {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+  .guest-private-badge {
+    font-size: 0.7rem;
+    background: rgba(212, 168, 154, 0.2);
+    color: var(--dusty-rose);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .guest-message {
+    font-size: 0.875rem;
+    color: var(--text-sub);
+    line-height: 1.85;
+    padding-left: 2.8rem;
+  }
+  .guest-blurred {
+    filter: blur(4px);
+    pointer-events: none;
+    user-select: none;
+    font-size: 0.875rem;
+    color: var(--text-sub);
+    padding-left: 2.8rem;
+  }
+  .guest-locked-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(250, 246, 240, 0.5);
+    border-radius: 16px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    gap: 0.4rem;
+  }
+  .guest-heart {
+    position: absolute; bottom: 1rem; right: 1.4rem;
+    font-size: 0.75rem;
+    color: var(--soft-rose);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .guest-heart:hover { transform: scale(1.2); }
+
+  /* ──────────────────────────── PRIVACY PANEL */
+  .privacy-panel-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(58, 46, 34, 0.4);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .privacy-panel-overlay.open { display: flex; }
+  .privacy-panel {
+    background: var(--warm-cream);
+    border-radius: 24px;
+    padding: 2rem;
+    max-width: 480px; width: 90%;
+    box-shadow: 0 16px 64px rgba(58, 46, 34, 0.25);
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  .panel-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.15rem;
+    color: var(--deep-brown);
+    margin-bottom: 0.3rem;
+  }
+  .panel-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 1.6rem;
+  }
+  .privacy-option {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .privacy-option:hover { border-color: var(--warm-sand); }
+  .privacy-option.selected { border-color: var(--warm-brown); background: var(--warm-beige); }
+  .privacy-icon { width: 1.5rem; height: 1.5rem; flex-shrink: 0; color: var(--warm-brown); opacity: 0.75; }
+  .privacy-label { font-size: 0.88rem; color: var(--deep-brown); font-weight: 500; }
+  .privacy-desc { font-size: 0.75rem; color: var(--text-light); margin-top: 2px; }
+  .panel-actions { display: flex; gap: 0.8rem; margin-top: 1.4rem; justify-content: flex-end; }
+  .btn-cancel {
+    background: transparent;
+    border: 1.5px solid var(--border-soft);
+    color: var(--text-sub);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-save {
+    background: var(--warm-brown);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.4rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-save:hover { background: var(--deep-brown); }
+
+  /* ──────────────────────────── FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--deep-brown);
+    color: rgba(255,255,255,0.5);
+  }
+  .footer-quote {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+  .footer-sub { font-size: 0.78rem; letter-spacing: 0.08em; }
+
+  /* ──────────────────────────── TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--deep-brown);
+    color: #fff;
+    padding: 0.7rem 1.6rem;
+    border-radius: 24px;
+    font-size: 0.82rem;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ──────────────────────────── HAMBURGER · 기본값 hidden */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    flex-shrink: 0;
+    min-width: 44px; min-height: 44px; /* 터치 타겟 */
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--warm-brown);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ──────────────────────────── NAV COMPACT · overflow 감지 시 JS가 부여 */
+  nav.nav--compact { padding: 0 1.2rem; }
+  nav.nav--compact .nav-slogan  { font-size: 0.75rem; opacity: 0.7; letter-spacing: 0.03em; }
+  nav.nav--compact .nav-hamburger { display: flex; }
+  nav.nav--compact .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px; left: 0; right: 0; z-index: 99;
+    flex-direction: column;
+    align-items: stretch;
+    background: rgba(250, 246, 240, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 0.6rem 1.4rem 1.4rem;
+    gap: 0;
+    box-shadow: 0 8px 24px var(--shadow-warm);
+  }
+  nav.nav--compact .nav-links.open { display: flex; }
+  nav.nav--compact .nav-links a {
+    padding: 0.8rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text-main);
+    white-space: nowrap;
+  }
+  nav.nav--compact .nav-links a:last-of-type { border-bottom: none; }
+  nav.nav--compact .nav-btn {
+    margin-top: 0.9rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* ──────────────────────────── RESPONSIVE · 768px (tablet/mobile) */
+  @media (max-width: 768px) {
+    /* HERO */
+    .hero { padding: 90px 1.4rem 3.5rem; min-height: auto; }
+    .hero::before { font-size: 30vw; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+    .hero-services { justify-content: center; }
+    .diary-btn { align-self: center; margin: 1rem auto 0; display: flex; }
+    .avatar-wrap { margin: 0 auto; }
+    .avatar { width: 140px; height: 140px; }
+    .avatar-ring { inset: -8px; }
+    .hero-name { font-size: 2rem; margin-bottom: 0.6rem; }
+    .hero-quote { font-size: 0.8rem; margin-bottom: 0.8rem; }
+    .hero-sub { font-size: 0.85rem; margin-bottom: 1.6rem; }
+    .hero-desc { font-size: 0.88rem; margin: 0 auto 2rem; max-width: 100%; line-height: 2.0; }
+    .hero-stats { justify-content: center; gap: 2.5rem; margin-bottom: 0.5rem; }
+    .hero-actions { justify-content: center; flex-wrap: wrap; gap: 0.75rem; }
+    .btn-primary, .btn-ghost { padding: 0.65rem 1.4rem; font-size: 0.85rem; }
+
+    /* SECTIONS */
+    section { padding: 3.5rem 1.2rem; }
+    .section-title { font-size: 1.5rem; }
+
+    /* TIMELINE */
+    .timeline { padding-left: 1.6rem; }
+    .timeline::before { left: 7px; }
+    .timeline-item { padding-left: 1rem; margin-bottom: 1.8rem; }
+    .timeline-item::before { left: -1.6rem; width: 10px; height: 10px; top: 0.5rem; }
+    .tl-meta { flex-wrap: wrap; gap: 0.5rem; row-gap: 0.4rem; }
+    .privacy-toggle { margin-left: auto; font-size: 0.68rem; }
+    .timeline-card { padding: 1.1rem 1.2rem; gap: 0.9rem; }
+    .tl-thumb { display: none; }
+    .tl-title { font-size: 0.95rem; }
+    .tl-body { font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .filter-btn { padding: 0.38rem 0.85rem; font-size: 0.78rem; }
+    .timeline-filter { gap: 0.5rem; margin-bottom: 2rem; }
+
+    /* STORY GRID */
+    .story-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .story-thumb { height: 110px; }
+    .story-body { padding: 0.9rem 1rem; }
+    .story-title { font-size: 0.85rem; }
+    .story-excerpt { font-size: 0.74rem; -webkit-line-clamp: 2; }
+
+    /* TIMECAPSULE */
+    .capsule-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .capsule-card { padding: 1.2rem 1.1rem 1.1rem; }
+    .capsule-title { font-size: 0.95rem; }
+    .capsule-excerpt { font-size: 0.8rem; }
+
+    /* GUESTBOOK */
+    .guestbook-compose { padding: 1.3rem; }
+    .compose-row { flex-direction: column; gap: 0.6rem; }
+    .compose-footer { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .btn-submit { padding: 0.7rem; text-align: center; border-radius: 10px; font-size: 0.88rem; }
+    .guest-header { flex-wrap: wrap; row-gap: 0.2rem; }
+    .guest-date { margin-left: auto; }
+    .guest-private-badge { flex-basis: 100%; margin-top: 0.2rem; }
+    .guest-message,
+    .guest-blurred { padding-left: 0; margin-top: 0.4rem; font-size: 0.84rem; }
+    .guest-heart { font-size: 0.78rem; bottom: 0.8rem; right: 1rem; }
+
+    /* PRIVACY PANEL → bottom sheet */
+    .privacy-panel-overlay { align-items: flex-end; }
+    .privacy-panel {
+      width: 100%; max-width: 100%;
+      border-radius: 24px 24px 0 0;
+      padding: 1.6rem 1.4rem 2rem;
+      animation: slideSheet 0.3s ease;
+    }
+    @keyframes slideSheet {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+    .privacy-option { padding: 0.85rem 1rem; }
+    .panel-actions { flex-direction: row; }
+    .btn-cancel, .btn-save { flex: 1; text-align: center; padding: 0.65rem; }
+
+    /* TOAST */
+    .toast { font-size: 0.78rem; padding: 0.6rem 1.2rem; bottom: 1.4rem; white-space: normal; text-align: center; max-width: 80vw; }
+  }
+
+  /* ──────────────────────────── RESPONSIVE · 480px (small mobile) */
+  @media (max-width: 480px) {
+    .capsule-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .story-grid { grid-template-columns: 1fr; }
+    .story-thumb { height: 130px; }
+    .hero-name { font-size: 1.8rem; }
+    .hero-stats { gap: 1.8rem; }
+    .stat-num { font-size: 1.3rem; }
+    section { padding: 3rem 1rem; }
+    .section-title { font-size: 1.35rem; }
+    .timeline { padding-left: 1.4rem; }
+    .timeline-item::before { left: -1.4rem; }
+    .add-memory-btn { font-size: 0.82rem; padding: 0.9rem 1rem; margin-left: 0; width: 100%; }
+    .nav-logo { font-size: 0.95rem; }
+  }
+  /* ──────────────────────────── MUSIC PLAYER */
+  .music-player {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .music-tooltip {
+    background: var(--deep-brown);
+    color: rgba(255,255,255,0.88);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    padding: 0.28rem 0.75rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+  .music-player:hover .music-tooltip,
+  .music-player:focus-within .music-tooltip { opacity: 1; transform: translateY(0); }
+  .music-btn {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--deep-brown);
+    border: 2px solid rgba(200, 169, 110, 0.45);
+    color: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(74, 53, 32, 0.35);
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    position: relative;
+    overflow: visible;
+  }
+  .music-btn:hover {
+    background: var(--warm-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(74, 53, 32, 0.4);
+  }
+  /* 재생 중 바깥 펄스 링 */
+  .music-btn::after {
+    content: '';
+    position: absolute; inset: -7px;
+    border-radius: 50%;
+    border: 2px solid rgba(200, 169, 110, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .music-btn.playing::after { opacity: 1; animation: mRing 1.8s ease-in-out infinite; }
+  @keyframes mRing {
+    0%   { transform: scale(1);    opacity: 0.7; }
+    60%  { transform: scale(1.18); opacity: 0; }
+    100% { transform: scale(1.18); opacity: 0; }
+  }
+  /* 음표 아이콘 */
+  .music-note {
+    font-size: 1.35rem;
+    line-height: 1;
+    transition: opacity 0.2s;
+    user-select: none;
+  }
+  /* 재생 중 음파 바 (음표 대체) */
+  .music-bars {
+    display: flex; align-items: flex-end; gap: 3px;
+    height: 18px;
+  }
+  .music-bars span {
+    display: block;
+    width: 3px; border-radius: 2px;
+    background: rgba(255,255,255,0.9);
+    animation: mBar 0.9s ease-in-out infinite alternate;
+  }
+  .music-bars span:nth-child(1) { height: 8px;  animation-delay: 0s; }
+  .music-bars span:nth-child(2) { height: 16px; animation-delay: 0.18s; }
+  .music-bars span:nth-child(3) { height: 10px; animation-delay: 0.36s; }
+  @keyframes mBar {
+    from { transform: scaleY(0.4); }
+    to   { transform: scaleY(1); }
+  }
+  @media (max-width: 480px) {
+    .music-player { bottom: 1.2rem; right: 1.2rem; }
+    .music-btn { width: 46px; height: 46px; }
+  }
+
+  /* ──────────────────────────── STORY MODAL */
+  .story-modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(74, 53, 32, 0.55);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+    padding: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    .story-modal-overlay,
+    .tl-modal-overlay { padding: 0.6rem; align-items: center; }
+    .story-modal,
+    .tl-modal { height: calc(100vh - 1.2rem); width: 100%; border-radius: 16px; max-width: 100%; }
+  }
+  .story-modal-overlay.open { display: flex; }
+  .story-modal {
+    background: var(--warm-cream);
+    border-radius: 24px;
+    max-width: 640px; width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+    position: relative;
+    animation: modalIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .story-modal-body {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: #c8b8a0 transparent;
+  }
+  .story-modal-body::-webkit-scrollbar { width: 4px; }
+  .story-modal-body::-webkit-scrollbar-track { background: transparent; }
+  .story-modal-body::-webkit-scrollbar-thumb { background: #c8b8a0; border-radius: 4px; }
+  .story-modal-body::-webkit-scrollbar-thumb:hover { background: #a89070; }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .story-modal-thumb {
+    width: 100%; height: 220px;
+    object-fit: cover;
+    border-radius: 24px 24px 0 0;
+    display: block;
+  }
+  .story-modal-body { padding: 2rem 2.2rem 2.5rem; }
+  .story-modal-category {
+    font-size: 0.72rem;
+    color: var(--muted-gold);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .story-modal-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.4rem;
+    color: var(--deep-brown);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  .story-modal-date {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 1.8rem;
+  }
+  .story-modal-content {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    line-height: 2.0;
+    white-space: pre-line;
+  }
+  .story-modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none; cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    transition: background 0.2s;
+  }
+  .story-modal-close:hover { background: rgba(255,255,255,0.35); }
+  .story-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .story-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--shadow-warm); }
+
+  /* ──────────────────────────── BRUNCH VIEWER */
+  .brunch-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 500;
+    background: var(--warm-cream);
+    overflow-y: auto;
+    animation: fadeIn 0.25s ease;
+  }
+  .brunch-overlay.open { display: block; }
+  .brunch-header {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%);
+    padding: 0 2rem;
+    height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brunch-back {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.88rem; color: rgba(255,255,255,0.9);
+    display: flex; align-items: center; gap: 0.4rem;
+    font-family: inherit; padding: 0;
+  }
+  .brunch-back:hover { color: #fff; }
+  .brunch-header-logo {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .brunch-header-logo span { color: rgba(255,255,255,0.6); }
+  .brunch-nav-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.82rem; color: rgba(255,255,255,0.85);
+    font-family: inherit; padding: 0.3rem 0.6rem;
+    border-radius: 4px; transition: all 0.2s;
+  }
+  .brunch-nav-btn:hover { color: #fff; background: rgba(255,255,255,0.15); }
+  .brunch-nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .brunch-nav-btn:disabled:hover { background: none; }
+  .brunch-nav-count { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+  .brunch-nav { display: flex; align-items: center; gap: 1rem; }
+  .brunch-hero-wrap {
+    position: relative; width: 100%; height: 360px; overflow: hidden;
+  }
+  .brunch-hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
+  .brunch-hero-img.jeju { object-position: center 70%; }
+  .brunch-article {
+    max-width: 680px; margin: 0 auto; padding: 2rem 2rem 3rem;
+  }
+  .brunch-category {
+    font-size: 0.72rem;
+    color: var(--muted-gold);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.8rem;
+  }
+  .brunch-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 2rem;
+    color: var(--deep-brown);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .brunch-date {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .brunch-content {
+    font-size: 1.05rem;
+    color: var(--text-sub);
+    line-height: 2.2;
+    white-space: pre-line;
+    word-break: keep-all;
+  }
+  .brunch-content p { margin-bottom: 1.8rem; }
+  @media (max-width: 768px) {
+    .brunch-hero-wrap { height: 320px; }
+    .brunch-title { font-size: 1.5rem; }
+    .brunch-content { font-size: 0.95rem; line-height: 2.0; }
+    .brunch-article { padding: 1.5rem 1.2rem 2rem; }
+    .brunch-header { padding: 0 1.2rem; }
+    .brunch-header-logo { display: none; }
+    .brunch-hero-img.jeju { object-position: center 70%; }
+    .brunch-reactions {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0 0 2rem;
+    }
+    .comment-row { border-radius: 8px; }
+  }
+
+  /* ──────────────────────────── BRUNCH REACTIONS */
+  .brunch-reactions {
+    margin: 2rem 0 0;
+    padding-bottom: 2rem;
+  }
+  .brunch-reaction-btns {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 2rem;
+  }
+  .reaction-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: transparent;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 24px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    height: 38px;
+  }
+  .reaction-btn:hover { border-color: var(--warm-brown); color: var(--warm-brown); }
+  .reaction-btn.liked { border-color: var(--soft-rose); color: var(--soft-rose); }
+  .reaction-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+  .brunch-comments { width: 100%; }
+  .brunch-comments-title {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1rem; font-weight: 500;
+    color: var(--deep-brown);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .brunch-comments-title span { color: var(--muted-gold); }
+  .comment-list { margin-bottom: 1.5rem; }
+  .comment-item {
+    display: flex; gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--warm-sand);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: var(--warm-brown);
+    font-weight: 500; flex-shrink: 0;
+  }
+  .comment-body { flex: 1; }
+  .comment-name { font-size: 0.82rem; font-weight: 500; color: var(--deep-brown); margin-bottom: 0.15rem; }
+  .comment-time { font-size: 0.72rem; color: var(--text-light); margin-bottom: 0.45rem; }
+  .comment-text { font-size: 0.88rem; color: var(--text-sub); line-height: 1.8; }
+  .comment-row {
+    display: flex; gap: 0; align-items: center;
+    border: 1.5px solid var(--border-soft);
+    border-radius: 12px; overflow: hidden;
+    background: #fff;
+  }
+  .comment-input {
+    flex: 1; padding: 0.85rem 1.2rem;
+    border: none; outline: none;
+    font-size: 0.88rem; font-family: inherit;
+    color: var(--text-main); background: transparent;
+    resize: none; height: 52px; line-height: 1.6;
+  }
+  .comment-submit {
+    background: var(--warm-brown); color: #fff;
+    border: none; padding: 0 1.4rem;
+    font-size: 0.82rem; cursor: pointer;
+    font-family: inherit; transition: background 0.2s;
+    white-space: nowrap;
+    margin: 0.5rem;
+    border-radius: 8px; height: 36px;
+    align-self: center;
+  }
+  .comment-submit:hover { background: var(--deep-brown); }
+  @media (max-width: 768px) {
+    .brunch-reactions { padding: 0 1.2rem 4rem; }
+  }
+  .brunch-footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--deep-brown);
+    color: rgba(255,255,255,0.5);
+    margin-top: 2rem;
+  }
+  .brunch-footer-quote {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+  .brunch-footer-sub { font-size: 0.78rem; letter-spacing: 0.08em; }
+
+  .tl-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    background: rgba(74, 53, 32, 0.55); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .tl-modal-overlay.open { display: flex; }
+  .tl-modal {
+    background: var(--warm-cream); border-radius: 24px;
+    max-width: 520px; width: 100%; height: 85vh;
+    overflow: hidden; position: relative;
+    animation: modalIn 0.3s ease;
+    display: flex; flex-direction: column;
+  }
+  .tl-modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 24px 24px 0 0; display: block; }
+  .tl-modal-header {
+    background: var(--deep-brown); padding: 1.2rem 1.8rem;
+    display: flex; align-items: center; gap: 1.2rem;
+    position: relative;
+  }
+  .tl-modal-year {
+    font-family: 'Noto Serif KR', serif; font-size: 3rem;
+    font-weight: 600; color: var(--muted-gold); line-height: 1;
+  }
+  .tl-modal-meta { display: flex; flex-direction: column; gap: 4px; }
+  .tl-modal-era { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+  .tl-modal-title-text { font-family: 'Noto Serif KR', serif; font-size: 1rem; color: rgba(255,255,255,0.92); }
+  .tl-modal-body {
+    padding: 1.5rem 1.8rem 2rem; overflow-y: auto; flex: 1;
+    scrollbar-width: thin; scrollbar-color: #c8b8a0 transparent;
+  }
+  .tl-modal-body::-webkit-scrollbar { width: 4px; }
+  .tl-modal-body::-webkit-scrollbar-thumb { background: #c8b8a0; border-radius: 4px; }
+  .tl-modal-content { font-size: 0.95rem; color: var(--text-sub); line-height: 2.0; white-space: pre-line; }
+  .tl-modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: none; cursor: pointer;
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    color: #fff; transition: background 0.2s;
+    z-index: 10;
+  }
+  .tl-modal-close:hover { background: rgba(255,255,255,0.35); }
+  .timeline-card { cursor: pointer; transition: transform 0.2s; }
+  .timeline-card:hover { transform: translateX(4px); }
+
+  .modal-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid var(--border-soft);
+    background: var(--warm-beige);
+    border-radius: 0 0 24px 24px;
+    flex-shrink: 0;
+  }
+  .modal-nav-btn {
+    background: transparent; border: 1.5px solid var(--warm-sand);
+    color: var(--warm-brown); border-radius: 20px;
+    padding: 0.4rem 1rem; font-size: 0.82rem;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .modal-nav-btn:hover { background: var(--warm-sand); }
+  .modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .modal-nav-btn:disabled:hover { background: transparent; }
+  .modal-nav-count { font-size: 0.78rem; color: var(--text-light); }
+
+  /* ──────────────────────────── AUTH MODAL */
+  .auth-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(74, 53, 32, 0.52);
+    backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+    padding: 1.5rem;
+  }
+  .auth-overlay.open { display: flex; }
+  .auth-modal {
+    background: var(--warm-cream);
+    border-radius: 24px;
+    padding: 2.5rem 2rem 2rem;
+    width: 100%; max-width: 400px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(74, 53, 32, 0.28);
+  }
+  .auth-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: none; font-size: 1.1rem;
+    color: var(--text-sub); cursor: pointer;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; transition: background 0.2s;
+  }
+  .auth-close:hover { background: var(--warm-beige); }
+  .auth-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.3rem; color: var(--deep-brown);
+    text-align: center; margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+  }
+  .auth-logo span { color: var(--muted-gold); }
+  .auth-tabs {
+    display: flex; margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-soft);
+  }
+  .auth-tab {
+    flex: 1; background: none; border: none;
+    padding: 0.6rem; font-size: 0.9rem;
+    color: var(--text-light); cursor: pointer;
+    font-family: inherit;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .auth-tab.active { color: var(--warm-brown); border-bottom-color: var(--warm-brown); }
+  .auth-input {
+    display: block; width: 100%;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem; font-family: inherit;
+    background: #fff; color: var(--text-main);
+    outline: none; margin-bottom: 0.75rem;
+    transition: border-color 0.2s;
+  }
+  .auth-input:focus { border-color: var(--warm-brown); }
+  .auth-submit {
+    display: block; width: 100%;
+    background: var(--warm-brown); color: #fff;
+    border: none; border-radius: 12px;
+    padding: 0.85rem; font-size: 0.9rem;
+    font-family: inherit; cursor: pointer;
+    transition: background 0.2s; margin-top: 0.25rem;
+  }
+  .auth-submit:hover { background: var(--deep-brown); }
+  .auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .auth-error {
+    color: var(--dusty-rose); font-size: 0.82rem;
+    text-align: center; margin-top: 0.75rem; min-height: 1.2em;
+  }
+  .nav-user-wrap { display: flex; align-items: center; gap: 0.6rem; }
+  .nav-user-name {
+    font-size: 0.82rem; color: var(--text-sub);
+    max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  nav.nav--compact .nav-user-name { max-width: none; font-size: 0.9rem; color: var(--text-main); padding: 0.5rem 0; }
+  .fb-loading {
+    text-align: center; color: var(--text-light);
+    font-size: 0.82rem; padding: 1.5rem;
+    animation: fbPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes fbPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <div class="nav-logo">Remain <span>·</span> <span class="nav-slogan">나를 기억할 누군가를 위해</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#profile"   onclick="closeNav()">프로필</a>
+    <a href="#timeline"  onclick="closeNav()">타임라인</a>
+    <a href="#story"     onclick="closeNav()">나의 이야기</a>
+    <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
+    <a href="#diary" onclick="closeNav()">오늘 한 줄</a>
+    <a href="#guestbook" onclick="closeNav()">방명록</a>
+    <div id="navAuthArea">
+      <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
+    </div>
+    <button class="nav-btn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══ HERO / PROFILE ═══ -->
+<section class="hero" id="profile">
+  <div class="hero-inner">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1664478206351-fe405c39756e?q=80&w=400&h=400&auto=format&fit=crop&crop=face"
+          alt="프로필 사진"
+          onerror="this.style.display='none'; this.parentElement.innerHTML+='🌸'">
+        <div class="avatar-ring"></div>
+      </div>
+      <div class="privacy-badge" onclick="openPrivacyPanel()">
+        <span class="privacy-dot" id="profileDot"></span>
+        <span id="profilePrivacyLabel">공개</span>
+      </div>
+    </div>
+    <div class="hero-info">
+      <div class="hero-quote">會者定離 — 만남이 있으면 이별이 있다</div>
+      <div class="hero-name">김 소 연</div>
+      <div class="hero-sub">1985 · 서울 — 작가 &amp; 사진가</div>
+      <p class="hero-desc">
+        "모든 만남은 결국 이별로 이어진다.<br>
+        하지만 그 순간순간의 온기는 영원히 내 안에 남는다.<br>
+        이곳은 내가 지나온 시간들의 작은 흔적들."
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">38</div>
+          <div class="stat-label">년의 시간</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">124</div>
+          <div class="stat-label">개의 기억</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">87</div>
+          <div class="stat-label">방명록</div>
+        </div>
+      </div>
+      <button class="diary-btn" onclick="showToast('하루 한 줄 일기 기능은 준비 중입니다')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        오늘 하루 한 줄 남기기
+      </button>
+      <div class="hero-services">
+        <button class="service-btn" onclick="showToast('회고록 제작 서비스는 준비 중입니다')">
+          <span class="service-btn-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
+          <span class="service-btn-text">
+            <span class="service-btn-label">디지털 인쇄</span>
+            <span class="service-btn-name">회고록 만들기</span>
+          </span>
+        </button>
+        <button class="service-btn" onclick="showToast('동영상 서비스는 준비 중입니다')">
+          <span class="service-btn-icon">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </span>
+          <span class="service-btn-text">
+            <span class="service-btn-label">유튜브 채널</span>
+            <span class="service-btn-name">동영상 서비스</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TIMELINE ═══ -->
+<section id="timeline">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Timeline</div>
+      <h2 class="section-title">시대별 타임라인</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="timeline-filter">
+      <button class="filter-btn active" onclick="filterTimeline(this, 'all')">전체</button>
+      <button class="filter-btn" onclick="filterTimeline(this, '유년')">유년기</button>
+      <button class="filter-btn" onclick="filterTimeline(this, '청소년')">청소년기</button>
+      <button class="filter-btn" onclick="filterTimeline(this, '청년')">청년기</button>
+      <button class="filter-btn" onclick="filterTimeline(this, '장년')">장년기</button>
+    </div>
+
+    <div class="timeline" id="timelineList">
+
+      <div class="timeline-item" data-era="유년">
+        <div class="timeline-card" onclick="openTimeline(0)" style="cursor:pointer;">
+          <img class="tl-thumb tl-thumb--유년" src="images/tl-1985.jpg" alt="1985">
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">1985</span>
+              <span class="tl-tag">유년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch on" id="tl1">
+                  <div class="toggle-knob"></div>
+                </div>
+                공개
+              </label>
+            </div>
+            <div class="tl-title">서울 마포구, 어느 봄날의 탄생</div>
+            <div class="tl-body">벚꽃이 한창이던 4월, 합정동 골목 끝 작은 산부인과에서 태어났다. 엄마는 내가 울음을 터뜨리는 순간 창밖으로 꽃잎이 흩날렸다고 했다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-era="유년">
+        <div class="timeline-card" onclick="openTimeline(1)" style="cursor:pointer;">
+          <img class="tl-thumb tl-thumb--유년" src="images/tl-1991.jpg" alt="1991">
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">1991</span>
+              <span class="tl-tag">유년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch on" id="tl2">
+                  <div class="toggle-knob"></div>
+                </div>
+                공개
+              </label>
+            </div>
+            <div class="tl-title">초등학교 입학 선물로, 처음으로 받은 일기장</div>
+            <div class="tl-body">초등학교 입학 선물로 외할머니께 받은 꽃무늬 일기장. 그날부터 글쓰기가 시작되었다. 첫 번째 문장은 “오늘 학교 갔다. 친구가 생겼다.”</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item private" data-era="청소년">
+        <div class="timeline-card private-card">
+          <div class="tl-thumb tl-thumb--private"><span class="lock-icon">🔒</span><span class="lock-label">비공개</span></div>
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">1999</span>
+              <span class="tl-tag">청소년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch private-on" id="tl3">
+                  <div class="toggle-knob"></div>
+                </div>
+                비공개
+              </label>
+            </div>
+            <div class="tl-title">🔒 비공개 기억</div>
+            <div class="tl-locked">
+              <span class="lock-icon">🌙</span>
+              <span>이 기억은 나만 볼 수 있습니다</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-era="청소년">
+        <div class="timeline-card" onclick="openTimeline(2)" style="cursor:pointer;">
+          <img class="tl-thumb tl-thumb--청소년" src="images/tl-2003.jpg" alt="2003">
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">2003</span>
+              <span class="tl-tag">청소년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch on" id="tl4">
+                  <div class="toggle-knob"></div>
+                </div>
+                공개
+              </label>
+            </div>
+            <div class="tl-title">첫 필름 카메라, 세상을 담다</div>
+            <div class="tl-body">고3 수능 후 삼촌에게 물려받은 낡은 펜탁스 필름 카메라. 36장 짜리 필름 한 롤로 온 동네를 누비던 그 겨울이 아직도 손가락 끝에 남아 있다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-era="청년">
+        <div class="timeline-card" onclick="openTimeline(3)" style="cursor:pointer;">
+          <img class="tl-thumb tl-thumb--청년" src="images/tl-2007.jpg" alt="2007">
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">2007</span>
+              <span class="tl-tag">청년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch on" id="tl5">
+                  <div class="toggle-knob"></div>
+                </div>
+                공개
+              </label>
+            </div>
+            <div class="tl-title">대학 졸업, 첫 번째 여행 — 교토</div>
+            <div class="tl-body">졸업식 다음날 혼자 비행기를 탔다. 기온의 새벽 골목, 아무도 없는 신사 앞에서 처음으로 ‘혼자여도 괜찮다’는 걸 느꼈다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item private" data-era="청년">
+        <div class="timeline-card private-card">
+          <div class="tl-thumb tl-thumb--private"><span class="lock-icon">🔒</span><span class="lock-label">비공개</span></div>
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">2010</span>
+              <span class="tl-tag">청년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch private-on" id="tl6">
+                  <div class="toggle-knob"></div>
+                </div>
+                비공개
+              </label>
+            </div>
+            <div class="tl-title">🔒 비공개 기억</div>
+            <div class="tl-locked">
+              <span class="lock-icon">🌙</span>
+              <span>이 기억은 나만 볼 수 있습니다</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-era="장년">
+        <div class="timeline-card" onclick="openTimeline(4)" style="cursor:pointer;">
+          <img class="tl-thumb tl-thumb--장년" src="images/tl-2018.jpg" alt="2018">
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-year">2018</span>
+              <span class="tl-tag">장년기</span>
+              <label class="privacy-toggle" onclick="togglePrivacy(this)">
+                <div class="toggle-switch on" id="tl7">
+                  <div class="toggle-knob"></div>
+                </div>
+                공개
+              </label>
+            </div>
+            <div class="tl-title">첫 사진집 출판 &lt;잔향(殘香)&gt;</div>
+            <div class="tl-body">10년간 모은 필름 사진들로 엮은 첫 사진집. 발간일 책방 한켠에서 혼자 책을 펼쳐 보다가 울컥했다. 이게 내 삶이구나, 싶었다.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="add-memory-btn" onclick="showToast('새 기억 추가 기능은 준비 중입니다')">
+      <span>+</span> 새 기억 추가하기
+    </button>
+  </div>
+</section>
+
+<!-- ═══ MY STORY ═══ -->
+<section id="story">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">My Story</div>
+      <h2 class="section-title">나의 이야기</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="story-grid">
+
+      <div class="story-card" onclick="openStory(0)">
+        <div class="story-thumb story-thumb-1"><img src="https://images.unsplash.com/photo-1717920954807-86a047abc2e6?w=600&auto=format&fit=crop&q=80" alt="유년기" loading="lazy"></div>
+        <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
+        <div class="story-body">
+          <div class="story-category">CHILDHOOD · 유년</div>
+          <div class="story-title">골목길 끝 할머니네 마당</div>
+          <div class="story-excerpt">여름마다 할머니네 마당에는 해바라기가 가득 피었다. 나는 그 사이에 숨어서 매미 소리를 들으며 낮잠을 잤다...</div>
+          <div class="story-footer">
+            <span class="story-date">1991년 여름</span>
+            <span class="story-hearts">♥ 24</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="openStory(1)">
+        <div class="story-thumb story-thumb-2"><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&auto=format&fit=crop&q=80" alt="청년기" loading="lazy"></div>
+        <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
+        <div class="story-body">
+          <div class="story-category">YOUTH · 청년</div>
+          <div class="story-title">필름 한 롤로 담은 홍대 앞 1997</div>
+          <div class="story-excerpt">36컷. 그 시절 홍대는 지금과 달랐다. 인디 밴드들이 골목마다 넘쳐났고, 모두가 뭔가를 만들고 있었다...</div>
+          <div class="story-footer">
+            <span class="story-date">1997년 가을</span>
+            <span class="story-hearts">♥ 41</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="openStory(2)">
+        <div class="story-thumb story-thumb-3"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80" alt="여행" loading="lazy"></div>
+        <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
+        <div class="story-body">
+          <div class="story-category">JOURNEY · 여행</div>
+          <div class="story-title">교토에서 혼자 맞은 새벽</div>
+          <div class="story-excerpt">새벽 4시, 후시미 이나리의 도리이 사이로 새벽빛이 스며들었다. 고요함 속에서 내가 얼마나 작은 존재인지 느꼈다...</div>
+          <div class="story-footer">
+            <span class="story-date">2007년 3월</span>
+            <span class="story-hearts">♥ 68</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="showToast('비공개 이야기입니다')">
+        <div class="story-thumb story-thumb-4"><img src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=280&fit=crop&auto=format" alt="비공개" loading="lazy"></div>
+        <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> 비공개</div>
+        <div class="story-body">
+          <div class="story-category">PRIVATE · 비공개</div>
+          <div class="story-title">🔒 나만 보는 이야기</div>
+          <div class="story-excerpt" style="filter:blur(3px)">이 이야기는 비공개로 설정되어 있습니다. 나만 볼 수 있는 소중한 기억...</div>
+          <div class="story-footer">
+            <span class="story-date">2010년 봄</span>
+            <span class="story-hearts">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="openStory(3)">
+        <div class="story-thumb story-thumb-5"><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&auto=format&fit=crop&q=80" alt="창작" loading="lazy"></div>
+        <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 공개</div>
+        <div class="story-body">
+          <div class="story-category">CREATION · 창작</div>
+          <div class="story-title">사진집 &lt;잔향&gt; 을 만들기까지</div>
+          <div class="story-excerpt">10년치 필름을 꺼내 빛에 비춰보던 밤들. 어떤 것은 버리고 어떤 것은 품었는지, 그 선택의 이야기...</div>
+          <div class="story-footer">
+            <span class="story-date">2018년</span>
+            <span class="story-hearts">♥ 92</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="openStory(4)">
+        <div class="story-thumb story-thumb-6"><img src="https://images.unsplash.com/photo-1612977512598-3b8d6a498bbb?w=600&auto=format&fit=crop&q=80" alt="현재" loading="lazy"></div>
+        <div class="story-card-privacy"><svg class="ic-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 친구공개</div>
+        <div class="story-body">
+          <div class="story-category">NOW · 현재</div>
+          <div class="story-title">제주에서의 1년, 지금 이 순간</div>
+          <div class="story-excerpt">돌담 사이 바람 소리가 좋아서 내려왔다. 매일 새벽 오름을 오르며 내가 진짜 원하는 것이 무엇인지 물어보고 있다...</div>
+          <div class="story-footer">
+            <span class="story-date">2024년</span>
+            <span class="story-hearts">♥ 37</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="add-story-btn" onclick="showToast('새 이야기 추가 기능은 준비 중입니다')">
+      <span>+</span> 새 이야기 쓰기
+    </button>
+  </div>
+</section>
+
+<!-- ═══ TIMECAPSULE ═══ -->
+<section id="timecapsule">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Time Capsule</div>
+      <h2 class="section-title">타임캡슐</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="capsule-grid">
+
+      <div class="capsule-card" onclick="showToast('2030년 1월 1일에 열 수 있습니다')">
+        <div class="capsule-icon">📦</div>
+        <div class="capsule-open-date">Open · 2030년 1월 1일</div>
+        <div class="capsule-title">10년 후의 나에게</div>
+        <div class="capsule-excerpt">지금의 나는 제주에 살고 있다. 10년 뒤에도 이 바람 소리가 기억날까. 그때의 나는 어디에 있을까...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('2027년 12월 31일에 열 수 있습니다')">
+        <div class="capsule-icon">💌</div>
+        <div class="capsule-open-date">Open · 2027년 12월 31일</div>
+        <div class="capsule-title">딸에게 남기는 편지</div>
+        <div class="capsule-excerpt">네가 스무 살이 되는 날 읽어줬으면 해. 아빠가 지금 너에게 하고 싶은 말들을 여기 담아두었어...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('D+100일에 열 수 있습니다')">
+        <div class="capsule-icon">💑</div>
+        <div class="capsule-open-date">Open · D+100일 · 2026년 6월 14일</div>
+        <div class="capsule-title">우리의 100일 타임캡슐</div>
+        <div class="capsule-excerpt">처음 만난 날 우리가 서로에게 남긴 말들. 100일 후의 우리는 어떤 모습일까. 그때 같이 열어보자...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+    </div>
+    <button class="add-capsule-btn" onclick="showToast('타임캡슐 추가 기능은 준비 중입니다')">
+      <span>+</span> 새 타임캡슐 만들기
+    </button>
+  </div>
+</section>
+
+<!-- ═══ GUESTBOOK ═══ -->
+<section id="guestbook">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Guestbook</div>
+      <h2 class="section-title">방명록</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Compose -->
+    <div class="guestbook-compose">
+      <div class="compose-header">이곳에 발자국을 남겨주세요</div>
+      <div class="compose-row">
+        <input class="compose-input" placeholder="이름 또는 닉네임" maxlength="20">
+        <input class="compose-input" placeholder="관계 (친구, 동료, 가족...)" maxlength="20">
+      </div>
+      <textarea class="compose-textarea" placeholder="소연에게 전하고 싶은 말을 남겨주세요. 따뜻한 기억이나 안부도 좋아요."></textarea>
+      <div class="compose-footer">
+        <label class="compose-privacy">
+          <input type="checkbox" id="privateCheck">
+          🔒 나와 작성자만 보기 (비공개)
+        </label>
+        <button class="btn-submit" onclick="submitGuestbook()">남기기</button>
+      </div>
+    </div>
+
+    <!-- Entries -->
+    <div class="guestbook-list" id="guestbookList">
+
+      <div class="guest-entry">
+        <div class="guest-header">
+          <div class="guest-avatar ga-1">🌷</div>
+          <div>
+            <div class="guest-name">박 지 현</div>
+            <div class="guest-relation">대학 동기 · 20년 지기</div>
+          </div>
+          <div class="guest-date">2024.11.03</div>
+        </div>
+        <div class="guest-message">소연아, 네 사진집을 받던 날 한참을 울었어. 네가 담은 빛들이 다 내가 아는 너였거든. 앞으로도 오래오래, 네가 보는 세상을 계속 담아줘. 사랑해. 🌸</div>
+        <div class="guest-heart" onclick="likeEntry(this)">♥ 12</div>
+      </div>
+
+      <div class="guest-entry private-entry" style="position:relative;">
+        <div class="guest-header">
+          <div class="guest-avatar ga-2">🌊</div>
+          <div>
+            <div class="guest-name">익명</div>
+            <div class="guest-relation">비공개 메시지</div>
+          </div>
+          <div class="guest-date">2024.10.28</div>
+          <span class="guest-private-badge">🔒 비공개</span>
+        </div>
+        <div class="guest-blurred">이 메시지는 비공개로 남겨진 내용입니다. 작성자와 소연씨만 볼 수 있어요.</div>
+        <div class="guest-locked-overlay">
+          <span>🔒</span> <span>비공개 메시지입니다</span>
+        </div>
+      </div>
+
+      <div class="guest-entry">
+        <div class="guest-header">
+          <div class="guest-avatar ga-3">🍂</div>
+          <div>
+            <div class="guest-name">이 승 호</div>
+            <div class="guest-relation">필름 사진 모임 선배</div>
+          </div>
+          <div class="guest-date">2024.10.15</div>
+        </div>
+        <div class="guest-message">처음 모임에서 만났을 때 펜탁스 들고 온 꼬맹이가 이렇게 훌륭한 사진가가 됐네. 다음 작업도 기대할게요. 잔향, 정말 좋았습니다.</div>
+        <div class="guest-heart" onclick="likeEntry(this)">♥ 8</div>
+      </div>
+
+      <div class="guest-entry">
+        <div class="guest-header">
+          <div class="guest-avatar ga-4">🌿</div>
+          <div>
+            <div class="guest-name">최 민 서</div>
+            <div class="guest-relation">제주 이웃</div>
+          </div>
+          <div class="guest-date">2024.09.22</div>
+        </div>
+        <div class="guest-message">오름 새벽에서 만난 이웃이 이런 아카이브를 가지고 있었다니요. 조용하고 따뜻한 글들 잘 읽고 갑니다. 제주 생활 응원해요 ☁️</div>
+        <div class="guest-heart" onclick="likeEntry(this)">♥ 5</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-quote">會者定離 · 去者必返</div>
+  <div class="footer-sub">나를 기억할 누군가를 위해 · Remain</div>
+</footer>
+
+<!-- PRIVACY PANEL -->
+<div class="privacy-panel-overlay" id="privacyOverlay" onclick="closePrivacyPanel(event)">
+  <div class="privacy-panel">
+    <div class="panel-title">공개 범위 설정</div>
+    <div class="panel-subtitle">내 아카이브를 누가 볼 수 있는지 설정합니다</div>
+
+    <div class="privacy-option selected" onclick="selectPrivacy(this, 'public')">
+      <svg class="privacy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <div>
+        <div class="privacy-label">전체 공개</div>
+        <div class="privacy-desc">누구든지 내 아카이브를 볼 수 있습니다</div>
+      </div>
+    </div>
+    <div class="privacy-option" onclick="selectPrivacy(this, 'friends')">
+      <svg class="privacy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div>
+        <div class="privacy-label">친구 공개</div>
+        <div class="privacy-desc">내가 승인한 사람만 볼 수 있습니다</div>
+      </div>
+    </div>
+    <div class="privacy-option" onclick="selectPrivacy(this, 'link')">
+      <svg class="privacy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <div>
+        <div class="privacy-label">링크 공유</div>
+        <div class="privacy-desc">링크를 가진 사람만 볼 수 있습니다</div>
+      </div>
+    </div>
+    <div class="privacy-option" onclick="selectPrivacy(this, 'private')">
+      <svg class="privacy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div>
+        <div class="privacy-label">나만 보기</div>
+        <div class="privacy-desc">오직 나만 볼 수 있습니다</div>
+      </div>
+    </div>
+
+    <div class="panel-actions">
+      <button class="btn-cancel" onclick="closePrivacyPanel()">취소</button>
+      <button class="btn-save" onclick="savePrivacy()">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MUSIC PLAYER -->
+<div class="music-player" id="musicPlayerWrap">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="배경음악 재생">
+    <span class="music-note" id="musicNote">♪</span>
+    <span class="music-bars" id="musicBars" style="display:none">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+</div>
+
+<script>
+  // ── TOAST
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // ── TIMELINE TOGGLE
+  function togglePrivacy(label) {
+    const sw = label.querySelector('.toggle-switch');
+    const item = label.closest('.timeline-item');
+    const isOn = sw.classList.contains('on') || sw.classList.contains('private-on');
+
+    if (isOn) {
+      sw.classList.remove('on');
+      sw.classList.add('private-on');
+      label.childNodes[label.childNodes.length - 1].textContent = ' 비공개';
+      item.classList.add('private');
+      const card = item.querySelector('.timeline-card');
+      card.classList.add('private-card');
+      const titleEl = card.querySelector('.tl-title');
+      const bodyEl = card.querySelector('.tl-body');
+      if (bodyEl) {
+        card.dataset.savedTitle = titleEl.textContent;
+        card.dataset.savedBody  = bodyEl.textContent;
+        titleEl.textContent = '🔒 비공개 기억';
+        bodyEl.outerHTML = `<div class="tl-locked"><span class="lock-icon">🌙</span><span>이 기억은 나만 볼 수 있습니다</span></div>`;
+      }
+      showToast('비공개로 전환되었습니다');
+    } else {
+      sw.classList.remove('private-on');
+      sw.classList.add('on');
+      label.childNodes[label.childNodes.length - 1].textContent = ' 공개';
+      item.classList.remove('private');
+      const card = item.querySelector('.timeline-card');
+      card.classList.remove('private-card');
+      const titleEl = card.querySelector('.tl-title');
+      const lockedEl = card.querySelector('.tl-locked');
+      if (lockedEl && card.dataset.savedTitle) {
+        titleEl.textContent = card.dataset.savedTitle;
+        lockedEl.outerHTML = `<div class="tl-body">${card.dataset.savedBody}</div>`;
+      }
+      showToast('공개로 전환되었습니다');
+    }
+  }
+
+  // ── TIMELINE FILTER
+  function filterTimeline(btn, era) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      item.style.display = (era === 'all' || item.dataset.era === era) ? '' : 'none';
+    });
+  }
+
+  // ── PRIVACY PANEL
+  let selectedPrivacy = 'public';
+  function openPrivacyPanel() {
+    document.getElementById('privacyOverlay').classList.add('open');
+  }
+  function closePrivacyPanel(e) {
+    if (!e || e.target === document.getElementById('privacyOverlay'))
+      document.getElementById('privacyOverlay').classList.remove('open');
+  }
+  function selectPrivacy(el, val) {
+    document.querySelectorAll('.privacy-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPrivacy = val;
+  }
+  function savePrivacy() {
+    const labels = { public: '공개', friends: '친구공개', link: '링크공개', private: '비공개' };
+    const dots   = { public: true, friends: false, link: false, private: false };
+    const dot = document.getElementById('profileDot');
+    const lbl = document.getElementById('profilePrivacyLabel');
+    lbl.textContent = labels[selectedPrivacy];
+    dot.classList.toggle('private', !dots[selectedPrivacy]);
+    closePrivacyPanel();
+    showToast(`공개 설정이 "${labels[selectedPrivacy]}"으로 저장되었습니다`);
+  }
+
+  // ── GUESTBOOK SUBMIT (Firestore)
+  async function submitGuestbook() {
+    if (!currentUser) {
+      showToast('방명록을 작성하려면 로그인이 필요합니다');
+      openAuth();
+      return;
+    }
+    const isPrivate = document.getElementById('privateCheck').checked;
+    const inputs    = document.querySelectorAll('.compose-input');
+    const name      = inputs[0].value.trim() || currentUser.displayName || '익명';
+    const relation  = inputs[1] ? inputs[1].value.trim() : '';
+    const msg       = document.querySelector('.compose-textarea').value.trim();
+    if (!msg) { showToast('메시지를 입력해주세요'); return; }
+
+    const btn = document.querySelector('.btn-submit');
+    btn.disabled = true;
+    try {
+      const docRef = await db.collection('guestbook').add({
+        uid: currentUser.uid,
+        name, relation, message: msg,
+        isPrivate, likes: 0,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      const icons  = ['🌸','🌿','🌙','☁️','🍂','🌊'];
+      const colors = ['ga-1','ga-2','ga-3','ga-4'];
+      const icon   = icons[Math.floor(Math.random() * icons.length)];
+      const color  = colors[Math.floor(Math.random() * colors.length)];
+      const today  = new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'');
+
+      const entry = document.createElement('div');
+      entry.className = `guest-entry fb-entry${isPrivate ? ' private-entry' : ''}`;
+      entry.dataset.docId = docRef.id;
+      if (isPrivate) {
+        entry.innerHTML = `
+          <div class="guest-header">
+            <div class="guest-avatar ${color}">${icon}</div>
+            <div><div class="guest-name">${escHtml(name)}</div><div class="guest-relation">${escHtml(relation)}</div></div>
+            <div class="guest-date">${today}</div>
+            <span class="guest-private-badge">🔒 비공개</span>
+          </div>
+          <div class="guest-message">${escHtml(msg)}</div>`;
+      } else {
+        entry.innerHTML = `
+          <div class="guest-header">
+            <div class="guest-avatar ${color}">${icon}</div>
+            <div><div class="guest-name">${escHtml(name)}</div><div class="guest-relation">${escHtml(relation)}</div></div>
+            <div class="guest-date">${today}</div>
+          </div>
+          <div class="guest-message">${escHtml(msg)}</div>
+          <div class="guest-heart" onclick="likeEntry(this)">♥ 0</div>`;
+      }
+      document.getElementById('guestbookList').insertBefore(entry, document.getElementById('guestbookList').firstChild);
+      inputs.forEach(i => i.value = '');
+      document.querySelector('.compose-textarea').value = '';
+      document.getElementById('privateCheck').checked = false;
+      showToast('방명록에 남겨주셔서 감사합니다 🌸');
+    } catch (e) {
+      showToast('저장 중 오류가 발생했습니다');
+      console.error(e);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── LIKE
+  function likeEntry(el) {
+    const parts = el.textContent.split(' ');
+    const n = parseInt(parts[1] || '0') + 1;
+    el.textContent = '♥ ' + n;
+    el.style.color = '#b07a70';
+    el.style.transform = 'scale(1.3)';
+    setTimeout(() => { el.style.transform = ''; }, 200);
+  }
+
+  // ── MOBILE NAV · ResizeObserver로 실제 overflow 감지 → nav--compact 토글
+  const _nav    = document.getElementById('mainNav');
+  const _links  = document.getElementById('navLinks');
+  const _burger = document.getElementById('navHamburger');
+
+  function checkNavOverflow() {
+    // 임시로 링크를 화면 밖에 펼쳐서 자연 너비 측정 (레이아웃 깜빡임 없음)
+    const saved = _links.getAttribute('style') || '';
+    _links.setAttribute('style',
+      'display:flex;visibility:hidden;position:fixed;top:-9999px;left:0;pointer-events:none;white-space:nowrap;gap:2rem;');
+    const neededW = _nav.querySelector('.nav-logo').offsetWidth
+                  + _links.offsetWidth
+                  + 64; // 좌우 패딩 여유
+    _links.setAttribute('style', saved);
+
+    const compact = neededW > _nav.offsetWidth;
+    _nav.classList.toggle('nav--compact', compact);
+    if (!compact) closeNav(); // 창이 넓어지면 열린 메뉴 닫기
+  }
+
+  // 폰트 로드 후 + 창 크기 변경 시 재측정
+  document.fonts.ready.then(checkNavOverflow);
+  new ResizeObserver(checkNavOverflow).observe(_nav);
+
+  function toggleNav() {
+    _links.classList.toggle('open');
+    _burger.classList.toggle('open');
+    _burger.setAttribute('aria-label',
+      _links.classList.contains('open') ? '메뉴 닫기' : '메뉴 열기');
+  }
+  function closeNav() {
+    _links.classList.remove('open');
+    _burger.classList.remove('open');
+  }
+  // nav 바깥 클릭 시 닫기
+  document.addEventListener('click', e => {
+    if (!_nav.contains(e.target)) closeNav();
+  });
+
+  // ── BACKGROUND MUSIC (YouTube: Yiruma - River Flows in You)
+  let _ytPlayer = null;
+  let _ytReady  = false;
+
+  window.onYouTubeIframeAPIReady = function() {
+    _ytPlayer = new YT.Player('ytPlayer', {
+      videoId: '7maJOI3QMu0',
+      playerVars: { autoplay: 0, loop: 1, playlist: '7maJOI3QMu0',
+                    controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },
+      events: {
+        onReady: function() { _ytReady = true; },
+        onStateChange: function(e) {
+          if (e.data === YT.PlayerState.PLAYING) _setMusicUI(true);
+          if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) _setMusicUI(false);
+        }
+      }
+    });
+  };
+
+  function toggleMusic() {
+    if (!_ytReady || !_ytPlayer) { showToast('플레이어 준비 중입니다. 잊시 후 다시 시도해주세요.'); return; }
+    var s = _ytPlayer.getPlayerState();
+    if (s === YT.PlayerState.PLAYING) { _ytPlayer.pauseVideo(); }
+    else { _ytPlayer.playVideo(); }
+  }
+
+  function _setMusicUI(playing) {
+    const btn     = document.getElementById('musicBtn');
+    const note    = document.getElementById('musicNote');
+    const bars    = document.getElementById('musicBars');
+    btn.classList.toggle('playing', playing);
+    note.style.display  = playing ? 'none' : '';
+    bars.style.display  = playing ? 'flex' : 'none';
+    btn.setAttribute('aria-label', playing ? '배경음악 정지' : '배경음악 재생');
+  }
+
+  // ── COPY LINK
+  function copyLink() {
+    const url = window.location.href;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+        .then(() => showToast('링크가 복사됐습니다'))
+        .catch(() => _fallbackCopy(url));
+    } else {
+      _fallbackCopy(url);
+    }
+  }
+  function _fallbackCopy(text) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+    document.body.appendChild(el);
+    el.select();
+    try {
+      document.execCommand('copy');
+      showToast('링크가 복사됐습니다');
+    } catch {
+      showToast('복사에 실패했습니다. URL을 직접 복사해주세요.');
+    }
+    document.body.removeChild(el);
+  }
+
+  // ── SAKURA
+  (function initSakura() {
+    const hero = document.getElementById('profile');
+    if (!hero) return;
+
+    const PETAL_COUNT = 18;
+    // 벚꽃잎 SVG 모양 3종 (은은한 핑크 계열)
+    const petalShapes = [
+      // 타원형 꽃잎
+      `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+        <ellipse cx="6" cy="8" rx="5" ry="7.5" fill="#f2c4ce" fill-opacity="0.75" transform="rotate(-15 6 8)"/>
+      </svg>`,
+      // 살짝 뾰족한 꽃잎
+      `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="14" viewBox="0 0 10 14">
+        <path d="M5 0 C8 3 9 8 5 14 C1 8 2 3 5 0Z" fill="#e8b4bf" fill-opacity="0.7"/>
+      </svg>`,
+      // 작고 동그란 꽃잎
+      `<svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11">
+        <ellipse cx="4.5" cy="5.5" rx="4" ry="5" fill="#f5cdd5" fill-opacity="0.65"/>
+      </svg>`,
+    ];
+
+    for (let i = 0; i < PETAL_COUNT; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'sakura-petal';
+
+      const shape = petalShapes[i % petalShapes.length];
+      petal.innerHTML = shape;
+
+      const size = 0.7 + Math.random() * 0.9;          // 0.7 ~ 1.6 배율
+      const left = Math.random() * 100;                 // 0~100%
+      const duration = 10 + Math.random() * 14;         // 10~24s
+      const delay = -(Math.random() * duration);        // 자연스러운 시작 분산
+      const drift = (Math.random() - 0.5) * 120;        // 좌우 흔들림 -60~60px
+
+      petal.style.cssText = `
+        left: ${left}%;
+        animation-duration: ${duration}s;
+        animation-delay: ${delay}s;
+        --drift: ${drift}px;
+        transform: scale(${size});
+        transform-origin: center;
+      `;
+
+      hero.appendChild(petal);
+    }
+  })();
+
+  // ── SMOOTH SCROLL
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+<!-- BRUNCH VIEWER -->
+<div class="brunch-overlay" id="brunchViewer">
+  <div class="brunch-hero-wrap">
+    <div class="brunch-header">
+      <button class="brunch-back" onclick="closeBrunch()">← 나의 이야기</button>
+      <div class="brunch-header-logo">Remain <span>·</span> <span class="slogan">나를 기억할 누군가를 위해</span></div>
+      <div class="brunch-nav">
+        <button class="brunch-nav-btn" id="brunchPrev" onclick="moveBrunch(-1)">← 이전</button>
+        <span class="brunch-nav-count" id="brunchCount"></span>
+        <button class="brunch-nav-btn" id="brunchNext" onclick="moveBrunch(1)">다음 →</button>
+      </div>
+    </div>
+    <img class="brunch-hero-img" id="brunchImg" src="" alt="">
+  </div>
+  <div class="brunch-article">
+    <div class="brunch-category" id="brunchCategory"></div>
+    <div class="brunch-title" id="brunchTitle"></div>
+    <div class="brunch-date" id="brunchDate"></div>
+    <div class="brunch-content" id="brunchContent"></div>
+    <div class="brunch-reactions">
+      <div class="brunch-reaction-btns">
+        <button class="reaction-btn" id="likeBtn" onclick="toggleLike()">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span id="likeCount">0</span>
+        </button>
+        <button class="reaction-btn" onclick="focusComment()">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          댓글 <span id="commentCount">0</span>
+        </button>
+      </div>
+      <div class="brunch-comments">
+        <div class="brunch-comments-title">댓글 <span id="commentCountTitle">0</span></div>
+        <div class="comment-list" id="commentList"></div>
+        <div class="comment-row">
+          <input class="comment-input" id="commentInput" placeholder="댓글을 남겨보세요" maxlength="200">
+          <button class="comment-submit" onclick="submitComment()">등록</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="brunch-footer">
+      <div class="brunch-footer-quote">會者定離 · 去者必返</div>
+      <div class="brunch-footer-sub">나를 기억할 누군가를 위해 · Remain</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE MODAL -->
+<div class="tl-modal-overlay" id="tlModal" onclick="closeTlModal(event)">
+  <div class="tl-modal">
+    <img class="tl-modal-img" id="tlModalImg" src="" alt="">
+    <button class="tl-modal-close" onclick="closeTlModalBtn()">✕</button>
+    <div class="tl-modal-header">
+      <div class="tl-modal-year" id="tlModalYear"></div>
+      <div class="tl-modal-meta">
+        <div class="tl-modal-era" id="tlModalEra"></div>
+        <div class="tl-modal-title-text" id="tlModalTitle"></div>
+      </div>
+    </div>
+    <div class="tl-modal-body">
+      <div class="tl-modal-content" id="tlModalContent"></div>
+    </div>
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="tlPrev" onclick="moveTl(-1)">← 이전</button>
+      <span class="modal-nav-count" id="tlCount"></span>
+      <button class="modal-nav-btn" id="tlNext" onclick="moveTl(1)">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STORY MODAL -->
+<div class="story-modal-overlay" id="storyModal" onclick="closeStory(event)">
+  <div class="story-modal">
+    <button class="story-modal-close" onclick="closeStoryBtn()">✕</button>
+    <img class="story-modal-thumb" id="modalThumb" src="" alt="">
+    <div class="story-modal-body">
+      <div class="story-modal-category" id="modalCategory"></div>
+      <div class="story-modal-title" id="modalTitle"></div>
+      <div class="story-modal-date" id="modalDate"></div>
+      <div class="story-modal-content" id="modalContent"></div>
+    </div>
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="storyPrev" onclick="moveStory(-1)">← 이전</button>
+      <span class="modal-nav-count" id="storyCount"></span>
+      <button class="modal-nav-btn" id="storyNext" onclick="moveStory(1)">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const stories = [
+  {
+    category: 'CHILDHOOD · 유년',
+    title: '골목길 끝 할머니네 마당',
+    date: '1991년 여름',
+    img: 'https://images.unsplash.com/photo-1717920954807-86a047abc2e6?q=80&w=1200&auto=format&fit=crop',
+    content: `여름마다 할머니네 마당에는 해바라기가 가득 피었다.
+
+나는 그 사이에 숨어서 매미 소리를 들으며 낮잠을 잤다. 해바라기 줄기가 만들어주는 그늘은 좁고 불완전했지만, 그 시절 내가 알던 가장 완벽한 피난처였다. 키보다 훨씬 큰 줄기들 사이에 쪼그리고 앉으면 세상이 좁아졌다. 그 좁음이 좋았다. 좁은 곳에 있으면 이상하게 마음이 커지는 것 같았다.
+
+할머니는 매일 아침 마당을 쓸었다. 빗자루 소리가 마루 아래까지 들려와 나를 깨웠고, 나는 눈도 못 뜬 채 縁側에 나가 할머니 뒷모습을 바라봤다. 할머니는 쓸고 또 쓸었다. 먼지가 없어도 쓸었다. 나는 그게 그냥 습관인 줄 알았다. 나중에야 알았다. 그건 하루를 여는 의식이었다는 걸. 하루를 시작하는 사람만이 가질 수 있는 고요한 준비였다.
+
+점심이면 할머니는 부엌에서 뭔가를 끓였다. 된장찌개든, 미역국이든, 냄새가 마당까지 흘러나왔다. 나는 그 냄새를 맡으며 해바라기 사이에서 기어 나왔다. 배가 고파서가 아니라, 그냥 그 냄새가 나를 불렀다. 할머니의 부엌 냄새는 언제나 그런 식이었다. 명령이 아니라 초대였다.
+
+저녁이면 할머니는 마루에 앉아 부채질을 했다. 나는 그 옆에 누워 하늘을 바라봤다. 별이 많았다. 할머니는 별 이름을 알려줬다. 나는 대부분 잊었지만, 그 목소리의 온도는 아직도 기억한다.
+
+그때는 그게 일상인 줄만 알았다. 할머니가 늘 거기 계실 거라고, 그 마당도 늘 거기 있을 거라고. 여름이면 으레 그 마당으로 가고, 해바라기 사이에서 자고, 된장찌개 냄새에 깨어나는 것이 삶의 당연한 순서인 줄 알았다.
+
+이제 그 집도, 그 마당도, 해바라기도 없다. 할머니도 안 계신다. 하지만 여름이 오면 어디선가 매미 소리가 들리고, 나는 아직도 그 좁고 불완전한 그늘 속에 잠들어 있는 것 같다.
+
+어떤 기억은 사라지지 않는다. 몸이 먼저 기억하고 있어서.`
+  },
+  {
+    category: 'YOUTH · 청년',
+    title: '필름 한 롤로 담은 홍대 앞 1997',
+    date: '1997년 가을',
+    img: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=1400&auto=format&fit=crop',
+    content: `36컷. 그 시절 홍대는 지금과 달랐다.
+
+인디 밴드들이 골목마다 넘쳐났고, 모두가 뭔가를 만들고 있었다. 음악이든, 그림이든, 아니면 그냥 자기 자신이든. 지금 생각하면 그 시절 홍대 골목은 완성되지 않은 것들의 집합소였다. 그리고 그 미완성이 오히려 살아 있었다. 완성된 것들은 조용하지만, 미완성된 것들은 소리를 낸다.
+
+나는 삼촌에게 물려받은 펜탁스를 들고 그 골목들을 누볐다. 필름은 한 롤밖에 없었다. 36컷. 찍을 수 있는 순간이 딱 36번이었다. 처음에는 그게 답답했다. 나중에는 그게 오히려 자유롭다는 걸 알았다.
+
+지금처럼 무한정 찍고 지울 수 없었기 때문에, 한 컷 한 컷이 무거웠다. 셔터를 누르기 전에 오래 들여다봤다. 이 순간이 남길 가치가 있는지. 빛은 괜찮은지. 이 사람의 표정이 1초 뒤에도 이럴지. 그 모든 걸 계산하다 보면 놓치는 순간도 있었다. 그래도 괜찮았다. 찍지 않는 것도 하나의 선택이었으니까.
+
+골목 어귀에서 한 남자가 기타를 조율하고 있었다. 악보도 없이, 관객도 없이. 그냥 혼자 줄을 고르고 있었다. 얼마나 오래 거기 앉아 있었는지 몰랐다. 나도 얼마나 오래 그를 바라봤는지 몰랐다. 나는 한참을 바라보다가 셔터를 눌렀다. 30번째 컷이었다.
+
+그가 나를 봤다. 아무 말도 하지 않았다. 그냥 다시 기타를 내려다봤다. 나도 아무 말도 하지 않았다. 그 침묵이 완벽했다.
+
+나중에 현상소에서 사진을 받아들었을 때, 몇 장은 흔들려 있었고 몇 장은 노출이 틀렸다. 하지만 그 한 장 — 골목 끝에서 기타를 조율하던 남자의 뒷모습 — 은 선명했다. 그 사진은 지금도 내 서랍 안에 있다.
+
+좋은 사진은 순간을 담는 게 아니라는 걸 그때 처음 알았다. 그 순간의 공기를 담는 거라는 걸.`
+  },
+  {
+    category: 'JOURNEY · 여행',
+    title: '교토에서 혼자 맞은 새벽',
+    date: '2007년 3월',
+    img: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=1400&auto=format&fit=crop',
+    content: `새벽 4시, 후시미 이나리의 도리이 사이로 새벽빛이 스며들었다.
+
+졸업식 다음날 혼자 비행기를 탔다. 아무것도 예약하지 않았다. 숙소도, 일정도. 그냥 교토행 티켓 한 장만 들고. 부모님은 걱정했고, 친구들은 왜 같이 안 가냐고 물었다. 나도 왜인지 몰랐다. 그냥 혼자여야 할 것 같았다. 누군가와 함께라면 나를 잃어버릴 것 같은 기분이었다.
+
+교토 역에 내렸을 때 비가 왔다. 우산도 없었다. 비를 맞으며 역 앞에 서서 어디로 갈지 생각했다. 아무 계획이 없다는 게 그렇게 자유로운 건지 처음 알았다. 젖어도 괜찮았다. 아무도 나를 기다리지 않았으니까.
+
+후시미 이나리에 새벽에 가야 한다는 건 누군가에게 들었다. 관광객이 없는 시간, 수천 개의 도리이만 남는 시간. 숙소 주인 할아버지가 새벽 3시에 나오는 나를 보고 어딜 가냐고 물었다. 이나리, 라고 했더니 잠깐 기다리라며 손전등을 빌려줬다. 아무 말 없이. 그냥 손전등을 건넸다. 교토에서 배운 첫 번째 것이었다. 말 없이도 마음이 전해진다는 것.
+
+계단을 오르는 내내 아무도 없었다. 내 발소리만 돌계단에 울렸다. 가끔 멀리서 새소리가 들렸다. 오렌지빛 기둥 사이로 빛이 들어오기 시작했을 때, 나는 그냥 멈춰 서서 한참을 서 있었다.
+
+울 것 같았다. 이유는 몰랐다. 슬프지 않은데 눈이 뜨거워졌다. 고요함 속에서 내가 얼마나 작은 존재인지 느꼈다. 그리고 이상하게도, 작다는 게 그렇게 나쁘지 않다는 것도.
+
+내려오는 길에 손전등을 꺼도 됐다. 이미 밝았으니까. 숙소로 돌아와 할아버지에게 손전등을 돌려줬다. 할아버지는 차 한 잔을 내줬다. 나는 그 차를 마시며 한참을 앉아 있었다. 아무 말도 하지 않았다. 그래도 됐다.
+
+혼자여도 괜찮다는 걸, 처음으로 몸으로 알았다.`
+  },
+  {
+    category: 'CREATION · 창작',
+    title: '사진집 〈잔향〉을 만들기까지',
+    date: '2018년',
+    img: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1400&auto=format&fit=crop',
+    content: `10년치 필름을 꺼내 빛에 비춰보던 밤들.
+
+어떤 것은 버리고 어떤 것은 품었는지, 그 선택의 기준이 뭔지 나도 몰랐다. 그냥 오래 들여다보다가, 버려지는 것과 남는 것이 달랐다. 기술적으로 좋은 사진이 남는 게 아니었다. 그 순간의 온도가 느껴지는 것들이 남았다. 손가락 끝에 뭔가 걸리는 것들.
+
+처음엔 300장을 골랐다. 너무 많다고 느껴서 100장으로 줄였다. 100장을 책상에 펼쳐놓고 하루 종일 바라봤다. 다음 날 또 봤다. 일주일 후엔 60장이 됐다. 마지막엔 42장. 그 42장을 고르는 데 6개월이 걸렸다.
+
+출판사를 찾는 데만 2년이 걸렸다. 열두 곳에서 거절당했다. 거절당할 때마다 사진을 다시 봤다. 내가 틀렸나. 이게 별로인가. 그래도 다시 보면 좋았다. 그래서 계속했다. 좋다고 느끼는 게 있으면 계속해야 한다. 그게 유일한 이유였다.
+
+열세 번째 출판사에서 연락이 왔다. 짧은 메일이었다. "한번 만나요." 그 세 글자를 읽고 한참을 멍하니 앉아 있었다.
+
+〈잔향(殘香)〉이라는 제목은 마지막에 붙였다. 이미 사라진 것들의 향기. 기억은 그런 것이라고 생각했다. 순간은 지나가지만 무언가가 남는다. 냄새처럼. 사라진 것 같지만 불현듯 다시 맡아지는 것처럼.
+
+발간일 출판사 근처 작은 책방에서 혼자 책을 받았다. 아무도 없었다. 포장을 뜯고 첫 페이지를 펼쳤을 때, 눈이 뜨거워졌다. 이게 내 삶이구나, 싶었다. 이 42장이 내가 살아온 시간이구나.
+
+누군가 이 책을 펼쳐볼 때, 내가 맡던 그 향기를 조금이라도 느껴준다면. 그걸로 충분하다.`
+  },
+  {
+    category: 'NOW · 현재',
+    title: '제주에서의 1년, 지금 이 순간',
+    date: '2024년',
+    img: 'https://images.unsplash.com/photo-1612977512598-3b8d6a498bbb?q=80&w=1400&auto=format&fit=crop',
+    content: `돌담 사이 바람 소리가 좋아서 내려왔다.
+
+솔직히 말하면 도망친 거였다. 서울의 속도, 사람들의 기대, 내가 만들어온 이미지. 그 모든 것에서. 뭔가를 향해 달려가는 게 아니라 뭔가로부터 멀어지고 싶었다. 그게 제주였다. 멀리 가면 달라질 것 같았다. 달라지지 않더라도, 적어도 잠깐은 멈출 수 있을 것 같았다.
+
+제주에서의 첫 달은 아무것도 하지 않았다. 그냥 걸었다. 오름을 오르고, 해변을 걷고, 돌담 사이를 지나며 어디서 바람이 오는지 느꼈다. 아무도 나를 모르는 곳에서 아무것도 아닌 사람으로 있는 것이 이상하게 편했다. 소개가 필요 없었다. 설명이 필요 없었다. 그냥 걸으면 됐다.
+
+두 번째 달부터 카메라를 들었다. 서울에서는 뭔가를 찍어야 한다는 압박이 있었다. 여기서는 그냥 보이는 걸 찍었다. 돌담, 바람에 흔들리는 억새, 새벽 오름 위에서 보이는 구름. 아무도 안 볼 것 같은 사진들. 그런데 이상하게도 그 사진들이 가장 좋았다.
+
+세 번째 달부터는 사람들이 생겼다. 새벽 오름에서 만나는 낯선 얼굴들. 말 없이 나란히 걷다가 헤어지는 사람들. 제주는 그런 관계를 가르쳐줬다. 깊지 않아도 따뜻할 수 있다는 것.
+
+매일 새벽 오름을 오르며 내가 진짜 원하는 것이 무엇인지 물어보고 있다. 아직 답은 없다. 하지만 질문하는 것만으로도, 지금은 충분하다.
+
+사람들은 묻는다. 언제 올라올 거냐고. 아직 모르겠다. 여기서 좀 더 작아지고 싶다.
+
+작아질수록 오히려 잘 보이는 것들이 있더라. 오래 머물러야만 보이는 것들이 있더라.`
+  }
+];
+
+const timelines = [
+  {
+    year: '1985', era: '유년기',
+    title: '서울 마포구, 어느 봄날의 탄생',
+    img: 'images/tl-1985.jpg',
+    content: `벚꽃이 한창이던 4월, 합정동 골목 끝 작은 산부인과에서 태어났다.
+
+엄마는 내가 울음을 터뜨리는 순간 창밖으로 꽃잎이 흩날렸다고 했다. 나는 그 이야기를 수십 번 들었다. 들을 때마다 조금씩 달라졌지만, 꽃잎이 흩날렸다는 부분만은 언제나 같았다.
+
+태어난 날의 기억은 없다. 하지만 봄이 오면, 벚꽃이 피면, 나는 언제나 그 이야기를 생각한다. 내가 기억하지 못하는 내 첫 번째 날을.`
+  },
+  {
+    year: '1991', era: '유년기',
+    title: '초등학교 입학 선물로 처음으로 받은 일기장',
+    img: 'images/tl-1991.jpg',
+    content: `초등학교 입학 선물로 외할머니께 받은 꽃무늬 일기장.
+
+그날부터 글쓰기가 시작되었다. 첫 번째 문장은 "오늘 학교 갔다. 친구가 생겼다." 였다. 지금 보면 너무 짧고 단순하지만, 그때 나는 그 두 문장을 쓰는 데 한참이 걸렸다.
+
+일기장은 6개월 만에 가득 찼다. 할머니는 새 일기장을 사줬다. 그리고 또 가득 찼다. 그렇게 글 쓰는 사람이 됐다.
+
+할머니는 내가 뭘 쓰는지 한 번도 들여다보지 않았다. 그냥 다 쓰면 새 걸 사줬다. 그게 나한테는 가장 큰 응원이었다.`
+  },
+  {
+    year: '2003', era: '청소년기',
+    title: '첫 필름 카메라, 세상을 담다',
+    img: 'images/tl-2003.jpg',
+    content: `고3 수능 후 삼촌에게 물려받은 낡은 펜탁스 필름 카메라.
+
+36장짜리 필름 한 롤로 온 동네를 누비던 그 겨울이 아직도 손가락 끝에 남아 있다. 셔터를 누를 때마다 느껴지던 그 묵직한 클릭감.
+
+수능이 끝나고 모든 것이 허탈했다. 12년을 달려왔는데, 막상 끝나고 나니 어디로 가야 할지 몰랐다. 카메라를 들고 걸어 다니는 게 그나마 방향이 있는 것 같았다.
+
+지금 돌아보면 그 겨울이 내 삶의 방향을 정했다.`
+  },
+  {
+    year: '2007', era: '청년기',
+    title: '대학 졸업, 첫 번째 여행 — 교토',
+    img: 'images/tl-2007.jpg',
+    content: `졸업식 다음날 혼자 비행기를 탔다.
+
+기온의 새벽 골목, 아무도 없는 신사 앞에서 처음으로 '혼자여도 괜찮다'는 걸 느꼈다. 그 전까지 혼자는 항상 불안한 상태였다. 교토에서 처음으로 혼자가 고요한 상태라는 걸 알았다.
+
+4박 5일. 짧은 여행이었지만 그 여행 전후로 나는 달라졌다.`
+  },
+  {
+    year: '2018', era: '장년기',
+    title: '첫 사진집 출판 〈잔향(殘香)〉',
+    img: 'images/tl-2018.jpg',
+    content: `10년간 모은 필름 사진들로 엮은 첫 사진집.
+
+발간일 책방 한켠에서 혼자 책을 펼쳐 보다가 울컥했다. 이게 내 삶이구나, 싶었다.
+
+2년의 거절, 수백 장의 편집, 수십 번의 수정. 그 모든 과정이 42장의 사진으로 압축됐다. 얇은 책이었다. 하지만 무거웠다.
+
+누군가 서점에서 우연히 이 책을 집어들었을 때, 그 사람의 안에 있는 무언가가 흔들린다면. 그게 내가 사진을 찍는 이유다.`
+  }
+];
+
+let currentTlIdx = 0;
+
+function openTimeline(idx) {
+  currentTlIdx = idx;
+  _renderTl();
+  document.getElementById('tlModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function _renderTl() {
+  const t = timelines[currentTlIdx];
+  document.getElementById('tlModalImg').src = t.img;
+  document.getElementById('tlModalImg').alt = t.title;
+  document.getElementById('tlModalYear').textContent = t.year;
+  document.getElementById('tlModalEra').textContent = t.era;
+  document.getElementById('tlModalTitle').textContent = t.title;
+  document.getElementById('tlModalContent').textContent = t.content;
+  document.getElementById('tlCount').textContent = `${currentTlIdx + 1} / ${timelines.length}`;
+  document.getElementById('tlPrev').disabled = currentTlIdx === 0;
+  document.getElementById('tlNext').disabled = currentTlIdx === timelines.length - 1;
+  document.getElementById('tlModal').querySelector('.tl-modal').scrollTop = 0;
+}
+
+function moveTl(dir) {
+  const next = currentTlIdx + dir;
+  if (next < 0 || next >= timelines.length) return;
+  currentTlIdx = next;
+  _renderTl();
+}
+
+function closeTlModal(e) {
+  if (e.target === document.getElementById('tlModal')) closeTlModalBtn();
+}
+
+function closeTlModalBtn() {
+  document.getElementById('tlModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+let currentStoryIdx = 0;
+
+function openStory(idx) {
+  currentStoryIdx = idx;
+  _renderBrunch();
+  const viewer = document.getElementById('brunchViewer');
+  viewer.classList.add('open');
+  viewer.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  document.getElementById('musicPlayerWrap').style.zIndex = '600';
+}
+
+const storyReactions = [
+  {
+    likes: 24,
+    comments: [
+      { name: '김민지 · 3일 전', icon: '🌸', bg: '#f9e8ec', text: '할머니네 마당 이야기... 저도 비슷한 기억이 있어요. 읽으면서 괜히 코끝이 찡했어요.' },
+      { name: '이서준 · 5일 전', icon: '📷', bg: '#e8f0f9', text: '이런 글 읽으면 오래된 앨범 꺼내고 싶어져요. 감사해요.' },
+      { name: '박하린 · 1주 전', icon: '🌿', bg: '#e8f5ee', text: '할머니가 보고싶어졌어요 😢' },
+    ]
+  },
+  {
+    likes: 41,
+    comments: [
+      { name: '최유진 · 2일 전', icon: '🎞️', bg: '#f5f0e8', text: '36컷이라는 제한이 오히려 더 의미있게 만들었겠죠. 요즘 무한정 찍는 저를 돌아보게 됐어요.' },
+      { name: '정다온 · 4일 전', icon: '🎸', bg: '#f0e8f5', text: '그 기타 조율하던 사진 너무 보고싶다...' },
+    ]
+  },
+  {
+    likes: 68,
+    comments: [
+      { name: '한소율 · 1일 전', icon: '⛩️', bg: '#f9ede8', text: '저도 혼자 교토에 가보고 싶어졌어요. 새벽 이나리라니 정말 멋지겠다.' },
+      { name: '오태민 · 3일 전', icon: '🌙', bg: '#e8edf9', text: '혼자여도 괜찮다는 걸 몸으로 알았다는 표현이 너무 좋아요.' },
+      { name: '윤지은 · 6일 전', icon: '☁️', bg: '#f0f4f9', text: '이 글 읽고 오래 생각했어요. 잘 읽었습니다.' },
+    ]
+  },
+  {
+    likes: 92,
+    comments: [
+      { name: '강민혁 · 2일 전', icon: '📖', bg: '#f5ebe8', text: '잔향이라는 단어 자체가 이미 시 같아요. 언제 서점에서 찾아보고 싶네요.' },
+      { name: '임수아 · 5일 전', icon: '🌷', bg: '#f9e8f0', text: '42장으로 10년을 압축하는 과정이 얼마나 힘들었을까요. 대단합니다.' },
+    ]
+  },
+  {
+    likes: 37,
+    comments: [
+      { name: '송지호 · 1일 전', icon: '🍃', bg: '#e8f5ee', text: '작아질수록 잘 보이는 것들이 있다는 말... 오늘 하루 계속 생각날 것 같아요.' },
+      { name: '나윤서 · 3일 전', icon: '🌊', bg: '#e8f0f9', text: '저도 언제 한번은 이렇게 도망쳐보고 싶어요 ㅎㅎ 응원합니다.' },
+      { name: '류준혁 · 1주 전', icon: '🍂', bg: '#f5f0e8', text: '제주 생활 부럽습니다. 글도 너무 좋고요.' },
+    ]
+  }
+];
+
+function _renderBrunch() {
+  const s = stories[currentStoryIdx];
+  const r = storyReactions[currentStoryIdx];
+  document.getElementById('brunchImg').src = s.img;
+  document.getElementById('brunchImg').alt = s.title;
+  document.getElementById('brunchImg').className = s.img.includes('1612977512598') ? 'brunch-hero-img jeju' : 'brunch-hero-img';
+  document.getElementById('brunchCategory').textContent = s.category;
+  document.getElementById('brunchTitle').textContent = s.title;
+  document.getElementById('brunchDate').textContent = s.date;
+  document.getElementById('brunchContent').textContent = s.content;
+  document.getElementById('brunchCount').textContent = `${currentStoryIdx + 1} / ${stories.length}`;
+  document.getElementById('brunchPrev').disabled = currentStoryIdx === 0;
+  document.getElementById('brunchNext').disabled = currentStoryIdx === stories.length - 1;
+  document.getElementById('brunchViewer').scrollTop = 0;
+  document.getElementById('likeBtn').classList.remove('liked');
+  document.getElementById('likeCount').textContent = r.likes;
+  document.getElementById('commentInput').value = '';
+  const list = document.getElementById('commentList');
+  document.getElementById('commentCount').textContent = r.comments.length;
+  document.getElementById('commentCountTitle').textContent = r.comments.length;
+  list.innerHTML = r.comments.map(c => {
+    return `<div class="comment-item">
+      <div class="comment-avatar" style="background:${c.bg}; font-size:1.1rem;">${c.icon}</div>
+      <div class="comment-body">
+        <div class="comment-name">${c.name.split(' · ')[0]}</div>
+        <div class="comment-time">${c.name.split(' · ')[1] || ''}</div>
+        <div class="comment-text">${escHtml(c.text)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function moveBrunch(dir) {
+  const next = currentStoryIdx + dir;
+  if (next < 0 || next >= stories.length) return;
+  currentStoryIdx = next;
+  _renderBrunch();
+}
+
+function _resetReactions() {
+  document.getElementById('likeBtn').classList.remove('liked');
+  document.getElementById('likeCount').textContent = '0';
+  document.getElementById('commentList').innerHTML = '';
+  document.getElementById('commentCount').textContent = '0';
+  document.getElementById('commentInput').value = '';
+  document.getElementById('commentCountTitle').textContent = '0';
+}
+
+function toggleLike() {
+  const btn = document.getElementById('likeBtn');
+  const count = document.getElementById('likeCount');
+  const liked = btn.classList.toggle('liked');
+  count.textContent = liked ? parseInt(count.textContent) + 1 : Math.max(0, parseInt(count.textContent) - 1);
+}
+
+function focusComment() {
+  document.getElementById('commentInput').focus();
+}
+
+function submitComment() {
+  const input = document.getElementById('commentInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  const list = document.getElementById('commentList');
+  const item = document.createElement('div');
+  item.className = 'comment-item';
+  const icons = ['🌸','🌿','🌙','☁️','🍂','🌊'];
+  const icon = icons[Math.floor(Math.random() * icons.length)];
+  const bgs = ['#f9e8ec','#e8f5ee','#e8edf9','#f0f4f9','#f5f0e8','#e8f0f9'];
+  const bg = bgs[Math.floor(Math.random() * bgs.length)];
+  item.innerHTML = `
+    <div class="comment-avatar" style="background:${bg}; font-size:1.1rem;">${icon}</div>
+    <div class="comment-body">
+      <div class="comment-name">익명</div>
+      <div class="comment-time">방금</div>
+      <div class="comment-text">${escHtml(msg)}</div>
+    </div>`;
+  list.appendChild(item);
+  input.value = '';
+  const c1 = document.getElementById('commentCount');
+  const c2 = document.getElementById('commentCountTitle');
+  c1.textContent = parseInt(c1.textContent) + 1;
+  c2.textContent = parseInt(c2.textContent) + 1;
+}
+
+function closeBrunch() {
+  document.getElementById('brunchViewer').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('musicPlayerWrap').style.zIndex = '';
+}
+
+function closeStory(e) {
+  if (e.target === document.getElementById('storyModal')) closeStoryBtn();
+}
+
+function closeStoryBtn() {
+  document.getElementById('storyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+
+<!-- YOUTUBE PLAYER (hidden) -->
+<div id="ytPlayerWrap" style="position:fixed;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;bottom:0;right:0"><div id="ytPlayer"></div></div>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuth()">✕</button>
+    <div class="auth-logo">Remain <span>·</span></div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">로그인</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">회원가입</button>
+    </div>
+    <input class="auth-input" type="email" id="authEmail" placeholder="이메일">
+    <input class="auth-input" type="password" id="authPassword" placeholder="비밀번호 (6자 이상)">
+    <div id="authNameWrap" style="display:none">
+      <input class="auth-input" type="text" id="authName" placeholder="이름 또는 닉네임">
+    </div>
+    <button class="auth-submit" id="authSubmitBtn" onclick="submitAuth()">로그인</button>
+    <div class="auth-error" id="authError"></div>
+  </div>
+</div>
+
+<!-- FIREBASE SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyC9R0R1F6CpbG5XNtdLKIFLbok8v-yIYdQ",
+    authDomain: "remain-56b5d.firebaseapp.com",
+    projectId: "remain-56b5d",
+    storageBucket: "remain-56b5d.firebasestorage.app",
+    messagingSenderId: "417702072700",
+    appId: "1:417702072700:web:550392e218818404ea54f9",
+    measurementId: "G-SQWL2DSF68"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db   = firebase.firestore();
+
+  let currentUser = null;
+  let authMode = 'login';
+
+  // ── AUTH STATE
+  auth.onAuthStateChanged(user => {
+    currentUser = user;
+    updateNavAuth(user);
+    loadGuestbook();
+  });
+
+  function updateNavAuth(user) {
+    const area = document.getElementById('navAuthArea');
+    if (!area) return;
+    if (user) {
+      const name = user.displayName || user.email.split('@')[0];
+      area.innerHTML = `<div class="nav-user-wrap">
+        <span class="nav-user-name">${escHtml(name)}</span>
+        <button class="nav-btn" onclick="signOutUser()">로그아웃</button>
+      </div>`;
+    } else {
+      area.innerHTML = `<button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>`;
+    }
+  }
+
+  // ── AUTH MODAL CONTROLS
+  function openAuth() {
+    document.getElementById('authOverlay').classList.add('open');
+    switchAuthTab('login');
+    setTimeout(() => document.getElementById('authEmail').focus(), 100);
+  }
+  function closeAuth() {
+    document.getElementById('authOverlay').classList.remove('open');
+    document.getElementById('authError').textContent = '';
+    ['authEmail','authPassword','authName'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  }
+  document.getElementById('authOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeAuth();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAuth();
+  });
+
+  function switchAuthTab(mode) {
+    authMode = mode;
+    document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+    document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
+    document.getElementById('authNameWrap').style.display = mode === 'signup' ? 'block' : 'none';
+    document.getElementById('authSubmitBtn').textContent = mode === 'login' ? '로그인' : '회원가입';
+    document.getElementById('authError').textContent = '';
+  }
+
+  async function submitAuth() {
+    const email    = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    const name     = document.getElementById('authName').value.trim();
+    const errEl    = document.getElementById('authError');
+    const btn      = document.getElementById('authSubmitBtn');
+
+    if (!email || !password) { errEl.textContent = '이메일과 비밀번호를 입력해주세요'; return; }
+    if (authMode === 'signup' && !name) { errEl.textContent = '이름 또는 닉네임을 입력해주세요'; return; }
+
+    btn.disabled = true;
+    errEl.textContent = '';
+    try {
+      if (authMode === 'login') {
+        await auth.signInWithEmailAndPassword(email, password);
+      } else {
+        const cred = await auth.createUserWithEmailAndPassword(email, password);
+        await cred.user.updateProfile({ displayName: name });
+        await db.collection('users').doc(cred.user.uid).set({
+          displayName: name, email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+      closeAuth();
+      showToast(authMode === 'login' ? '로그인되었습니다 🌸' : '회원가입이 완료되었습니다 🌸');
+    } catch (err) {
+      errEl.textContent = firebaseErrMsg(err.code);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function firebaseErrMsg(code) {
+    const map = {
+      'auth/user-not-found':       '등록되지 않은 이메일입니다',
+      'auth/wrong-password':       '비밀번호가 올바르지 않습니다',
+      'auth/invalid-credential':   '이메일 또는 비밀번호가 올바르지 않습니다',
+      'auth/email-already-in-use': '이미 사용 중인 이메일입니다',
+      'auth/invalid-email':        '이메일 형식이 올바르지 않습니다',
+      'auth/weak-password':        '비밀번호는 6자 이상이어야 합니다',
+      'auth/too-many-requests':    '잠시 후 다시 시도해주세요',
+    };
+    return map[code] || '오류가 발생했습니다. 다시 시도해주세요';
+  }
+
+  async function signOutUser() {
+    await auth.signOut();
+    showToast('로그아웃되었습니다');
+  }
+
+  // ── GUESTBOOK FIRESTORE LOADER
+  async function loadGuestbook() {
+    const list = document.getElementById('guestbookList');
+    list.querySelectorAll('.fb-entry, .fb-loading').forEach(el => el.remove());
+
+    const loading = document.createElement('div');
+    loading.className = 'fb-loading';
+    loading.textContent = '방명록을 불러오는 중...';
+    list.insertBefore(loading, list.firstChild);
+
+    try {
+      const snap = await db.collection('guestbook')
+        .orderBy('timestamp', 'desc').limit(50).get();
+      loading.remove();
+
+      const icons  = ['🌸','🌿','🌙','☁️','🍂','🌊'];
+      const gcolors = ['ga-1','ga-2','ga-3','ga-4'];
+
+      snap.docs.forEach(doc => {
+        const d = doc.data();
+        if (d.isPrivate && (!currentUser || currentUser.uid !== d.uid)) return;
+
+        const idx   = Math.abs(doc.id.charCodeAt(0) + doc.id.charCodeAt(1));
+        const icon  = icons[idx % icons.length];
+        const color = gcolors[idx % gcolors.length];
+        const date  = d.timestamp?.toDate
+          ? d.timestamp.toDate().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'')
+          : '최근';
+
+        const entry = document.createElement('div');
+        entry.className = `guest-entry fb-entry${d.isPrivate ? ' private-entry' : ''}`;
+        entry.dataset.docId = doc.id;
+
+        if (d.isPrivate) {
+          entry.innerHTML = `
+            <div class="guest-header">
+              <div class="guest-avatar ${color}">${icon}</div>
+              <div><div class="guest-name">${escHtml(d.name)}</div><div class="guest-relation">${escHtml(d.relation||'')}</div></div>
+              <div class="guest-date">${date}</div>
+              <span class="guest-private-badge">🔒 비공개</span>
+            </div>
+            <div class="guest-message">${escHtml(d.message)}</div>`;
+        } else {
+          entry.innerHTML = `
+            <div class="guest-header">
+              <div class="guest-avatar ${color}">${icon}</div>
+              <div><div class="guest-name">${escHtml(d.name)}</div><div class="guest-relation">${escHtml(d.relation||'')}</div></div>
+              <div class="guest-date">${date}</div>
+            </div>
+            <div class="guest-message">${escHtml(d.message)}</div>
+            <div class="guest-heart" onclick="likeEntry(this)">♥ ${d.likes||0}</div>`;
+        }
+        list.appendChild(entry);
+      });
+    } catch (e) {
+      loading.remove();
+      console.error('Firestore load error:', e);
+    }
+  }
+</script>
+</body>
+</html>
