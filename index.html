@@ -1803,6 +1803,102 @@
   @media (max-width: 480px) {
     .memoir-detail-header { padding: 0 1rem; }
   }
+
+  /* MEMOIR GUEST NOTICE */
+  .memoir-guest-notice {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: rgba(200, 169, 110, 0.1);
+    border: 1px solid rgba(200, 169, 110, 0.28);
+    border-radius: 12px; padding: 0.75rem 1.2rem;
+    margin-bottom: 1.4rem; font-size: 0.82rem; color: var(--text-sub);
+  }
+  .memoir-guest-notice button {
+    margin-left: auto; background: none; border: none;
+    color: var(--warm-brown); font-size: 0.82rem; cursor: pointer;
+    font-family: inherit; text-decoration: underline; padding: 0; flex-shrink: 0;
+  }
+
+  /* ──────────────────────────── DIARY */
+  #diary { background: var(--warm-cream); }
+  .diary-compose {
+    background: #fff; border-radius: 20px; padding: 1.6rem 1.8rem;
+    box-shadow: 0 2px 16px var(--shadow-warm);
+    border: 1px solid var(--border-soft); margin-bottom: 2.5rem;
+  }
+  .diary-compose-header {
+    font-family: 'Noto Serif KR', serif; font-size: 0.95rem;
+    color: var(--deep-brown); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .diary-compose-header svg { stroke: var(--muted-gold); flex-shrink: 0; }
+  .diary-input-row { display: flex; gap: 0.8rem; align-items: flex-end; }
+  .diary-textarea {
+    flex: 1; padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border-soft); border-radius: 12px;
+    font-family: 'Noto Sans KR', sans-serif; font-size: 0.88rem;
+    color: var(--text-main); background: var(--warm-cream);
+    resize: none; height: 60px; line-height: 1.7; outline: none; transition: border-color 0.2s;
+  }
+  .diary-textarea:focus { border-color: var(--warm-brown); }
+  .diary-submit-btn {
+    background: var(--warm-brown); color: #fff; border: none;
+    padding: 0 1.4rem; height: 60px; border-radius: 12px;
+    font-size: 0.82rem; cursor: pointer; font-family: inherit;
+    transition: background 0.2s; white-space: nowrap; flex-shrink: 0;
+  }
+  .diary-submit-btn:hover { background: var(--deep-brown); }
+  .diary-login-notice {
+    font-size: 0.8rem; color: var(--text-light); margin-top: 0.7rem; text-align: right;
+  }
+  .diary-login-notice button {
+    background: none; border: none; color: var(--warm-brown);
+    font-size: 0.8rem; cursor: pointer; font-family: inherit;
+    text-decoration: underline; padding: 0;
+  }
+  .diary-list {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative; padding-left: 1.6rem;
+  }
+  .diary-list::before {
+    content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px;
+    width: 1.5px;
+    background: linear-gradient(to bottom, var(--muted-gold), var(--warm-sand), transparent);
+  }
+  .diary-entry {
+    position: relative; padding: 0 0 1.6rem 1.4rem;
+    display: flex; gap: 1.4rem; align-items: flex-start;
+  }
+  .diary-entry::before {
+    content: ''; position: absolute; left: -1.63rem; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--warm-sand);
+    border: 2px solid var(--warm-cream);
+    box-shadow: 0 0 0 1.5px var(--warm-sand);
+  }
+  .diary-entry:first-child::before {
+    background: var(--muted-gold); box-shadow: 0 0 0 1.5px var(--muted-gold);
+  }
+  .diary-date {
+    font-size: 0.72rem; color: var(--muted-gold); letter-spacing: 0.06em;
+    font-weight: 600; white-space: nowrap; flex-shrink: 0; padding-top: 0.05rem; min-width: 78px;
+  }
+  .diary-text {
+    font-family: 'Noto Serif KR', serif; font-size: 0.95rem;
+    color: var(--text-sub); line-height: 1.8; flex: 1;
+  }
+  .diary-entry:first-child .diary-text { color: var(--deep-brown); font-weight: 500; }
+  @media (max-width: 768px) {
+    .diary-list { padding-left: 1.2rem; }
+    .diary-list::before { left: 4px; }
+    .diary-entry::before { left: -1.28rem; }
+    .diary-input-row { flex-direction: column; gap: 0.6rem; }
+    .diary-submit-btn { height: 48px; width: 100%; border-radius: 10px; font-size: 0.88rem; }
+    .diary-textarea { height: 56px; }
+    .diary-entry { gap: 0.9rem; padding-bottom: 1.4rem; }
+    .diary-date { min-width: 64px; font-size: 0.7rem; }
+    .diary-text { font-size: 0.9rem; }
+    .diary-compose { padding: 1.3rem; }
+  }
 </style>
 </head>
 <body>
@@ -1867,7 +1963,7 @@
           <div class="stat-label">방명록</div>
         </div>
       </div>
-      <button class="diary-btn" onclick="showToast('하루 한 줄 일기 기능은 준비 중입니다')">
+      <button class="diary-btn" onclick="document.getElementById('diary').scrollIntoView({behavior:'smooth'})">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         오늘 하루 한 줄 남기기
       </button>
@@ -2227,6 +2323,62 @@
     <button class="add-capsule-btn" onclick="showToast('타임캡슐 추가 기능은 준비 중입니다')">
       <span>+</span> 새 타임캡슐 만들기
     </button>
+  </div>
+</section>
+
+<!-- ═══ DIARY ═══ -->
+<section id="diary">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Daily</div>
+      <h2 class="section-title">오늘 한 줄</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="diary-compose">
+      <div class="diary-compose-header">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        오늘 하루를 한 줄로 남겨보세요
+      </div>
+      <div class="diary-input-row">
+        <textarea class="diary-textarea" id="diaryInput" placeholder="오늘 하루 중 가장 기억에 남는 순간을 한 줄로..." maxlength="100"></textarea>
+        <button class="diary-submit-btn" onclick="submitDiary()">기록하기</button>
+      </div>
+      <div class="diary-login-notice" id="diaryLoginNotice">
+        <button onclick="openAuth()">로그인</button>하면 나만의 한 줄 일기를 기록할 수 있어요
+      </div>
+    </div>
+
+    <div class="diary-list" id="diaryList">
+      <div class="diary-entry">
+        <div class="diary-date">2026.05.04</div>
+        <div class="diary-text">벚꽃이 다 졌다. 그래도 오늘 창문을 열었더니 바람이 여전히 따뜻했다.</div>
+      </div>
+      <div class="diary-entry">
+        <div class="diary-date">2026.04.28</div>
+        <div class="diary-text">카페에서 혼자 두 시간. 책 한 챕터, 아메리카노 두 잔, 아무 생각 없는 시간.</div>
+      </div>
+      <div class="diary-entry">
+        <div class="diary-date">2026.04.22</div>
+        <div class="diary-text">오래된 친구에게서 문자가 왔다. "잘 지내냐고." 세 글자가 오래 마음에 남았다.</div>
+      </div>
+      <div class="diary-entry">
+        <div class="diary-date">2026.04.15</div>
+        <div class="diary-text">오늘 처음으로 오름 정상까지 올랐다. 구름이 발아래에 있었다.</div>
+      </div>
+      <div class="diary-entry">
+        <div class="diary-date">2026.04.08</div>
+        <div class="diary-text">비 오는 날엔 왜 이렇게 된장찌개가 먹고 싶을까. 결국 끓여 먹었다.</div>
+      </div>
+      <div class="diary-entry">
+        <div class="diary-date">2026.04.01</div>
+        <div class="diary-text">사월이 시작됐다. 올해의 봄은 조금 늦게 왔지만, 확실히 왔다.</div>
+      </div>
+      <div class="diary-entry">
+        <div class="diary-date">2026.03.25</div>
+        <div class="diary-text">오래 쓰던 볼펜이 드디어 떨어졌다. 서랍 안에서 새 것을 꺼내는 기분이 나쁘지 않았다.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -3251,6 +3403,7 @@ function closeStoryBtn() {
     updateNavAuth(user);
     loadGuestbook();
     renderMemoirArea();
+    _updateDiaryCompose(user);
   });
 
   function updateNavAuth(user) {
@@ -3412,6 +3565,24 @@ function closeStoryBtn() {
   }
 
   // ── MEMOIR
+  const _sampleMemoirs = [
+    {
+      date: '2007년 3월',
+      title: '교토의 마지막 아침',
+      excerpt: '새벽 다섯 시, 후시미 이나리의 도리이 사이로 첫 빛이 스며들었다. 아무도 없는 계단을 오르며 처음으로 혼자여도 괜찮다는 걸 느꼈다. 그 새벽 공기의 온도가 아직도 손등에 남아 있다.'
+    },
+    {
+      date: '2012년 겨울',
+      title: '할머니의 부엌 냄새',
+      excerpt: '된장찌개 냄새는 언제나 나를 부엌으로 불렀다. 명령이 아니라 초대였다. 할머니가 돌아가신 지 십 년이 지났는데, 비 오는 날이면 아직도 그 냄새가 코끝에 맴돈다.'
+    },
+    {
+      date: '2015년 4월',
+      title: '서른, 그 문턱에서',
+      excerpt: '서른 번째 생일을 혼자 보냈다. 케이크도 없이, 초도 없이. 창밖 벚꽃이 지는 걸 보며 오래 앉아 있었다. 이상하게도 슬프지 않았다. 그냥 조용했다. 그게 더 좋았다.'
+    }
+  ];
+
   let _memoirEditingId = null;
   let _currentMemoirId = null;
   let _memoirCache = [];
@@ -3423,9 +3594,21 @@ function closeStoryBtn() {
     if (!currentUser) {
       writeBtn.style.display = 'none';
       area.innerHTML = `
-        <div class="memoir-login-prompt">
-          <p>로그인하면 나만의 회고록을<br>작성하고 간직할 수 있습니다</p>
-          <button class="btn-primary" onclick="openAuth()">로그인하기</button>
+        <div class="memoir-guest-notice">
+          <span>✏️</span>
+          <span>로그인하면 나만의 회고록을 쓸 수 있어요</span>
+          <button onclick="openAuth()">로그인하기</button>
+        </div>
+        <div class="memoir-grid">
+          ${_sampleMemoirs.map(m => `
+          <div class="memoir-card" onclick="openAuth()" style="cursor:pointer">
+            <div class="memoir-card-date">${m.date}</div>
+            <div class="memoir-card-title">${m.title}</div>
+            <div class="memoir-card-excerpt">${m.excerpt}</div>
+            <div class="memoir-card-footer">
+              <span class="memoir-card-written" style="font-style:italic;color:var(--text-light)">예시 회고록</span>
+            </div>
+          </div>`).join('')}
         </div>`;
       return;
     }
@@ -3584,6 +3767,36 @@ function closeStoryBtn() {
 
   function deleteCurrentMemoir() {
     if (_currentMemoirId) _confirmDeleteMemoir(_currentMemoirId);
+  }
+
+  // ── DIARY
+  function _updateDiaryCompose(user) {
+    const notice = document.getElementById('diaryLoginNotice');
+    const textarea = document.getElementById('diaryInput');
+    if (!notice || !textarea) return;
+    notice.style.display = user ? 'none' : '';
+    textarea.disabled = !user;
+    textarea.style.opacity = user ? '' : '0.7';
+  }
+
+  function submitDiary() {
+    if (!currentUser) { showToast('로그인 후 한 줄 일기를 기록할 수 있습니다'); openAuth(); return; }
+    const input = document.getElementById('diaryInput');
+    const text = input.value.trim();
+    if (!text) { showToast('한 줄을 입력해주세요'); return; }
+    const today = new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'');
+    const entry = document.createElement('div');
+    entry.className = 'diary-entry';
+    entry.innerHTML = `<div class="diary-date">${today}</div><div class="diary-text">${escHtml(text)}</div>`;
+    const list = document.getElementById('diaryList');
+    const prev = list.querySelector('.diary-entry:first-child');
+    if (prev) {
+      prev.querySelector('.diary-text').style.cssText = '';
+      prev.style.cssText = '';
+    }
+    list.insertBefore(entry, list.firstChild);
+    input.value = '';
+    showToast('오늘의 한 줄이 기록됐습니다 🌸');
   }
 
   async function _confirmDeleteMemoir(id) {
