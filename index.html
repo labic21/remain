@@ -1911,8 +1911,8 @@
     <a href="#timeline"  onclick="closeNav()">타임라인</a>
     <a href="#story"     onclick="closeNav()">나의 이야기</a>
     <a href="#memoir"    onclick="closeNav()">회고록</a>
-    <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
     <a href="#diary" onclick="closeNav()">오늘 한 줄</a>
+    <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
     <a href="#guestbook" onclick="closeNav()">방명록</a>
     <div id="navAuthArea">
       <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
@@ -2284,48 +2284,6 @@
   </div>
 </section>
 
-<!-- ═══ TIMECAPSULE ═══ -->
-<section id="timecapsule">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Time Capsule</div>
-      <h2 class="section-title">타임캡슐</h2>
-      <div class="section-divider"></div>
-    </div>
-
-    <div class="capsule-grid">
-
-      <div class="capsule-card" onclick="showToast('2030년 1월 1일에 열 수 있습니다')">
-        <div class="capsule-icon">📦</div>
-        <div class="capsule-open-date">Open · 2030년 1월 1일</div>
-        <div class="capsule-title">10년 후의 나에게</div>
-        <div class="capsule-excerpt">지금의 나는 제주에 살고 있다. 10년 뒤에도 이 바람 소리가 기억날까. 그때의 나는 어디에 있을까...</div>
-        <span class="capsule-badge locked">🔒 봉인 중</span>
-      </div>
-
-      <div class="capsule-card" onclick="showToast('2027년 12월 31일에 열 수 있습니다')">
-        <div class="capsule-icon">💌</div>
-        <div class="capsule-open-date">Open · 2027년 12월 31일</div>
-        <div class="capsule-title">딸에게 남기는 편지</div>
-        <div class="capsule-excerpt">네가 스무 살이 되는 날 읽어줬으면 해. 아빠가 지금 너에게 하고 싶은 말들을 여기 담아두었어...</div>
-        <span class="capsule-badge locked">🔒 봉인 중</span>
-      </div>
-
-      <div class="capsule-card" onclick="showToast('D+100일에 열 수 있습니다')">
-        <div class="capsule-icon">💑</div>
-        <div class="capsule-open-date">Open · D+100일 · 2026년 6월 14일</div>
-        <div class="capsule-title">우리의 100일 타임캡슐</div>
-        <div class="capsule-excerpt">처음 만난 날 우리가 서로에게 남긴 말들. 100일 후의 우리는 어떤 모습일까. 그때 같이 열어보자...</div>
-        <span class="capsule-badge locked">🔒 봉인 중</span>
-      </div>
-
-    </div>
-    <button class="add-capsule-btn" onclick="showToast('타임캡슐 추가 기능은 준비 중입니다')">
-      <span>+</span> 새 타임캡슐 만들기
-    </button>
-  </div>
-</section>
-
 <!-- ═══ DIARY ═══ -->
 <section id="diary">
   <div class="section-inner">
@@ -2379,6 +2337,48 @@
         <div class="diary-text">오래 쓰던 볼펜이 드디어 떨어졌다. 서랍 안에서 새 것을 꺼내는 기분이 나쁘지 않았다.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ TIMECAPSULE ═══ -->
+<section id="timecapsule">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Time Capsule</div>
+      <h2 class="section-title">타임캡슐</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="capsule-grid">
+
+      <div class="capsule-card" onclick="showToast('2030년 1월 1일에 열 수 있습니다')">
+        <div class="capsule-icon">📦</div>
+        <div class="capsule-open-date">Open · 2030년 1월 1일</div>
+        <div class="capsule-title">10년 후의 나에게</div>
+        <div class="capsule-excerpt">지금의 나는 제주에 살고 있다. 10년 뒤에도 이 바람 소리가 기억날까. 그때의 나는 어디에 있을까...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('2027년 12월 31일에 열 수 있습니다')">
+        <div class="capsule-icon">💌</div>
+        <div class="capsule-open-date">Open · 2027년 12월 31일</div>
+        <div class="capsule-title">딸에게 남기는 편지</div>
+        <div class="capsule-excerpt">네가 스무 살이 되는 날 읽어줬으면 해. 아빠가 지금 너에게 하고 싶은 말들을 여기 담아두었어...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+      <div class="capsule-card" onclick="showToast('D+100일에 열 수 있습니다')">
+        <div class="capsule-icon">💑</div>
+        <div class="capsule-open-date">Open · D+100일 · 2026년 6월 14일</div>
+        <div class="capsule-title">우리의 100일 타임캡슐</div>
+        <div class="capsule-excerpt">처음 만난 날 우리가 서로에게 남긴 말들. 100일 후의 우리는 어떤 모습일까. 그때 같이 열어보자...</div>
+        <span class="capsule-badge locked">🔒 봉인 중</span>
+      </div>
+
+    </div>
+    <button class="add-capsule-btn" onclick="showToast('타임캡슐 추가 기능은 준비 중입니다')">
+      <span>+</span> 새 타임캡슐 만들기
+    </button>
   </div>
 </section>
 
