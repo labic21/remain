@@ -2280,7 +2280,47 @@
         새 회고록 쓰기
       </button>
     </div>
-    <div id="memoirArea"></div>
+    <!-- 사용자 회고록 (로그인 시 표시) -->
+    <div id="memoirArea" style="display:none"></div>
+
+    <!-- 예시 카드 (항상 표시) -->
+    <div id="memoirSampleArea">
+      <div class="memoir-guest-notice" id="memoirGuestNotice">
+        <span>✏️</span>
+        <span>로그인하면 나만의 회고록을 쓸 수 있어요</span>
+        <button onclick="openAuth()">로그인하기</button>
+      </div>
+      <div class="memoir-grid">
+
+        <div class="memoir-card" onclick="openAuth()">
+          <div class="memoir-card-date">2007년 봄</div>
+          <div class="memoir-card-title">교토의 마지막 아침</div>
+          <div class="memoir-card-excerpt">새벽 다섯 시, 후시미 이나리의 도리이 사이로 첫 빛이 스며들었다. 아무도 없는 계단을 오르며 처음으로 혼자여도 괜찮다는 걸 느꼈다. 그 새벽 공기의 온도가 아직도 손등에 남아 있다.</div>
+          <div class="memoir-card-footer">
+            <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+          </div>
+        </div>
+
+        <div class="memoir-card" onclick="openAuth()">
+          <div class="memoir-card-date">2012년 겨울</div>
+          <div class="memoir-card-title">할머니의 부엌 냄새</div>
+          <div class="memoir-card-excerpt">된장찌개 냄새는 언제나 나를 부엌으로 불렀다. 명령이 아니라 초대였다. 할머니가 돌아가신 지 십 년이 지났는데, 비 오는 날이면 아직도 그 냄새가 코끝에 맴돈다.</div>
+          <div class="memoir-card-footer">
+            <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+          </div>
+        </div>
+
+        <div class="memoir-card" onclick="openAuth()">
+          <div class="memoir-card-date">2015년 4월</div>
+          <div class="memoir-card-title">서른, 그 문턱에서</div>
+          <div class="memoir-card-excerpt">서른 번째 생일을 혼자 보냈다. 케이크도 없이, 초도 없이. 창밖 벚꽃이 지는 걸 보며 오래 앉아 있었다. 이상하게도 슬프지 않았다. 그냥 조용했다. 그게 더 좋았다.</div>
+          <div class="memoir-card-footer">
+            <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -3565,54 +3605,26 @@ function closeStoryBtn() {
   }
 
   // ── MEMOIR
-  const _sampleMemoirs = [
-    {
-      date: '2007년 3월',
-      title: '교토의 마지막 아침',
-      excerpt: '새벽 다섯 시, 후시미 이나리의 도리이 사이로 첫 빛이 스며들었다. 아무도 없는 계단을 오르며 처음으로 혼자여도 괜찮다는 걸 느꼈다. 그 새벽 공기의 온도가 아직도 손등에 남아 있다.'
-    },
-    {
-      date: '2012년 겨울',
-      title: '할머니의 부엌 냄새',
-      excerpt: '된장찌개 냄새는 언제나 나를 부엌으로 불렀다. 명령이 아니라 초대였다. 할머니가 돌아가신 지 십 년이 지났는데, 비 오는 날이면 아직도 그 냄새가 코끝에 맴돈다.'
-    },
-    {
-      date: '2015년 4월',
-      title: '서른, 그 문턱에서',
-      excerpt: '서른 번째 생일을 혼자 보냈다. 케이크도 없이, 초도 없이. 창밖 벚꽃이 지는 걸 보며 오래 앉아 있었다. 이상하게도 슬프지 않았다. 그냥 조용했다. 그게 더 좋았다.'
-    }
-  ];
-
   let _memoirEditingId = null;
   let _currentMemoirId = null;
   let _memoirCache = [];
 
   function renderMemoirArea() {
-    const area     = document.getElementById('memoirArea');
-    const writeBtn = document.getElementById('memoirWriteBtn');
+    const area       = document.getElementById('memoirArea');
+    const sampleArea = document.getElementById('memoirSampleArea');
+    const writeBtn   = document.getElementById('memoirWriteBtn');
+    const notice     = document.getElementById('memoirGuestNotice');
     if (!area) return;
     if (!currentUser) {
-      writeBtn.style.display = 'none';
-      area.innerHTML = `
-        <div class="memoir-guest-notice">
-          <span>✏️</span>
-          <span>로그인하면 나만의 회고록을 쓸 수 있어요</span>
-          <button onclick="openAuth()">로그인하기</button>
-        </div>
-        <div class="memoir-grid">
-          ${_sampleMemoirs.map(m => `
-          <div class="memoir-card" onclick="openAuth()" style="cursor:pointer">
-            <div class="memoir-card-date">${m.date}</div>
-            <div class="memoir-card-title">${m.title}</div>
-            <div class="memoir-card-excerpt">${m.excerpt}</div>
-            <div class="memoir-card-footer">
-              <span class="memoir-card-written" style="font-style:italic;color:var(--text-light)">예시 회고록</span>
-            </div>
-          </div>`).join('')}
-        </div>`;
+      writeBtn.style.display  = 'none';
+      area.style.display      = 'none';
+      sampleArea.style.display = '';
+      notice.style.display    = '';
       return;
     }
-    writeBtn.style.display = 'flex';
+    writeBtn.style.display   = 'flex';
+    sampleArea.style.display = 'none';
+    area.style.display       = '';
     loadMemoirs();
   }
 
