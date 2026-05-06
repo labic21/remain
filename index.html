@@ -1612,6 +1612,197 @@
     animation: fbPulse 1.5s ease-in-out infinite;
   }
   @keyframes fbPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* ──────────────────────────── MEMOIR */
+  #memoir { background: var(--warm-beige); }
+  .memoir-header-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .memoir-write-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--warm-brown); color: #fff;
+    border: none; padding: 0.55rem 1.2rem; border-radius: 20px;
+    font-size: 0.82rem; cursor: pointer; font-family: inherit;
+    transition: background 0.2s;
+  }
+  .memoir-write-btn:hover { background: var(--deep-brown); }
+  .memoir-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .memoir-card {
+    background: #fff; border-radius: 20px; padding: 1.6rem 1.8rem;
+    box-shadow: 0 2px 16px var(--shadow-warm);
+    border: 1px solid rgba(224, 208, 184, 0.5);
+    cursor: pointer; transition: all 0.25s;
+    display: flex; flex-direction: column; gap: 0.45rem;
+  }
+  .memoir-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px var(--shadow-warm); }
+  .memoir-card-date { font-size: 0.72rem; color: var(--muted-gold); letter-spacing: 0.1em; font-weight: 600; }
+  .memoir-card-title {
+    font-family: 'Noto Serif KR', serif; font-size: 1.05rem;
+    color: var(--deep-brown); font-weight: 500; line-height: 1.5;
+  }
+  .memoir-card-excerpt {
+    font-size: 0.82rem; color: var(--text-light); line-height: 1.8;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden; flex: 1;
+  }
+  .memoir-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-soft);
+  }
+  .memoir-card-written { font-size: 0.7rem; color: var(--text-light); }
+  .memoir-card-actions { display: flex; gap: 0.4rem; }
+  .memoir-action-btn {
+    background: transparent; border: 1px solid var(--border-soft);
+    color: var(--text-light); border-radius: 8px; padding: 0.25rem 0.6rem;
+    font-size: 0.72rem; cursor: pointer; font-family: inherit; transition: all 0.2s;
+  }
+  .memoir-action-btn:hover { border-color: var(--warm-brown); color: var(--warm-brown); }
+  .memoir-action-btn.delete:hover { border-color: var(--dusty-rose); color: var(--dusty-rose); }
+  .memoir-empty { text-align: center; padding: 4rem 2rem; }
+  .memoir-empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.45; }
+  .memoir-empty-text { font-family: 'Noto Serif KR', serif; font-size: 1rem; color: var(--text-sub); margin-bottom: 0.5rem; }
+  .memoir-empty-sub { font-size: 0.82rem; color: var(--text-light); }
+  .memoir-login-prompt {
+    text-align: center; padding: 4rem 2rem;
+    background: #fff; border-radius: 20px; border: 1.5px dashed var(--warm-sand);
+  }
+  .memoir-login-prompt p {
+    font-family: 'Noto Serif KR', serif; font-size: 1rem;
+    color: var(--text-sub); margin-bottom: 1.2rem; line-height: 1.8;
+  }
+
+  /* MEMOIR EDITOR */
+  .memoir-editor-overlay {
+    display: none; position: fixed; inset: 0; z-index: 400;
+    background: rgba(74, 53, 32, 0.52); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .memoir-editor-overlay.open { display: flex; }
+  .memoir-editor {
+    background: var(--warm-cream); border-radius: 24px;
+    width: 100%; max-width: 640px; max-height: 90vh;
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(74, 53, 32, 0.3); animation: modalIn 0.3s ease;
+  }
+  .memoir-editor-header {
+    padding: 1.6rem 2rem 1.2rem; border-bottom: 1px solid var(--border-soft);
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  }
+  .memoir-editor-title-text { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; color: var(--deep-brown); }
+  .memoir-editor-close {
+    background: none; border: none; color: var(--text-sub); cursor: pointer;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: background 0.2s;
+  }
+  .memoir-editor-close:hover { background: var(--warm-beige); }
+  .memoir-editor-body {
+    flex: 1; overflow-y: auto; padding: 1.6rem 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    scrollbar-width: thin; scrollbar-color: #c8b8a0 transparent;
+  }
+  .memoir-editor-body::-webkit-scrollbar { width: 4px; }
+  .memoir-editor-body::-webkit-scrollbar-thumb { background: #c8b8a0; border-radius: 4px; }
+  .memoir-field-label { font-size: 0.78rem; color: var(--text-sub); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: block; }
+  .memoir-input {
+    display: block; width: 100%; padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border-soft); border-radius: 12px;
+    font-family: 'Noto Serif KR', serif; font-size: 1.05rem;
+    color: var(--text-main); background: #fff; outline: none; transition: border-color 0.2s;
+  }
+  .memoir-input:focus { border-color: var(--warm-brown); }
+  .memoir-date-input {
+    display: block; width: 100%; padding: 0.6rem 1rem;
+    border: 1.5px solid var(--border-soft); border-radius: 12px;
+    font-family: 'Noto Sans KR', sans-serif; font-size: 0.88rem;
+    color: var(--text-main); background: #fff; outline: none; transition: border-color 0.2s;
+  }
+  .memoir-date-input:focus { border-color: var(--warm-brown); }
+  .memoir-textarea {
+    display: block; width: 100%; padding: 1rem;
+    border: 1.5px solid var(--border-soft); border-radius: 12px;
+    font-family: 'Noto Sans KR', sans-serif; font-size: 0.92rem;
+    color: var(--text-main); background: #fff; outline: none;
+    resize: none; min-height: 240px; line-height: 1.9; transition: border-color 0.2s;
+  }
+  .memoir-textarea:focus { border-color: var(--warm-brown); }
+  .memoir-editor-footer {
+    padding: 1.2rem 2rem 1.6rem; border-top: 1px solid var(--border-soft);
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  }
+  .memoir-privacy-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-sub); cursor: pointer; }
+  .memoir-privacy-check input { accent-color: var(--warm-brown); }
+  .memoir-save-btn {
+    background: var(--warm-brown); color: #fff; border: none;
+    padding: 0.6rem 1.6rem; border-radius: 20px; font-size: 0.88rem;
+    cursor: pointer; font-family: inherit; transition: background 0.2s;
+  }
+  .memoir-save-btn:hover { background: var(--deep-brown); }
+  .memoir-save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  /* MEMOIR DETAIL */
+  .memoir-detail-overlay {
+    display: none; position: fixed; inset: 0; z-index: 450;
+    background: var(--warm-cream); overflow-y: auto;
+  }
+  .memoir-detail-overlay.open { display: block; animation: fadeInPage 0.25s ease; }
+  @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+  .memoir-detail-header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(250, 246, 240, 0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 0 2rem; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .memoir-detail-back {
+    background: none; border: none; font-size: 0.88rem; color: var(--warm-brown);
+    display: flex; align-items: center; gap: 0.4rem;
+    cursor: pointer; font-family: inherit; padding: 0; transition: color 0.2s;
+  }
+  .memoir-detail-back:hover { color: var(--deep-brown); }
+  .memoir-detail-header-actions { display: flex; gap: 0.6rem; }
+  .memoir-detail-article { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .memoir-detail-date { font-size: 0.78rem; color: var(--muted-gold); letter-spacing: 0.1em; font-weight: 600; margin-bottom: 0.8rem; }
+  .memoir-detail-title {
+    font-family: 'Noto Serif KR', serif; font-size: 2rem;
+    color: var(--deep-brown); font-weight: 600; line-height: 1.4; margin-bottom: 0.6rem;
+  }
+  .memoir-detail-written {
+    font-size: 0.8rem; color: var(--text-light);
+    padding-bottom: 2rem; border-bottom: 1px solid var(--border-soft); margin-bottom: 2.5rem;
+  }
+  .memoir-detail-content { font-size: 1.02rem; color: var(--text-sub); line-height: 2.2; white-space: pre-line; word-break: keep-all; }
+  .memoir-detail-page-footer {
+    text-align: center; padding: 2.5rem 2rem; background: var(--deep-brown);
+    color: rgba(255,255,255,0.5); margin-top: 3rem;
+  }
+  .memoir-detail-page-footer-quote {
+    font-family: 'Noto Serif KR', serif; font-size: 1rem;
+    color: rgba(255,255,255,0.75); margin-bottom: 0.6rem; letter-spacing: 0.08em;
+  }
+
+  /* Memoir responsive */
+  @media (max-width: 768px) {
+    .memoir-header-row { flex-direction: column; align-items: flex-start; }
+    .memoir-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .memoir-editor-overlay { align-items: flex-end; padding: 0; }
+    .memoir-editor { border-radius: 24px 24px 0 0; max-height: 95vh; }
+    .memoir-editor-body { padding: 1.2rem 1.4rem; }
+    .memoir-editor-footer { padding: 1rem 1.4rem 1.6rem; }
+    .memoir-editor-header { padding: 1.2rem 1.4rem; }
+    .memoir-detail-article { padding: 2rem 1.2rem 4rem; }
+    .memoir-detail-title { font-size: 1.5rem; }
+    .memoir-detail-content { font-size: 0.95rem; line-height: 2.0; }
+    .memoir-detail-header { padding: 0 1.2rem; }
+  }
+  @media (max-width: 480px) {
+    .memoir-detail-header { padding: 0 1rem; }
+  }
 </style>
 </head>
 <body>
@@ -1623,6 +1814,7 @@
     <a href="#profile"   onclick="closeNav()">프로필</a>
     <a href="#timeline"  onclick="closeNav()">타임라인</a>
     <a href="#story"     onclick="closeNav()">나의 이야기</a>
+    <a href="#memoir"    onclick="closeNav()">회고록</a>
     <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
     <a href="#diary" onclick="closeNav()">오늘 한 줄</a>
     <a href="#guestbook" onclick="closeNav()">방명록</a>
@@ -1975,6 +2167,24 @@
     <button class="add-story-btn" onclick="showToast('새 이야기 추가 기능은 준비 중입니다')">
       <span>+</span> 새 이야기 쓰기
     </button>
+  </div>
+</section>
+
+<!-- ═══ MEMOIR ═══ -->
+<section id="memoir">
+  <div class="section-inner">
+    <div class="memoir-header-row">
+      <div class="section-header" style="margin-bottom:0">
+        <div class="section-tag">Memoir</div>
+        <h2 class="section-title">나의 회고록</h2>
+        <div class="section-divider"></div>
+      </div>
+      <button class="memoir-write-btn" id="memoirWriteBtn" onclick="openMemoirEditor()" style="display:none">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        새 회고록 쓰기
+      </button>
+    </div>
+    <div id="memoirArea"></div>
   </div>
 </section>
 
@@ -2578,6 +2788,58 @@
   </div>
 </div>
 
+<!-- MEMOIR EDITOR MODAL -->
+<div class="memoir-editor-overlay" id="memoirEditorOverlay">
+  <div class="memoir-editor">
+    <div class="memoir-editor-header">
+      <div class="memoir-editor-title-text" id="memoirEditorHeading">새 회고록 쓰기</div>
+      <button class="memoir-editor-close" onclick="closeMemoirEditor()">✕</button>
+    </div>
+    <div class="memoir-editor-body">
+      <div>
+        <label class="memoir-field-label">제목</label>
+        <input class="memoir-input" id="memoirTitleInput" type="text" placeholder="회고록 제목을 입력하세요" maxlength="100">
+      </div>
+      <div>
+        <label class="memoir-field-label">날짜</label>
+        <input class="memoir-date-input" id="memoirDateInput" type="date">
+      </div>
+      <div>
+        <label class="memoir-field-label">내용</label>
+        <textarea class="memoir-textarea" id="memoirContentInput" placeholder="당신의 이야기를 자유롭게 기록해보세요..."></textarea>
+      </div>
+    </div>
+    <div class="memoir-editor-footer">
+      <label class="memoir-privacy-check">
+        <input type="checkbox" id="memoirPrivateCheck">
+        <span>🔒 나만 보기</span>
+      </label>
+      <button class="memoir-save-btn" id="memoirSaveBtn" onclick="saveMemoir()">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEMOIR DETAIL -->
+<div class="memoir-detail-overlay" id="memoirDetailOverlay">
+  <div class="memoir-detail-header">
+    <button class="memoir-detail-back" onclick="closeMemoirDetail()">← 나의 회고록</button>
+    <div class="memoir-detail-header-actions">
+      <button class="memoir-action-btn" onclick="editCurrentMemoir()">수정</button>
+      <button class="memoir-action-btn delete" onclick="deleteCurrentMemoir()">삭제</button>
+    </div>
+  </div>
+  <div class="memoir-detail-article">
+    <div class="memoir-detail-date" id="memoirDetailDate"></div>
+    <div class="memoir-detail-title" id="memoirDetailTitle"></div>
+    <div class="memoir-detail-written" id="memoirDetailWritten"></div>
+    <div class="memoir-detail-content" id="memoirDetailContent"></div>
+  </div>
+  <div class="memoir-detail-page-footer">
+    <div class="memoir-detail-page-footer-quote">會者定離 · 去者必返</div>
+    <div style="font-size:0.78rem;letter-spacing:0.08em;">나를 기억할 누군가를 위해 · Remain</div>
+  </div>
+</div>
+
 <script>
 const stories = [
   {
@@ -2988,6 +3250,7 @@ function closeStoryBtn() {
     currentUser = user;
     updateNavAuth(user);
     loadGuestbook();
+    renderMemoirArea();
   });
 
   function updateNavAuth(user) {
@@ -3022,7 +3285,11 @@ function closeStoryBtn() {
     if (e.target === this) closeAuth();
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeAuth();
+    if (e.key === 'Escape') {
+      closeAuth();
+      if (document.getElementById('memoirEditorOverlay').classList.contains('open')) closeMemoirEditor();
+      if (document.getElementById('memoirDetailOverlay').classList.contains('open')) closeMemoirDetail();
+    }
   });
 
   function switchAuthTab(mode) {
@@ -3141,6 +3408,194 @@ function closeStoryBtn() {
     } catch (e) {
       loading.remove();
       console.error('Firestore load error:', e);
+    }
+  }
+
+  // ── MEMOIR
+  let _memoirEditingId = null;
+  let _currentMemoirId = null;
+  let _memoirCache = [];
+
+  function renderMemoirArea() {
+    const area     = document.getElementById('memoirArea');
+    const writeBtn = document.getElementById('memoirWriteBtn');
+    if (!area) return;
+    if (!currentUser) {
+      writeBtn.style.display = 'none';
+      area.innerHTML = `
+        <div class="memoir-login-prompt">
+          <p>로그인하면 나만의 회고록을<br>작성하고 간직할 수 있습니다</p>
+          <button class="btn-primary" onclick="openAuth()">로그인하기</button>
+        </div>`;
+      return;
+    }
+    writeBtn.style.display = 'flex';
+    loadMemoirs();
+  }
+
+  async function loadMemoirs() {
+    if (!currentUser) return;
+    const area = document.getElementById('memoirArea');
+    area.innerHTML = `<div class="fb-loading">회고록을 불러오는 중...</div>`;
+    try {
+      const snap = await db.collection('memoirs')
+        .where('uid', '==', currentUser.uid)
+        .orderBy('createdAt', 'desc')
+        .limit(50).get();
+      _memoirCache = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      _renderMemoirCards();
+    } catch (e) {
+      area.innerHTML = `<div class="memoir-empty"><div class="memoir-empty-text">불러오는 중 오류가 발생했습니다</div></div>`;
+      console.error(e);
+    }
+  }
+
+  function _renderMemoirCards() {
+    const area = document.getElementById('memoirArea');
+    if (_memoirCache.length === 0) {
+      area.innerHTML = `
+        <div class="memoir-empty">
+          <div class="memoir-empty-icon">📖</div>
+          <div class="memoir-empty-text">아직 작성된 회고록이 없습니다</div>
+          <div class="memoir-empty-sub">소중한 기억을 기록해보세요</div>
+        </div>`;
+      return;
+    }
+    const grid = document.createElement('div');
+    grid.className = 'memoir-grid';
+    _memoirCache.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'memoir-card';
+      const written = m.createdAt?.toDate
+        ? m.createdAt.toDate().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'')
+        : '';
+      const excerpt = (m.content || '').replace(/\n+/g, ' ').trim();
+      card.innerHTML = `
+        ${m.date ? `<div class="memoir-card-date">${escHtml(m.date)}</div>` : ''}
+        <div class="memoir-card-title">${escHtml(m.title || '제목 없음')}</div>
+        <div class="memoir-card-excerpt">${escHtml(excerpt)}</div>
+        <div class="memoir-card-footer">
+          <span class="memoir-card-written">${written ? written + ' 작성' : ''}</span>
+          <div class="memoir-card-actions">
+            <button class="memoir-action-btn" data-id="${m.id}" onclick="event.stopPropagation(); openMemoirEditor(this.dataset.id)">수정</button>
+            <button class="memoir-action-btn delete" data-id="${m.id}" onclick="event.stopPropagation(); _confirmDeleteMemoir(this.dataset.id)">삭제</button>
+          </div>
+        </div>`;
+      card.addEventListener('click', () => _openMemoirDetail(m.id));
+      grid.appendChild(card);
+    });
+    area.innerHTML = '';
+    area.appendChild(grid);
+  }
+
+  function openMemoirEditor(id) {
+    if (!currentUser) { openAuth(); return; }
+    _memoirEditingId = id || null;
+    document.getElementById('memoirEditorHeading').textContent = id ? '회고록 수정' : '새 회고록 쓰기';
+    if (id) {
+      const m = _memoirCache.find(x => x.id === id);
+      if (m) {
+        document.getElementById('memoirTitleInput').value    = m.title   || '';
+        document.getElementById('memoirDateInput').value     = m.date    || '';
+        document.getElementById('memoirContentInput').value  = m.content || '';
+        document.getElementById('memoirPrivateCheck').checked = !!m.isPrivate;
+      }
+    } else {
+      document.getElementById('memoirTitleInput').value    = '';
+      document.getElementById('memoirDateInput').value     = new Date().toISOString().slice(0,10);
+      document.getElementById('memoirContentInput').value  = '';
+      document.getElementById('memoirPrivateCheck').checked = false;
+    }
+    document.getElementById('memoirEditorOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('memoirTitleInput').focus(), 100);
+  }
+
+  function closeMemoirEditor() {
+    document.getElementById('memoirEditorOverlay').classList.remove('open');
+    _memoirEditingId = null;
+  }
+
+  document.getElementById('memoirEditorOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeMemoirEditor();
+  });
+
+  async function saveMemoir() {
+    if (!currentUser) return;
+    const title     = document.getElementById('memoirTitleInput').value.trim();
+    const date      = document.getElementById('memoirDateInput').value;
+    const content   = document.getElementById('memoirContentInput').value.trim();
+    const isPrivate = document.getElementById('memoirPrivateCheck').checked;
+    if (!title)   { showToast('제목을 입력해주세요');   document.getElementById('memoirTitleInput').focus();   return; }
+    if (!content) { showToast('내용을 입력해주세요');   document.getElementById('memoirContentInput').focus(); return; }
+    const btn = document.getElementById('memoirSaveBtn');
+    btn.disabled = true;
+    try {
+      if (_memoirEditingId) {
+        await db.collection('memoirs').doc(_memoirEditingId).update({
+          title, date, content, isPrivate,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        showToast('회고록이 수정되었습니다');
+      } else {
+        await db.collection('memoirs').add({
+          uid: currentUser.uid, title, date, content, isPrivate,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        showToast('회고록이 저장되었습니다 🌸');
+      }
+      closeMemoirEditor();
+      loadMemoirs();
+    } catch (e) {
+      showToast('저장 중 오류가 발생했습니다');
+      console.error(e);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function _openMemoirDetail(id) {
+    const m = _memoirCache.find(x => x.id === id);
+    if (!m) return;
+    _currentMemoirId = id;
+    document.getElementById('memoirDetailDate').textContent    = m.date  || '';
+    document.getElementById('memoirDetailTitle').textContent   = m.title || '';
+    const written = m.createdAt?.toDate
+      ? m.createdAt.toDate().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'') + ' 작성'
+      : '';
+    document.getElementById('memoirDetailWritten').textContent  = written;
+    document.getElementById('memoirDetailContent').textContent  = m.content || '';
+    document.getElementById('memoirDetailOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMemoirDetail() {
+    document.getElementById('memoirDetailOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    _currentMemoirId = null;
+  }
+
+  function editCurrentMemoir() {
+    if (!_currentMemoirId) return;
+    const id = _currentMemoirId;
+    closeMemoirDetail();
+    openMemoirEditor(id);
+  }
+
+  function deleteCurrentMemoir() {
+    if (_currentMemoirId) _confirmDeleteMemoir(_currentMemoirId);
+  }
+
+  async function _confirmDeleteMemoir(id) {
+    if (!confirm('이 회고록을 삭제하시겠습니까?')) return;
+    try {
+      await db.collection('memoirs').doc(id).delete();
+      showToast('회고록이 삭제되었습니다');
+      if (_currentMemoirId === id) closeMemoirDetail();
+      loadMemoirs();
+    } catch (e) {
+      showToast('삭제 중 오류가 발생했습니다');
+      console.error(e);
     }
   }
 </script>
