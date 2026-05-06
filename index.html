@@ -3619,6 +3619,7 @@ function closeStoryBtn() {
     if (!currentUser) {
       writeBtn.style.display = 'none';
       area.style.display     = 'none';
+      area.innerHTML         = '';        // 이전 콘텐츠(오류 메시지 등) 초기화
       if (notice) notice.style.display = '';
       return;
     }
@@ -3629,19 +3630,26 @@ function closeStoryBtn() {
   }
 
   async function loadMemoirs() {
-    if (!currentUser) return;
+    if (!currentUser) return;            // 비로그인 시 즉시 종료
     const area = document.getElementById('memoirArea');
+    if (!area) return;
     area.innerHTML = `<div class="fb-loading">회고록을 불러오는 중...</div>`;
     try {
+      // orderBy 제거 → 복합 인덱스 불필요, JS에서 정렬
       const snap = await db.collection('memoirs')
         .where('uid', '==', currentUser.uid)
-        .orderBy('createdAt', 'desc')
         .limit(50).get();
-      _memoirCache = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      // 비동기 처리 중 로그아웃된 경우 조용히 종료
+      if (!currentUser) { area.innerHTML = ''; return; }
+      _memoirCache = snap.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }))
+        .sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
       _renderMemoirCards();
     } catch (e) {
-      area.innerHTML = `<div class="memoir-empty"><div class="memoir-empty-text">불러오는 중 오류가 발생했습니다</div></div>`;
-      console.error(e);
+      // 비로그인 상태면 오류 표시 없이 조용히 숨김
+      if (!currentUser) { area.innerHTML = ''; return; }
+      area.innerHTML = `<div class="memoir-empty"><div class="memoir-empty-text">회고록을 불러오지 못했습니다</div></div>`;
+      console.error('loadMemoirs error:', e);
     }
   }
 
