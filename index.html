@@ -2285,43 +2285,44 @@
     <!-- 사용자 회고록 (로그인 시 표시) -->
     <div id="memoirArea" style="display:none"></div>
 
-    <!-- 로그인 안내 배너 (JS가 비로그인 시에만 표시) -->
-    <div class="memoir-guest-notice" id="memoirGuestNotice">
-      <span>✏️</span>
-      <span>로그인하면 나만의 회고록을 쓸 수 있어요</span>
-      <button onclick="openAuth()">로그인하기</button>
-    </div>
-
-    <!-- 예시 카드 — Firebase·JS 무관, 항상 표시 -->
-    <div class="memoir-grid">
-
-      <div class="memoir-card" onclick="openAuth()">
-        <div class="memoir-card-date">2007년 봄</div>
-        <div class="memoir-card-title">교토의 마지막 아침</div>
-        <div class="memoir-card-excerpt">새벽 다섯 시, 후시미 이나리의 도리이 사이로 첫 빛이 스며들었다. 아무도 없는 계단을 오르며 처음으로 혼자여도 괜찮다는 걸 느꼈다. 그 새벽 공기의 온도가 아직도 손등에 남아 있다.</div>
-        <div class="memoir-card-footer">
-          <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
-        </div>
+    <!-- 예시 카드 + 로그인 안내 (비로그인 시 표시, 로그인 시 JS로 숨김) -->
+    <div id="memoir-examples">
+      <div class="memoir-guest-notice">
+        <span>✏️</span>
+        <span>로그인하면 나만의 회고록을 쓸 수 있어요</span>
+        <button onclick="openAuth()">로그인하기</button>
       </div>
 
-      <div class="memoir-card" onclick="openAuth()">
-        <div class="memoir-card-date">2012년 겨울</div>
-        <div class="memoir-card-title">할머니의 부엌 냄새</div>
-        <div class="memoir-card-excerpt">된장찌개 냄새는 언제나 나를 부엌으로 불렀다. 명령이 아니라 초대였다. 할머니가 돌아가신 지 십 년이 지났는데, 비 오는 날이면 아직도 그 냄새가 코끝에 맴돈다.</div>
-        <div class="memoir-card-footer">
-          <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
-        </div>
-      </div>
+      <div class="memoir-grid">
 
-      <div class="memoir-card" onclick="openAuth()">
-        <div class="memoir-card-date">2015년 4월</div>
-        <div class="memoir-card-title">서른, 그 문턱에서</div>
-        <div class="memoir-card-excerpt">서른 번째 생일을 혼자 보냈다. 케이크도 없이, 초도 없이. 창밖 벚꽃이 지는 걸 보며 오래 앉아 있었다. 이상하게도 슬프지 않았다. 그냥 조용했다. 그게 더 좋았다.</div>
-        <div class="memoir-card-footer">
-          <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+        <div class="memoir-card" onclick="openAuth()">
+          <div class="memoir-card-date">2007년 봄</div>
+          <div class="memoir-card-title">교토의 마지막 아침</div>
+          <div class="memoir-card-excerpt">새벽 다섯 시, 후시미 이나리의 도리이 사이로 첫 빛이 스며들었다. 아무도 없는 계단을 오르며 처음으로 혼자여도 괜찮다는 걸 느꼈다. 그 새벽 공기의 온도가 아직도 손등에 남아 있다.</div>
+          <div class="memoir-card-footer">
+            <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+          </div>
         </div>
-      </div>
 
+        <div class="memoir-card" onclick="openAuth()">
+          <div class="memoir-card-date">2012년 겨울</div>
+          <div class="memoir-card-title">할머니의 부엌 냄새</div>
+          <div class="memoir-card-excerpt">된장찌개 냄새는 언제나 나를 부엌으로 불렀다. 명령이 아니라 초대였다. 할머니가 돌아가신 지 십 년이 지났는데, 비 오는 날이면 아직도 그 냄새가 코끝에 맴돈다.</div>
+          <div class="memoir-card-footer">
+            <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+          </div>
+        </div>
+
+        <div class="memoir-card" onclick="openAuth()">
+          <div class="memoir-card-date">2015년 4월</div>
+          <div class="memoir-card-title">서른, 그 문턱에서</div>
+          <div class="memoir-card-excerpt">서른 번째 생일을 혼자 보냈다. 케이크도 없이, 초도 없이. 창밖 벚꽃이 지는 걸 보며 오래 앉아 있었다. 이상하게도 슬프지 않았다. 그냥 조용했다. 그게 더 좋았다.</div>
+          <div class="memoir-card-footer">
+            <span class="memoir-card-written" style="font-style:italic">예시 회고록</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
@@ -3614,17 +3615,17 @@ function closeStoryBtn() {
   function renderMemoirArea() {
     const area     = document.getElementById('memoirArea');
     const writeBtn = document.getElementById('memoirWriteBtn');
-    const notice   = document.getElementById('memoirGuestNotice');
+    const examples = document.getElementById('memoir-examples');
     if (!area) return;
     if (!currentUser) {
       writeBtn.style.display = 'none';
       area.style.display     = 'none';
-      area.innerHTML         = '';        // 이전 콘텐츠(오류 메시지 등) 초기화
-      if (notice) notice.style.display = '';
+      area.innerHTML         = '';
+      if (examples) examples.style.display = '';
       return;
     }
     writeBtn.style.display = 'flex';
-    if (notice) notice.style.display = 'none';
+    if (examples) examples.style.display = 'none';
     area.style.display     = '';
     loadMemoirs();
   }
@@ -3646,9 +3647,7 @@ function closeStoryBtn() {
         .sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
       _renderMemoirCards();
     } catch (e) {
-      // 비로그인 상태면 오류 표시 없이 조용히 숨김
-      if (!currentUser) { area.innerHTML = ''; return; }
-      area.innerHTML = `<div class="memoir-empty"><div class="memoir-empty-text">회고록을 불러오지 못했습니다</div></div>`;
+      area.innerHTML = '';
       console.error('loadMemoirs error:', e);
     }
   }
