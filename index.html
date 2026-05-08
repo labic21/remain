@@ -137,7 +137,8 @@
     background: var(--warm-sand);
     overflow: hidden;
     border: 4px solid rgba(255,255,255,0.7);
-    box-shadow: 0 8px 32px var(--shadow-warm);
+    /* DESIGN.md ring-gold: muted-gold 외곽 링 + warm shadow */
+    box-shadow: 0 0 0 2px var(--muted-gold), 0 8px 32px var(--shadow-warm);
     position: relative;
   }
   .avatar img {
@@ -151,6 +152,23 @@
     border: 2px dashed var(--warm-sand);
     animation: spin 30s linear infinite;
   }
+  /* 프로필 사진 위 호버 시 나타나는 수정 버튼 */
+  .avatar-edit-btn {
+    position: absolute;
+    bottom: 8px; right: 8px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--warm-brown);
+    color: #fff;
+    border: 2.5px solid var(--warm-cream);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px var(--shadow-warm);
+    transition: background 0.2s, transform 0.2s;
+    z-index: 2;
+  }
+  .avatar-edit-btn:hover { background: var(--deep-brown); transform: scale(1.08); }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ──────────────────────────── SAKURA */
@@ -709,10 +727,28 @@
     font-family: inherit;
     color: var(--text-main);
     background: var(--warm-cream);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
   }
-  .compose-input:focus { border-color: var(--warm-brown); }
+  .compose-input:focus {
+    border-color: var(--warm-brown);
+    box-shadow: 0 0 0 3px rgba(224, 205, 176, 0.45);
+  }
+  /* 브라우저 자동완성 색상 오버라이드 — Chrome/Safari/Samsung Internet의 하늘색/노란색 차단 */
+  .compose-input:-webkit-autofill,
+  .compose-input:-webkit-autofill:hover,
+  .compose-input:-webkit-autofill:focus,
+  .compose-input:-webkit-autofill:active,
+  .auth-input:-webkit-autofill,
+  .auth-input:-webkit-autofill:hover,
+  .auth-input:-webkit-autofill:focus,
+  .auth-input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-main);
+    -webkit-box-shadow: 0 0 0 1000px var(--warm-cream) inset;
+    box-shadow: 0 0 0 1000px var(--warm-cream) inset;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: var(--text-main);
+  }
   .compose-textarea {
     width: 100%;
     padding: 0.8rem 1rem;
@@ -1751,9 +1787,23 @@
     display: block; width: 100%; padding: 0.6rem 1rem;
     border: 1.5px solid var(--border-soft); border-radius: 12px;
     font-family: 'Noto Sans KR', sans-serif; font-size: 0.88rem;
-    color: var(--text-main); background: var(--card-bg); outline: none; transition: border-color 0.2s;
+    color: var(--text-main); background: var(--card-bg); outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    /* 모바일 iOS Safari 기본 스타일 무력화 */
+    -webkit-appearance: none; appearance: none;
   }
-  .memoir-date-input:focus { border-color: var(--warm-brown); }
+  .memoir-date-input:focus {
+    border-color: var(--warm-brown);
+    box-shadow: 0 0 0 3px rgba(224, 205, 176, 0.45);
+  }
+  /* 캘린더 아이콘을 따뜻한 톤으로 — sepia 필터로 brown 계열에 맞춤 */
+  .memoir-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+    filter: sepia(1) saturate(0.6) hue-rotate(-10deg);
+    transition: opacity 0.2s;
+  }
+  .memoir-date-input::-webkit-calendar-picker-indicator:hover { opacity: 0.9; }
   .memoir-textarea {
     display: block; width: 100%; padding: 1rem;
     border: 1.5px solid var(--border-soft); border-radius: 12px;
@@ -1969,6 +2019,9 @@
           onerror="this.style.display='none'; this.parentElement.innerHTML+='🌸'">
         <div class="avatar-ring"></div>
       </div>
+      <button class="avatar-edit-btn" id="avatarEditBtn" onclick="openProfileEdit()" aria-label="프로필 사진 수정" style="display:none">
+        <span aria-hidden="true">✎</span>
+      </button>
       <div class="privacy-badge" onclick="openPrivacyPanel()">
         <span class="privacy-dot" id="profileDot"></span>
         <span id="profilePrivacyLabel">공개</span>
@@ -2469,8 +2522,8 @@
     <div class="guestbook-compose">
       <div class="compose-header">이곳에 발자국을 남겨주세요</div>
       <div class="compose-row">
-        <input class="compose-input" placeholder="이름 또는 닉네임" maxlength="20">
-        <input class="compose-input" placeholder="관계 (친구, 동료, 가족...)" maxlength="20">
+        <input class="compose-input" placeholder="이름 또는 닉네임" maxlength="20" autocomplete="off" name="visitor-name">
+        <input class="compose-input" placeholder="관계 (친구, 동료, 가족...)" maxlength="20" autocomplete="off" name="visitor-relation">
       </div>
       <textarea class="compose-textarea" placeholder="소연에게 전하고 싶은 말을 남겨주세요. 따뜻한 기억이나 안부도 좋아요."></textarea>
       <div class="compose-footer">
@@ -3487,11 +3540,20 @@ function closeStoryBtn() {
       const name = user.displayName || user.email.split('@')[0];
       area.innerHTML = `<div class="nav-user-wrap">
         <span class="nav-user-name">${escHtml(name)}</span>
+        <button class="nav-btn nav-btn--ghost" onclick="openProfileEdit(); closeNav()">프로필 수정</button>
         <button class="nav-btn" onclick="signOutUser()">로그아웃</button>
       </div>`;
     } else {
       area.innerHTML = `<button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>`;
     }
+    // 프로필 사진 위 수정 버튼 — 로그인 상태일 때만 노출
+    const editBtn = document.getElementById('avatarEditBtn');
+    if (editBtn) editBtn.style.display = user ? 'flex' : 'none';
+  }
+
+  // ── PROFILE EDIT (사진 업로드는 2차 작업에서 구현 예정)
+  function openProfileEdit() {
+    showToast('프로필 사진 수정 기능은 곧 제공될 예정입니다 🌸');
   }
 
   // ── AUTH MODAL CONTROLS
