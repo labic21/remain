@@ -34,6 +34,17 @@
     line-height: 1.8;
   }
 
+  /* 전체 입력 요소의 placeholder 톤 통일 — 따뜻한 흐린 갈색 */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text-light);
+    opacity: 0.75;
+  }
+  input:focus::placeholder,
+  textarea:focus::placeholder {
+    opacity: 0.5;
+  }
+
   /* ──────────────────────────── NAVIGATION */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -200,7 +211,7 @@
     }
   }
   .privacy-badge {
-    position: absolute; bottom: 4px; right: 4px;
+    position: absolute; bottom: 4px; left: 4px;
     background: #fff;
     border: 1px solid var(--border-soft);
     border-radius: 20px;
@@ -1984,7 +1995,7 @@
     .diary-compose { padding: 1.3rem; }
     /* 입력 폼: 세로 배치, 좌우 꽉 채움 */
     .diary-input-row { flex-direction: column; gap: 0.6rem; align-items: stretch; }
-    .diary-textarea { width: 100%; height: 56px; }
+    .diary-textarea { width: 100%; height: 48px; padding: 0.7rem 1rem; font-size: 0.85rem; }
     .diary-submit-btn { height: 48px; width: 100%; border-radius: 10px; font-size: 0.88rem; padding: 0; }
     /* 타임라인: 날짜 위, 텍스트 아래 세로 배치 */
     .diary-list { padding-left: 1.2rem; }
