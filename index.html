@@ -211,7 +211,7 @@
     }
   }
   .privacy-badge {
-    position: absolute; bottom: 4px; left: 4px;
+    position: absolute; top: 8px; left: 8px;
     background: #fff;
     border: 1px solid var(--border-soft);
     border-radius: 20px;
@@ -222,6 +222,7 @@
     display: flex; align-items: center; gap: 4px;
     box-shadow: 0 2px 8px var(--shadow-warm);
     transition: all 0.2s;
+    z-index: 2;
   }
   .privacy-badge:hover { background: var(--warm-beige); }
   .privacy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warm-brown); }
@@ -2767,8 +2768,8 @@
     const dots   = { public: true, friends: false, link: false, private: false };
     const dot = document.getElementById('profileDot');
     const lbl = document.getElementById('profilePrivacyLabel');
-    lbl.textContent = labels[selectedPrivacy];
-    dot.classList.toggle('private', !dots[selectedPrivacy]);
+    if (lbl) lbl.textContent = labels[selectedPrivacy];
+    if (dot) dot.classList.toggle('private', !dots[selectedPrivacy]);
     closePrivacyPanel();
     showToast(`공개 설정이 "${labels[selectedPrivacy]}"으로 저장되었습니다`);
   }
