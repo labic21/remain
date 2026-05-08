@@ -22,6 +22,7 @@
     --border-soft:   #e0d0b8;
     --shadow-warm:   rgba(139, 111, 71, 0.12);
     --private-bg:    #f5efe8;
+    --card-bg:       #fffcf6;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,6 +72,18 @@
     transition: background 0.2s;
   }
   .nav-btn:hover { background: var(--deep-brown); }
+
+  /* 보조 액션용 ghost 변형 — primary 위계가 아닌 nav 버튼에 사용 */
+  .nav-btn--ghost {
+    background: transparent;
+    color: var(--warm-brown);
+    border: 1.5px solid var(--border-soft);
+  }
+  .nav-btn--ghost:hover {
+    background: var(--warm-beige);
+    border-color: var(--warm-brown);
+    color: var(--deep-brown);
+  }
 
   /* ──────────────────────────── HERO / PROFILE */
   .hero {
@@ -346,7 +359,7 @@
   .timeline-item.private::before { background: var(--soft-rose); box-shadow: 0 0 0 2px var(--soft-rose); }
 
   .timeline-card {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 1.4rem 1.6rem;
     box-shadow: 0 2px 16px var(--shadow-warm);
@@ -432,7 +445,7 @@
     border-radius: 50%;
     background: #fff;
     transition: left 0.25s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 4px rgba(74, 53, 32, 0.15);
   }
   .toggle-switch.on .toggle-knob,
   .toggle-switch.private-on .toggle-knob { left: 16px; }
@@ -500,7 +513,7 @@
     gap: 1.5rem;
   }
   .story-card {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 2px 16px var(--shadow-warm);
@@ -673,7 +686,7 @@
 
   #guestbook { background: linear-gradient(160deg, #f0e8d8, #faf6f0); }
   .guestbook-compose {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 20px;
     padding: 1.8rem;
     box-shadow: 0 2px 16px var(--shadow-warm);
@@ -741,7 +754,7 @@
 
   .guestbook-list { display: flex; flex-direction: column; gap: 1.2rem; }
   .guest-entry {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 1.4rem 1.6rem;
     box-shadow: 0 2px 12px var(--shadow-warm);
@@ -854,7 +867,7 @@
     margin-bottom: 1.6rem;
   }
   .privacy-option {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 14px;
     padding: 1rem 1.2rem;
     margin-bottom: 0.8rem;
@@ -1423,7 +1436,7 @@
     display: flex; gap: 0; align-items: center;
     border: 1.5px solid var(--border-soft);
     border-radius: 12px; overflow: hidden;
-    background: #fff;
+    background: var(--card-bg);
   }
   .comment-input {
     flex: 1; padding: 0.85rem 1.2rem;
@@ -1581,7 +1594,7 @@
     border-radius: 12px;
     padding: 0.75rem 1rem;
     font-size: 0.9rem; font-family: inherit;
-    background: #fff; color: var(--text-main);
+    background: var(--card-bg); color: var(--text-main);
     outline: none; margin-bottom: 0.75rem;
     transition: border-color 0.2s;
   }
@@ -1634,7 +1647,7 @@
     row-gap: 32px;
   }
   .memoir-card {
-    background: #fff; border-radius: 20px; padding: 1.6rem 1.8rem;
+    background: var(--card-bg); border-radius: 20px; padding: 1.6rem 1.8rem;
     box-shadow: 0 2px 16px var(--shadow-warm);
     border: 1px solid rgba(224, 208, 184, 0.5);
     cursor: pointer; transition: all 0.25s;
@@ -1670,7 +1683,7 @@
   .memoir-empty-sub { font-size: 0.82rem; color: var(--text-light); }
   .memoir-login-prompt {
     text-align: center; padding: 4rem 2rem;
-    background: #fff; border-radius: 20px; border: 1.5px dashed var(--warm-sand);
+    background: var(--card-bg); border-radius: 20px; border: 1.5px dashed var(--warm-sand);
   }
   .memoir-login-prompt p {
     font-family: 'Noto Serif KR', serif; font-size: 1rem;
@@ -1714,21 +1727,21 @@
     display: block; width: 100%; padding: 0.7rem 1rem;
     border: 1.5px solid var(--border-soft); border-radius: 12px;
     font-family: 'Noto Serif KR', serif; font-size: 1.05rem;
-    color: var(--text-main); background: #fff; outline: none; transition: border-color 0.2s;
+    color: var(--text-main); background: var(--card-bg); outline: none; transition: border-color 0.2s;
   }
   .memoir-input:focus { border-color: var(--warm-brown); }
   .memoir-date-input {
     display: block; width: 100%; padding: 0.6rem 1rem;
     border: 1.5px solid var(--border-soft); border-radius: 12px;
     font-family: 'Noto Sans KR', sans-serif; font-size: 0.88rem;
-    color: var(--text-main); background: #fff; outline: none; transition: border-color 0.2s;
+    color: var(--text-main); background: var(--card-bg); outline: none; transition: border-color 0.2s;
   }
   .memoir-date-input:focus { border-color: var(--warm-brown); }
   .memoir-textarea {
     display: block; width: 100%; padding: 1rem;
     border: 1.5px solid var(--border-soft); border-radius: 12px;
     font-family: 'Noto Sans KR', sans-serif; font-size: 0.92rem;
-    color: var(--text-main); background: #fff; outline: none;
+    color: var(--text-main); background: var(--card-bg); outline: none;
     resize: none; min-height: 240px; line-height: 1.9; transition: border-color 0.2s;
   }
   .memoir-textarea:focus { border-color: var(--warm-brown); }
@@ -1823,7 +1836,7 @@
   /* ──────────────────────────── DIARY */
   #diary { background: var(--warm-cream); }
   .diary-compose {
-    background: #fff; border-radius: 20px; padding: 1.6rem 1.8rem;
+    background: var(--card-bg); border-radius: 20px; padding: 1.6rem 1.8rem;
     box-shadow: 0 2px 16px var(--shadow-warm);
     border: 1px solid var(--border-soft); margin-bottom: 2.5rem;
   }
@@ -1921,7 +1934,7 @@
     <div id="navAuthArea">
       <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
     </div>
-    <button class="nav-btn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
+    <button class="nav-btn nav-btn--ghost" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
   </div>
   <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="메뉴 열기">
     <span></span><span></span><span></span>
