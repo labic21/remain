@@ -1939,28 +1939,28 @@
   /* ──────────────────────────── DIARY */
   #diary { background: var(--warm-cream); }
   .diary-compose {
-    background: var(--card-bg); border-radius: 20px; padding: 1.1rem 1.4rem;
+    background: var(--card-bg); border-radius: 20px; padding: 0.9rem 1.2rem;
     box-shadow: 0 2px 16px var(--shadow-warm);
     border: 1px solid var(--border-soft); margin-bottom: 2.5rem;
   }
   .diary-compose-header {
-    font-family: 'Noto Serif KR', serif; font-size: 0.95rem;
-    color: var(--deep-brown); margin-bottom: 0.7rem;
+    font-family: 'Noto Serif KR', serif; font-size: 0.92rem;
+    color: var(--deep-brown); margin-bottom: 0.5rem;
     display: flex; align-items: center; gap: 0.5rem;
   }
   .diary-compose-header svg { stroke: var(--muted-gold); flex-shrink: 0; }
   .diary-input-row { display: flex; gap: 0.8rem; align-items: flex-end; }
   .diary-textarea {
-    flex: 1; padding: 0.7rem 1rem;
+    flex: 1; padding: 0.55rem 1rem;
     border: 1.5px solid var(--border-soft); border-radius: 12px;
     font-family: 'Noto Sans KR', sans-serif; font-size: 0.88rem;
     color: var(--text-main); background: var(--warm-cream);
-    resize: none; height: 48px; line-height: 1.6; outline: none; transition: border-color 0.2s;
+    resize: none; height: 42px; line-height: 1.5; outline: none; transition: border-color 0.2s;
   }
   .diary-textarea:focus { border-color: var(--warm-brown); }
   .diary-submit-btn {
     background: var(--warm-brown); color: #fff; border: none;
-    padding: 0 1.4rem; height: 48px; border-radius: 12px;
+    padding: 0 1.4rem; height: 42px; border-radius: 12px;
     font-size: 0.82rem; cursor: pointer; font-family: inherit;
     transition: background 0.2s; white-space: nowrap; flex-shrink: 0;
   }
@@ -2009,8 +2009,8 @@
     .diary-compose { padding: 1rem; }
     /* 입력 폼: 세로 배치, 좌우 꽉 채움 */
     .diary-input-row { flex-direction: column; gap: 0.6rem; align-items: stretch; }
-    .diary-textarea { width: 100%; height: 48px; padding: 0.7rem 1rem; font-size: 0.85rem; }
-    .diary-submit-btn { height: 48px; width: 100%; border-radius: 10px; font-size: 0.88rem; padding: 0; }
+    .diary-textarea { width: 100%; height: 42px; padding: 0.55rem 1rem; font-size: 0.85rem; }
+    .diary-submit-btn { height: 42px; width: 100%; border-radius: 10px; font-size: 0.88rem; padding: 0; }
     /* 타임라인: 날짜 위, 텍스트 아래 세로 배치 */
     .diary-list { padding-left: 1.2rem; }
     .diary-list::before { left: 4px; }
