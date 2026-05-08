@@ -1686,13 +1686,24 @@
     margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
   }
   .memoir-write-btn {
-    display: flex; align-items: center; gap: 0.5rem;
-    background: var(--warm-brown); color: #fff;
-    border: none; padding: 0.55rem 1.2rem; border-radius: 20px;
-    font-size: 0.82rem; cursor: pointer; font-family: inherit;
-    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    background: transparent;
+    border: 2px dashed var(--warm-sand);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
+    margin-top: 2.5rem;
+    transition: all 0.2s;
   }
-  .memoir-write-btn:hover { background: var(--deep-brown); }
+  .memoir-write-btn:hover {
+    border-color: var(--warm-brown);
+    color: var(--warm-brown);
+    background: rgba(139, 111, 71, 0.04);
+  }
   .memoir-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -2362,10 +2373,6 @@
         <h2 class="section-title">나의 회고록</h2>
         <div class="section-divider"></div>
       </div>
-      <button class="memoir-write-btn" id="memoirWriteBtn" onclick="openMemoirEditor()" style="display:none">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        새 회고록 쓰기
-      </button>
     </div>
     <!-- 사용자 회고록 (로그인 시 표시) -->
     <div id="memoirArea" style="display:none"></div>
@@ -2408,6 +2415,9 @@
 
       </div>
     </div>
+    <button class="memoir-write-btn" id="memoirWriteBtn" onclick="openMemoirEditor()" style="display:none">
+      <span>+</span> 새 회고록 쓰기
+    </button>
   </div>
 </section>
 
