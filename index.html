@@ -993,6 +993,12 @@
     white-space: nowrap;
   }
   nav.nav--compact .nav-links a:last-of-type { border-bottom: none; }
+  /* 모바일 메뉴: 메뉴 링크와 사용자/로그인 영역 구분선 */
+  nav.nav--compact .nav-links #navAuthArea {
+    border-top: 1px solid var(--border-soft);
+    margin-top: 0.4rem;
+    padding-top: 0.2rem;
+  }
   nav.nav--compact .nav-btn {
     margin-top: 0.9rem;
     padding: 0.75rem;
@@ -1619,6 +1625,17 @@
     max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   nav.nav--compact .nav-user-name { max-width: none; font-size: 0.9rem; color: var(--text-main); padding: 0.5rem 0; }
+  /* 모바일 메뉴: 사용자 영역을 세로 풀폭 구조로 — 이름은 중앙정렬, 로그아웃 버튼은 다른 nav-btn과 동일한 풀폭 */
+  nav.nav--compact .nav-user-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+  nav.nav--compact .nav-user-wrap .nav-user-name {
+    text-align: center;
+    padding: 0.9rem 0 0.4rem;
+  }
   .fb-loading {
     text-align: center; color: var(--text-light);
     font-size: 0.82rem; padding: 1.5rem;
