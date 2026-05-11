@@ -2475,10 +2475,6 @@
 
     <!-- 예시 카드 + 로그인 안내 (비로그인 시 표시, 로그인 시 JS로 숨김) -->
     <div id="memoir-examples">
-      <div class="memoir-guest-notice">
-        <span><button onclick="openAuth()">로그인</button>하면 나만의 회고록을 쓸 수 있어요</span>
-      </div>
-
       <div class="memoir-grid">
 
         <div class="memoir-card" onclick="openAuth()">
@@ -2508,6 +2504,10 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="memoir-guest-notice">
+        <span><button onclick="openAuth()">로그인</button>하면 나만의 회고록을 쓸 수 있어요</span>
       </div>
     </div>
     <button class="memoir-write-btn" id="memoirWriteBtn" onclick="openMemoirEditor()" style="display:none">
