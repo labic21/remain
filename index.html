@@ -1137,7 +1137,8 @@
 
     /* FOOTER */
     footer { padding: 3rem 1.2rem 5rem; }
-    .footer-copy { max-width: none; justify-content: flex-start; gap: 1.5rem; padding-right: 4rem; }
+    .footer-copy { max-width: none; position: relative; justify-content: flex-start; padding-right: 4rem; }
+    footer .footer-copy > span { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 
     /* TIMELINE */
     .timeline { padding-left: 1.6rem; }
