@@ -2620,23 +2620,6 @@
       <div class="section-divider"></div>
     </div>
 
-    <!-- Compose -->
-    <div class="guestbook-compose">
-      <div class="compose-header">이곳에 발자국을 남겨주세요</div>
-      <div class="compose-row">
-        <input class="compose-input" placeholder="이름 또는 닉네임" maxlength="20" autocomplete="off" name="visitor-name">
-        <input class="compose-input" placeholder="관계 (친구, 동료, 가족...)" maxlength="20" autocomplete="off" name="visitor-relation">
-      </div>
-      <textarea class="compose-textarea" placeholder="소연에게 전하고 싶은 말을 남겨주세요. 따뜻한 기억이나 안부도 좋아요."></textarea>
-      <div class="compose-footer">
-        <label class="compose-privacy">
-          <input type="checkbox" id="privateCheck">
-          🔒 나와 작성자만 보기 (비공개)
-        </label>
-        <button class="btn-submit" onclick="submitGuestbook()">남기기</button>
-      </div>
-    </div>
-
     <!-- Entries -->
     <div class="guestbook-list" id="guestbookList">
 
@@ -2695,6 +2678,23 @@
         <div class="guest-heart" onclick="likeEntry(this)">♥ 5</div>
       </div>
 
+    </div>
+
+    <!-- Compose -->
+    <div class="guestbook-compose">
+      <div class="compose-header">이곳에 발자국을 남겨주세요</div>
+      <div class="compose-row">
+        <input class="compose-input" placeholder="이름 또는 닉네임" maxlength="20" autocomplete="off" name="visitor-name">
+        <input class="compose-input" placeholder="관계 (친구, 동료, 가족...)" maxlength="20" autocomplete="off" name="visitor-relation">
+      </div>
+      <textarea class="compose-textarea" placeholder="소연에게 전하고 싶은 말을 남겨주세요. 따뜻한 기억이나 안부도 좋아요."></textarea>
+      <div class="compose-footer">
+        <label class="compose-privacy">
+          <input type="checkbox" id="privateCheck">
+          🔒 나와 작성자만 보기 (비공개)
+        </label>
+        <button class="btn-submit" onclick="submitGuestbook()">남기기</button>
+      </div>
     </div>
   </div>
 </section>
