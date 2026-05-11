@@ -965,12 +965,17 @@
   }
   .footer-sub { font-size: 0.78rem; letter-spacing: 0.08em; }
   .footer-copy {
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: flex-start;
+    position: relative;
     max-width: 900px; margin: 2rem auto 0;
     padding-top: 1.2rem;
     border-top: 1px solid rgba(255,255,255,0.12);
     font-size: 0.72rem; color: rgba(255,255,255,0.35);
     letter-spacing: 0.05em;
+  }
+  .footer-copy > span {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
   }
   .footer-store-icons { display: flex; align-items: center; gap: 1rem; }
   .footer-store-icons svg { width: 20px; height: 20px; fill: rgba(255,255,255,0.45); transition: fill 0.2s; cursor: pointer; }
