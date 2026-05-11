@@ -84,6 +84,9 @@
   }
   .nav-btn:hover { background: var(--deep-brown); }
 
+  /* 데스크탑 전용: 로그인·공개설정 버튼 간격 축소 */
+  nav:not(.nav--compact) #navPrivacyBtn { margin-left: -1.5rem; }
+
   /* 보조 액션용 ghost 변형 — primary 위계가 아닌 nav 버튼에 사용 */
   .nav-btn--ghost {
     background: transparent;
@@ -2102,12 +2105,10 @@
     <a href="#diary" onclick="closeNav()">오늘 한 줄</a>
     <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
     <a href="#guestbook" onclick="closeNav()">방명록</a>
-    <div style="display:flex; align-items:center; gap:0.5rem;">
-      <div id="navAuthArea">
-        <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
-      </div>
-      <button class="nav-btn nav-btn--ghost" id="navPrivacyBtn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
+    <div id="navAuthArea">
+      <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
     </div>
+    <button class="nav-btn nav-btn--ghost" id="navPrivacyBtn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
   </div>
   <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="메뉴 열기">
     <span></span><span></span><span></span>
