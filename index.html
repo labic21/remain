@@ -2102,10 +2102,12 @@
     <a href="#diary" onclick="closeNav()">오늘 한 줄</a>
     <a href="#timecapsule" onclick="closeNav()">타임캡슐</a>
     <a href="#guestbook" onclick="closeNav()">방명록</a>
-    <div id="navAuthArea">
-      <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
+    <div style="display:flex; align-items:center; gap:0.5rem;">
+      <div id="navAuthArea">
+        <button class="nav-btn" onclick="openAuth(); closeNav()">로그인</button>
+      </div>
+      <button class="nav-btn nav-btn--ghost" id="navPrivacyBtn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
     </div>
-    <button class="nav-btn nav-btn--ghost" id="navPrivacyBtn" onclick="openPrivacyPanel(); closeNav()">공개 설정</button>
   </div>
   <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="메뉴 열기">
     <span></span><span></span><span></span>
