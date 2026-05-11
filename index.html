@@ -966,6 +966,50 @@
   .footer-sub { font-size: 0.78rem; letter-spacing: 0.08em; }
 
   /* ──────────────────────────── TOAST */
+  /* ── CUSTOM CONFIRM DIALOG */
+  .confirm-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(60, 40, 20, 0.35);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .confirm-overlay.open { opacity: 1; pointer-events: auto; }
+  .confirm-dialog {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem 2rem 1.5rem;
+    width: min(340px, 88vw);
+    box-shadow: 0 8px 40px rgba(80, 50, 20, 0.18);
+    border: 1px solid var(--border-soft);
+    transform: scale(0.95);
+    transition: transform 0.2s;
+  }
+  .confirm-overlay.open .confirm-dialog { transform: scale(1); }
+  .confirm-message {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1rem; color: var(--deep-brown);
+    line-height: 1.7; margin-bottom: 1.6rem; text-align: center;
+  }
+  .confirm-buttons {
+    display: flex; gap: 0.7rem; justify-content: center;
+  }
+  .confirm-cancel {
+    flex: 1; padding: 0.65rem 0;
+    border: 1.5px solid var(--border-soft); border-radius: 12px;
+    background: transparent; color: var(--text-sub);
+    font-family: inherit; font-size: 0.9rem; cursor: pointer;
+    transition: all 0.18s;
+  }
+  .confirm-cancel:hover { border-color: var(--warm-brown); color: var(--warm-brown); }
+  .confirm-ok {
+    flex: 1; padding: 0.65rem 0;
+    border: none; border-radius: 12px;
+    background: var(--warm-brown); color: #fff;
+    font-family: inherit; font-size: 0.9rem; cursor: pointer;
+    transition: background 0.18s;
+  }
+  .confirm-ok:hover { background: var(--deep-brown); }
+
   .toast {
     position: fixed; bottom: 2rem; left: 50%;
     transform: translateX(-50%) translateY(20px);
@@ -2667,6 +2711,16 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-dialog">
+    <p class="confirm-message" id="confirmMessage"></p>
+    <div class="confirm-buttons">
+      <button class="confirm-cancel" id="confirmCancel">취소</button>
+      <button class="confirm-ok" id="confirmOk">확인</button>
+    </div>
+  </div>
+</div>
+
 <!-- MUSIC PLAYER -->
 <div class="music-player" id="musicPlayerWrap">
   <button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="배경음악 재생">
@@ -2684,6 +2738,17 @@
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  function showConfirm(msg, onOk) {
+    const overlay = document.getElementById('confirmOverlay');
+    document.getElementById('confirmMessage').textContent = msg;
+    overlay.classList.add('open');
+    const ok     = document.getElementById('confirmOk');
+    const cancel = document.getElementById('confirmCancel');
+    const close  = () => overlay.classList.remove('open');
+    ok.onclick     = () => { close(); onOk(); };
+    cancel.onclick = () => close();
   }
 
   // ── TIMELINE TOGGLE
@@ -3928,17 +3993,18 @@ function closeStoryBtn() {
     showToast('오늘의 한 줄이 기록됐습니다 🌸');
   }
 
-  async function _confirmDeleteMemoir(id) {
-    if (!confirm('이 회고록을 삭제하시겠습니까?')) return;
-    try {
-      await db.collection('memoirs').doc(id).delete();
-      showToast('회고록이 삭제되었습니다');
-      if (_currentMemoirId === id) closeMemoirDetail();
-      loadMemoirs();
-    } catch (e) {
-      showToast('삭제 중 오류가 발생했습니다');
-      console.error(e);
-    }
+  function _confirmDeleteMemoir(id) {
+    showConfirm('이 회고록을 삭제하시겠습니까?', async () => {
+      try {
+        await db.collection('memoirs').doc(id).delete();
+        showToast('회고록이 삭제되었습니다');
+        if (_currentMemoirId === id) closeMemoirDetail();
+        loadMemoirs();
+      } catch (e) {
+        showToast('삭제 중 오류가 발생했습니다');
+        console.error(e);
+      }
+    });
   }
 </script>
 </body>
