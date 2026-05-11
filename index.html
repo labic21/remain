@@ -1301,7 +1301,9 @@
     .brunch-footer { padding-bottom: 5rem; }
     .memoir-detail-page-footer { padding-bottom: 5rem; }
     .brunch-footer .footer-copy,
-    .memoir-detail-page-footer .footer-copy { justify-content: flex-start; gap: 1.5rem; padding-right: 4rem; }
+    .memoir-detail-page-footer .footer-copy { position: relative; justify-content: flex-start; padding-right: 4rem; }
+    .brunch-footer .footer-copy > span,
+    .memoir-detail-page-footer .footer-copy > span { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; }
   }
   @media (max-width: 480px) {
     .music-player { bottom: 1rem; right: 1.2rem; }
