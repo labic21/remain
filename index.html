@@ -1137,7 +1137,7 @@
 
     /* FOOTER */
     footer { padding: 3rem 1.2rem 5rem; }
-    .footer-copy { max-width: none; }
+    .footer-copy { max-width: none; justify-content: flex-start; gap: 1.5rem; padding-right: 4rem; }
 
     /* TIMELINE */
     .timeline { padding-left: 1.6rem; }
@@ -1300,6 +1300,8 @@
   @media (max-width: 768px) {
     .brunch-footer { padding-bottom: 5rem; }
     .memoir-detail-page-footer { padding-bottom: 5rem; }
+    .brunch-footer .footer-copy,
+    .memoir-detail-page-footer .footer-copy { justify-content: flex-start; gap: 1.5rem; padding-right: 4rem; }
   }
   @media (max-width: 480px) {
     .music-player { bottom: 1rem; right: 1.2rem; }
