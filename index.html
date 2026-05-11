@@ -825,14 +825,10 @@
   .guest-avatar {
     width: 36px; height: 36px;
     border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
+    overflow: hidden;
     flex-shrink: 0;
   }
-  .ga-1 { background: linear-gradient(135deg, #f7dcc8, #e8bfa0); }
-  .ga-2 { background: linear-gradient(135deg, #d8e8f0, #b4cedd); }
-  .ga-3 { background: linear-gradient(135deg, #e8d4f0, #cdb4e4); }
-  .ga-4 { background: linear-gradient(135deg, #d4f0e4, #a8dcc4); }
+  .guest-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .guest-name {
     font-size: 0.88rem;
     font-weight: 500;
@@ -1483,11 +1479,10 @@
   .comment-item:last-child { border-bottom: none; }
   .comment-avatar {
     width: 36px; height: 36px; border-radius: 50%;
-    background: var(--warm-sand);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; color: var(--warm-brown);
-    font-weight: 500; flex-shrink: 0;
+    overflow: hidden;
+    flex-shrink: 0;
   }
+  .comment-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .comment-body { flex: 1; }
   .comment-name { font-size: 0.82rem; font-weight: 500; color: var(--deep-brown); margin-bottom: 0.15rem; }
   .comment-time { font-size: 0.72rem; color: var(--text-light); margin-bottom: 0.45rem; }
@@ -2580,7 +2575,7 @@
 
       <div class="guest-entry">
         <div class="guest-header">
-          <div class="guest-avatar ga-1">🌷</div>
+          <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=44" alt=""></div>
           <div>
             <div class="guest-name">박 지 현</div>
             <div class="guest-relation">대학 동기 · 20년 지기</div>
@@ -2593,7 +2588,7 @@
 
       <div class="guest-entry private-entry" style="position:relative;">
         <div class="guest-header">
-          <div class="guest-avatar ga-2">🌊</div>
+          <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=25" alt=""></div>
           <div>
             <div class="guest-name">익명</div>
             <div class="guest-relation">비공개 메시지</div>
@@ -2609,7 +2604,7 @@
 
       <div class="guest-entry">
         <div class="guest-header">
-          <div class="guest-avatar ga-3">🍂</div>
+          <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=65" alt=""></div>
           <div>
             <div class="guest-name">이 승 호</div>
             <div class="guest-relation">필름 사진 모임 선배</div>
@@ -2622,7 +2617,7 @@
 
       <div class="guest-entry">
         <div class="guest-header">
-          <div class="guest-avatar ga-4">🌿</div>
+          <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=48" alt=""></div>
           <div>
             <div class="guest-name">최 민 서</div>
             <div class="guest-relation">제주 이웃</div>
@@ -2804,10 +2799,7 @@
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      const icons  = ['🌸','🌿','🌙','☁️','🍂','🌊'];
-      const colors = ['ga-1','ga-2','ga-3','ga-4'];
-      const icon   = icons[Math.floor(Math.random() * icons.length)];
-      const color  = colors[Math.floor(Math.random() * colors.length)];
+      const avatarNum = Math.floor(Math.random() * 70) + 1;
       const today  = new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'');
 
       const entry = document.createElement('div');
@@ -2816,7 +2808,7 @@
       if (isPrivate) {
         entry.innerHTML = `
           <div class="guest-header">
-            <div class="guest-avatar ${color}">${icon}</div>
+            <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=${avatarNum}" alt=""></div>
             <div><div class="guest-name">${escHtml(name)}</div><div class="guest-relation">${escHtml(relation)}</div></div>
             <div class="guest-date">${today}</div>
             <span class="guest-private-badge">🔒 비공개</span>
@@ -2825,7 +2817,7 @@
       } else {
         entry.innerHTML = `
           <div class="guest-header">
-            <div class="guest-avatar ${color}">${icon}</div>
+            <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=${avatarNum}" alt=""></div>
             <div><div class="guest-name">${escHtml(name)}</div><div class="guest-relation">${escHtml(relation)}</div></div>
             <div class="guest-date">${today}</div>
           </div>
@@ -3382,39 +3374,39 @@ const storyReactions = [
   {
     likes: 24,
     comments: [
-      { name: '김민지 · 3일 전', icon: '🌸', bg: '#f9e8ec', text: '할머니네 마당 이야기... 저도 비슷한 기억이 있어요. 읽으면서 괜히 코끝이 찡했어요.' },
-      { name: '이서준 · 5일 전', icon: '📷', bg: '#e8f0f9', text: '이런 글 읽으면 오래된 앨범 꺼내고 싶어져요. 감사해요.' },
-      { name: '박하린 · 1주 전', icon: '🌿', bg: '#e8f5ee', text: '할머니가 보고싶어졌어요 😢' },
+      { name: '김민지 · 3일 전', avatar: 5,  text: '할머니네 마당 이야기... 저도 비슷한 기억이 있어요. 읽으면서 괜히 코끝이 찡했어요.' },
+      { name: '이서준 · 5일 전', avatar: 60, text: '이런 글 읽으면 오래된 앨범 꺼내고 싶어져요. 감사해요.' },
+      { name: '박하린 · 1주 전', avatar: 9,  text: '할머니가 보고싶어졌어요 😢' },
     ]
   },
   {
     likes: 41,
     comments: [
-      { name: '최유진 · 2일 전', icon: '🎞️', bg: '#f5f0e8', text: '36컷이라는 제한이 오히려 더 의미있게 만들었겠죠. 요즘 무한정 찍는 저를 돌아보게 됐어요.' },
-      { name: '정다온 · 4일 전', icon: '🎸', bg: '#f0e8f5', text: '그 기타 조율하던 사진 너무 보고싶다...' },
+      { name: '최유진 · 2일 전', avatar: 14, text: '36컷이라는 제한이 오히려 더 의미있게 만들었겠죠. 요즘 무한정 찍는 저를 돌아보게 됐어요.' },
+      { name: '정다온 · 4일 전', avatar: 39, text: '그 기타 조율하던 사진 너무 보고싶다...' },
     ]
   },
   {
     likes: 68,
     comments: [
-      { name: '한소율 · 1일 전', icon: '⛩️', bg: '#f9ede8', text: '저도 혼자 교토에 가보고 싶어졌어요. 새벽 이나리라니 정말 멋지겠다.' },
-      { name: '오태민 · 3일 전', icon: '🌙', bg: '#e8edf9', text: '혼자여도 괜찮다는 걸 몸으로 알았다는 표현이 너무 좋아요.' },
-      { name: '윤지은 · 6일 전', icon: '☁️', bg: '#f0f4f9', text: '이 글 읽고 오래 생각했어요. 잘 읽었습니다.' },
+      { name: '한소율 · 1일 전', avatar: 2,  text: '저도 혼자 교토에 가보고 싶어졌어요. 새벽 이나리라니 정말 멋지겠다.' },
+      { name: '오태민 · 3일 전', avatar: 52, text: '혼자여도 괜찮다는 걸 몸으로 알았다는 표현이 너무 좋아요.' },
+      { name: '윤지은 · 6일 전', avatar: 6,  text: '이 글 읽고 오래 생각했어요. 잘 읽었습니다.' },
     ]
   },
   {
     likes: 92,
     comments: [
-      { name: '강민혁 · 2일 전', icon: '📖', bg: '#f5ebe8', text: '잔향이라는 단어 자체가 이미 시 같아요. 언제 서점에서 찾아보고 싶네요.' },
-      { name: '임수아 · 5일 전', icon: '🌷', bg: '#f9e8f0', text: '42장으로 10년을 압축하는 과정이 얼마나 힘들었을까요. 대단합니다.' },
+      { name: '강민혁 · 2일 전', avatar: 55, text: '잔향이라는 단어 자체가 이미 시 같아요. 언제 서점에서 찾아보고 싶네요.' },
+      { name: '임수아 · 5일 전', avatar: 18, text: '42장으로 10년을 압축하는 과정이 얼마나 힘들었을까요. 대단합니다.' },
     ]
   },
   {
     likes: 37,
     comments: [
-      { name: '송지호 · 1일 전', icon: '🍃', bg: '#e8f5ee', text: '작아질수록 잘 보이는 것들이 있다는 말... 오늘 하루 계속 생각날 것 같아요.' },
-      { name: '나윤서 · 3일 전', icon: '🌊', bg: '#e8f0f9', text: '저도 언제 한번은 이렇게 도망쳐보고 싶어요 ㅎㅎ 응원합니다.' },
-      { name: '류준혁 · 1주 전', icon: '🍂', bg: '#f5f0e8', text: '제주 생활 부럽습니다. 글도 너무 좋고요.' },
+      { name: '송지호 · 1일 전', avatar: 56, text: '작아질수록 잘 보이는 것들이 있다는 말... 오늘 하루 계속 생각날 것 같아요.' },
+      { name: '나윤서 · 3일 전', avatar: 21, text: '저도 언제 한번은 이렇게 도망쳐보고 싶어요 ㅎㅎ 응원합니다.' },
+      { name: '류준혁 · 1주 전', avatar: 58, text: '제주 생활 부럽습니다. 글도 너무 좋고요.' },
     ]
   }
 ];
@@ -3441,7 +3433,7 @@ function _renderBrunch() {
   document.getElementById('commentCountTitle').textContent = r.comments.length;
   list.innerHTML = r.comments.map(c => {
     return `<div class="comment-item">
-      <div class="comment-avatar" style="background:${c.bg}; font-size:1.1rem;">${c.icon}</div>
+      <div class="comment-avatar"><img src="https://i.pravatar.cc/36?img=${c.avatar}" alt=""></div>
       <div class="comment-body">
         <div class="comment-name">${c.name.split(' · ')[0]}</div>
         <div class="comment-time">${c.name.split(' · ')[1] || ''}</div>
@@ -3485,12 +3477,9 @@ function submitComment() {
   const list = document.getElementById('commentList');
   const item = document.createElement('div');
   item.className = 'comment-item';
-  const icons = ['🌸','🌿','🌙','☁️','🍂','🌊'];
-  const icon = icons[Math.floor(Math.random() * icons.length)];
-  const bgs = ['#f9e8ec','#e8f5ee','#e8edf9','#f0f4f9','#f5f0e8','#e8f0f9'];
-  const bg = bgs[Math.floor(Math.random() * bgs.length)];
+  const avatarNum = Math.floor(Math.random() * 70) + 1;
   item.innerHTML = `
-    <div class="comment-avatar" style="background:${bg}; font-size:1.1rem;">${icon}</div>
+    <div class="comment-avatar"><img src="https://i.pravatar.cc/36?img=${avatarNum}" alt=""></div>
     <div class="comment-body">
       <div class="comment-name">익명</div>
       <div class="comment-time">방금</div>
@@ -3703,16 +3692,12 @@ function closeStoryBtn() {
         .orderBy('timestamp', 'desc').limit(50).get();
       loading.remove();
 
-      const icons  = ['🌸','🌿','🌙','☁️','🍂','🌊'];
-      const gcolors = ['ga-1','ga-2','ga-3','ga-4'];
-
       snap.docs.forEach(doc => {
         const d = doc.data();
         if (d.isPrivate && (!currentUser || currentUser.uid !== d.uid)) return;
 
-        const idx   = Math.abs(doc.id.charCodeAt(0) + doc.id.charCodeAt(1));
-        const icon  = icons[idx % icons.length];
-        const color = gcolors[idx % gcolors.length];
+        const idx       = Math.abs(doc.id.charCodeAt(0) + doc.id.charCodeAt(1));
+        const avatarNum = (idx % 70) + 1;
         const date  = d.timestamp?.toDate
           ? d.timestamp.toDate().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').replace(/\.$/,'')
           : '최근';
@@ -3724,7 +3709,7 @@ function closeStoryBtn() {
         if (d.isPrivate) {
           entry.innerHTML = `
             <div class="guest-header">
-              <div class="guest-avatar ${color}">${icon}</div>
+              <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=${avatarNum}" alt=""></div>
               <div><div class="guest-name">${escHtml(d.name)}</div><div class="guest-relation">${escHtml(d.relation||'')}</div></div>
               <div class="guest-date">${date}</div>
               <span class="guest-private-badge">🔒 비공개</span>
@@ -3733,7 +3718,7 @@ function closeStoryBtn() {
         } else {
           entry.innerHTML = `
             <div class="guest-header">
-              <div class="guest-avatar ${color}">${icon}</div>
+              <div class="guest-avatar"><img src="https://i.pravatar.cc/36?img=${avatarNum}" alt=""></div>
               <div><div class="guest-name">${escHtml(d.name)}</div><div class="guest-relation">${escHtml(d.relation||'')}</div></div>
               <div class="guest-date">${date}</div>
             </div>
