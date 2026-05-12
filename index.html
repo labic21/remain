@@ -78,7 +78,7 @@
   .nav-links a::before {
     content: '';
     position: absolute;
-    top: -8px; left: 50%; transform: translateX(-50%);
+    top: -5px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 4px;
     border-radius: 50%;
     background: var(--muted-gold);
@@ -1108,6 +1108,7 @@
     box-shadow: 0 8px 24px var(--shadow-warm);
   }
   nav.nav--compact .nav-links.open { display: flex; }
+  nav.nav--compact .nav-links a::before { display: none; }
   nav.nav--compact .nav-links a {
     padding: 0.8rem 0;
     font-size: 0.95rem;
