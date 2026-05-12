@@ -73,8 +73,20 @@
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--muted-gold);
+    opacity: 0;
+    transition: opacity 0.2s;
   }
   .nav-links a:hover { color: var(--warm-brown); }
+  .nav-links a:hover::before { opacity: 1; }
   .nav-btn {
     background: var(--warm-brown);
     color: #fff;
