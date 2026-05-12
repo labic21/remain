@@ -1995,16 +1995,17 @@
   /* MEMOIR GUEST NOTICE */
   .memoir-guest-notice {
     display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-    background: rgba(200, 169, 110, 0.1);
-    border: 1px solid rgba(200, 169, 110, 0.28);
-    border-radius: 12px; padding: 0.75rem 1.2rem;
-    margin-top: 1.4rem; font-size: 0.82rem; color: var(--text-sub);
-    text-align: center;
+    background: transparent;
+    border: 2px dashed var(--warm-sand);
+    border-radius: 12px; padding: 1rem 1.5rem;
+    margin-top: 2.5rem; font-size: 0.95rem; color: var(--warm-sand);
+    text-align: center; width: 100%; cursor: pointer;
+    font-family: inherit; transition: all 0.2s;
   }
-  .memoir-guest-notice button {
-    background: none; border: none;
-    color: var(--warm-brown); font-size: 0.82rem; cursor: pointer;
-    font-family: inherit; text-decoration: underline; padding: 0;
+  .memoir-guest-notice:hover {
+    border-color: var(--warm-brown);
+    color: var(--warm-brown);
+    background: rgba(139, 111, 71, 0.04);
   }
 
   /* ──────────────────────────── DIARY */
@@ -2012,7 +2013,7 @@
   .diary-compose {
     background: var(--card-bg); border-radius: 20px; padding: 0.9rem 1.2rem;
     box-shadow: 0 2px 16px var(--shadow-warm);
-    border: 1px solid var(--border-soft); margin-bottom: 2.5rem;
+    border: 1px solid var(--border-soft); margin-top: 2rem; margin-bottom: 2.5rem;
   }
   .diary-compose-header {
     font-family: 'Noto Serif KR', serif; font-size: 0.92rem;
@@ -2506,9 +2507,9 @@
 
       </div>
 
-      <div class="memoir-guest-notice">
-        <span><button onclick="openAuth()">로그인</button>하면 나만의 회고록을 쓸 수 있어요</span>
-      </div>
+      <button class="memoir-guest-notice" onclick="openAuth()">
+        로그인하면 나만의 회고록을 쓸 수 있어요
+      </button>
     </div>
     <button class="memoir-write-btn" id="memoirWriteBtn" onclick="openMemoirEditor()" style="display:none">
       <span>+</span> 새 회고록 쓰기
@@ -2711,7 +2712,7 @@
         <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.847a1 1 0 010 1.68l-2.43 1.406L12.96 12l2.308-2.308 2.43 1.168zm-13.04-7.67L15.595 9.525l-2.302 2.302L6.658 4.19z"/>
       </svg>
       <!-- Apple -->
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:relative;left:-5px">
         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
       </svg>
     </div>
