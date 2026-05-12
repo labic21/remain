@@ -81,12 +81,13 @@
     top: -5px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 4px;
     border-radius: 50%;
-    background: var(--muted-gold);
+    background: rgba(200, 169, 110, 0.55);
     opacity: 0;
     transition: opacity 0.2s;
   }
   .nav-links a:hover { color: var(--warm-brown); }
-  .nav-links a:hover::before { opacity: 1; }
+  .nav-links a:hover::before,
+  .nav-links a.nav-active::before { opacity: 1; }
   .nav-btn {
     background: var(--warm-brown);
     color: #fff;
@@ -2994,6 +2995,20 @@
   // 폰트 로드 후 + 창 크기 변경 시 재측정
   document.fonts.ready.then(checkNavOverflow);
   new ResizeObserver(checkNavOverflow).observe(_nav);
+
+  // ── NAV ACTIVE DOT · 현재 섹션 링크에 점 유지
+  const _navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const _sections = [..._navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const _io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        _navLinks.forEach(a => a.classList.remove('nav-active'));
+        const active = [..._navLinks].find(a => a.getAttribute('href') === '#' + entry.target.id);
+        if (active) active.classList.add('nav-active');
+      }
+    });
+  }, { threshold: 0.3 });
+  _sections.forEach(s => _io.observe(s));
 
   function toggleNav() {
     _links.classList.toggle('open');
