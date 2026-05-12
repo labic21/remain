@@ -1621,12 +1621,13 @@
   .tl-modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 24px 24px 0 0; display: block; }
   .tl-modal-header {
     background: var(--deep-brown); padding: 1.2rem 1.8rem;
-    display: flex; align-items: center; gap: 1.2rem;
+    display: flex; align-items: flex-start; gap: 1.2rem;
     position: relative;
   }
   .tl-modal-year {
     font-family: 'Noto Serif KR', serif; font-size: 3rem;
     font-weight: 600; color: var(--muted-gold); line-height: 1;
+    padding-top: 0.15rem;
   }
   .tl-modal-meta { display: flex; flex-direction: column; gap: 4px; }
   .tl-modal-era { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
@@ -2002,7 +2003,7 @@
     background: transparent;
     border: 2px dashed var(--warm-sand);
     border-radius: 12px; padding: 1rem 1.5rem;
-    margin-top: 2.5rem; font-size: 0.95rem; color: var(--warm-sand);
+    margin-top: 2.5rem; font-size: 0.85rem; color: var(--warm-brown);
     text-align: center; width: 100%; cursor: pointer;
     font-family: inherit; transition: all 0.2s;
   }
