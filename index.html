@@ -2110,6 +2110,28 @@
     .diary-date { min-width: unset; font-size: 0.7rem; }
     .diary-text { font-size: 0.9rem; }
   }
+
+/* ===== 포트폴리오 좌우 네비게이션 (2타입: 기본=다크배경용 / .light=라이트배경용) ===== */
+.pf-nav{position:fixed;top:50%;transform:translateY(-50%);z-index:600;display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.pf-prev{left:34px}
+.pf-next{right:34px}
+.pf-arrow{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;line-height:0;transition:all .25s cubic-bezier(.2,.7,.2,1);backdrop-filter:blur(4px);padding-bottom:7px}
+.pf-txt{display:flex;flex-direction:column;align-items:center;gap:1px}
+.pf-cap{font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.pf-label{font-size:13px;letter-spacing:.01em;font-weight:600;white-space:nowrap}
+/* 다크 배경용 */
+.pf-arrow{background:rgba(255,255,255,0.05);border:1px solid #3D4D69;color:#C2CCD8}
+.pf-nav:hover .pf-arrow{background:rgba(255,255,255,0.14);color:#F1F5F9;border-color:#6B7A92;transform:scale(1.06)}
+.pf-cap{color:#5A6779}
+.pf-label{color:#8A97A8}
+.pf-nav:hover .pf-label{color:#F1F5F9}
+/* 라이트 배경용 */
+.pf-nav.light .pf-arrow{background:rgba(255,255,255,0.6);border:1px solid #c4c4c4;color:#444}
+.pf-nav.light:hover .pf-arrow{background:rgba(255,255,255,0.95);color:#111;border-color:#999}
+.pf-nav.light .pf-cap{color:#9a9a9a}
+.pf-nav.light .pf-label{color:#777}
+.pf-nav.light:hover .pf-label{color:#222}
+@media(max-width:920px){.pf-prev{left:14px}.pf-next{right:14px}.pf-arrow{width:46px;height:46px;font-size:28px;padding-bottom:5px}.pf-label,.pf-cap{display:none}}
 </style>
 </head>
 <body>
@@ -4108,5 +4130,14 @@ function closeStoryBtn() {
     });
   }
 </script>
+
+<a class="pf-nav light pf-prev" href="https://labic21.github.io/30-minutes-ago" aria-label="이전 작업: 30분전">
+  <span class="pf-arrow">‹</span>
+  <span class="pf-txt"><span class="pf-cap">Prev</span><span class="pf-label">30분전</span></span>
+</a>
+<a class="pf-nav light pf-next" href="https://labic21.github.io/rival" aria-label="다음 작업: RIVAL">
+  <span class="pf-arrow">›</span>
+  <span class="pf-txt"><span class="pf-cap">Next</span><span class="pf-label">RIVAL</span></span>
+</a>
 </body>
 </html>
